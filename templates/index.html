@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schneider Electric Chatbot</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        #chat { margin-top: 20px; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Schneider Electric Chatbot</h1>
+    <input type="text" id="message" placeholder="Type your message">
+    <button onclick="sendMessage()">Send</button>
+    <div id="chat"></div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('message').value;
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message})
+            });
+            const data = await response.json();
+            document.getElementById('chat').innerHTML += `<p>You: ${message}</p><p>Bot: ${data.response}</p>`;
+        }
+    </script>
+</body>
+</html>

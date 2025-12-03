@@ -1,73 +1,198 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schneider Electric Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f5; margin: 0; padding: 0; }
-        header { background-color: #00953B; color: white; text-align: center; padding: 20px; }
-        header h1 { margin: 0; font-size: 2em; color: #d4f8d4; }
-        header p { margin-top: 8px; font-size: 1.1em; color: #ffffff; }
-        .chat-container { max-width: 600px; margin: 30px auto; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; height: 70vh; }
-        .chat-area { flex: 1; overflow-y: auto; padding: 15px; border-bottom: 1px solid #ddd; }
-        .chat-bubble { max-width: 80%; padding: 10px 15px; margin: 10px 0; border-radius: 15px; font-size: 1em; }
-        .user-bubble { background-color: #e0f7e9; align-self: flex-end; }
-        .bot-bubble { background-color: #f1f1f1; align-self: flex-start; }
-        .input-area { display: flex; padding: 10px; }
-        .input-area input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        .input-area button { background-color: #00953B; color: white; border: none; padding: 10px 15px; margin-left: 10px; border-radius: 5px; cursor: pointer; }
-        .input-area button:hover { background-color: #007a30; }
-        @media (max-width: 600px) { .chat-container { width: 95%; height: 80vh; } }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F4F4F4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: #00953B;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header img {
+            height: 45px;
+            width: 45px;
+            border-radius: 5px;
+        }
+
+        /* CHAT CONTAINER */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* CHAT BUBBLES */
+        .bot-message, .user-message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .bot-message {
+            background: white;
+            align-self: flex-start;
+            border-left: 5px solid #00953B;
+        }
+
+        .user-message {
+            background: #DCF8C6;
+            align-self: flex-end;
+            border-right: 5px solid #00953B;
+        }
+
+        /* INPUT SECTION */
+        .input-area {
+            display: flex;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #CCC;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #00953B;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .input-area button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: #00953B;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background: #007e32;
+        }
+
+        /* HELP / CONTENTS TAB */
+        .help-box {
+            padding: 10px 15px;
+            background: #e8f5e9;
+            border-left: 4px solid #00953B;
+            font-size: 14px;
+            margin: 10px 20px;
+            border-radius: 6px;
+        }
+
+        /* TYPING DOTS */
+        .typing {
+            font-style: italic;
+            opacity: 0.75;
+        }
+
+        @media (max-width: 600px) {
+            .bot-message, .user-message { max-width: 90%; }
+        }
     </style>
 </head>
+
 <body>
-    <header>
-        <h1>Schneider Electric Chatbot</h1>
-        <p>Your smart assistant for quick answers and support</p>
-    </header>
-    <div class="chat-container">
-        <div class="chat-area" id="chat-area"></div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your question...">
-            <button onclick="sendMessage()">Send</button>
+
+    <!-- HEADER WITH LOGO -->
+    <div class="header">
+        Schneider Electric Chatbot
+        <img src="/static/a.png" alt="Logo">
+    </div>
+
+    <!-- HELP SECTION -->
+    <div class="help-box">
+        <strong>For further assistance – please contact:</strong>  
+        junaid.sheikh@se.com
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <div class="chat-container" id="chat-container">
+        <div class="bot-message">
+            👋 Hello! I'm your Schneider Electric onboarding assistant.  
+            How can I help you today?
         </div>
     </div>
 
-<script>
-    async function sendMessage() {
-        const input = document.getElementById('user-input');
-        const message = input.value.trim();
-        if (message === '') return;
+    <!-- INPUT AREA -->
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
-        const chatArea = document.getElementById('chat-area');
+    <script>
+        const chatContainer = document.getElementById("chat-container");
 
-        const userBubble = document.createElement('div');
-        userBubble.className = 'chat-bubble user-bubble';
-        userBubble.textContent = message;
-        chatArea.appendChild(userBubble);
-
-        const botBubble = document.createElement('div');
-        botBubble.className = 'chat-bubble bot-bubble';
-        botBubble.textContent = 'Processing your request...';
-        chatArea.appendChild(botBubble);
-
-        chatArea.scrollTop = chatArea.scrollHeight;
-        input.value = '';
-
-        try {
-            const response = await fetch('/get', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message })
-            });
-            const data = await response.json();
-            botBubble.textContent = data.reply;
-        } catch (error) {
-            botBubble.textContent = 'Error: Could not connect to server.';
+        function addMessage(msg, type) {
+            const bubble = document.createElement("div");
+            bubble.className = type === "user" ? "user-message" : "bot-message";
+            bubble.textContent = msg;
+            chatContainer.appendChild(bubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-    }
-</script>
+
+        function showTypingIndicator() {
+            const typing = document.createElement("div");
+            typing.className = "bot-message typing";
+            typing.id = "typing";
+            typing.textContent = "Bot is typing...";
+            chatContainer.appendChild(typing);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById("typing");
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById("user-input");
+            const text = input.value.trim();
+            if (text === "") return;
+
+            addMessage(text, "user");
+            input.value = "";
+
+            showTypingIndicator();
+
+            const response = await fetch("/get", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ message: text })
+            });
+
+            const data = await response.json();
+            removeTypingIndicator();
+            addMessage(data.reply, "bot");
+        }
+    </script>
+
 </body>
 </html>

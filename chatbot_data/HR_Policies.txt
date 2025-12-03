@@ -1,0 +1,2 @@
+leave policy: Employees are entitled to 25 days annual leave.
+working hours: Standard working hours are 9 AM to 5 PM.

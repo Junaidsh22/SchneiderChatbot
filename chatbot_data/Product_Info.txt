@@ -1,0 +1,2 @@
+m580 plc: The M580 is a high-performance PLC for industrial automation.
+lexium robot: Lexium robots provide precise motion control for automation.

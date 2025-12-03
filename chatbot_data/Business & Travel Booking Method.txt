@@ -1,43 +1,50 @@
-Business & Travel Booking Method
 
-Step 1: Confirm the Business Need
+Below are the list of rules that are laid out and should be followed if booking expenses or travel.
+
+Step 1: CONFIRM BUSINESS NEED
+
 •	Identify the purpose of the trip (e.g. customer visit, internal meeting, training).
 •	Ensure the trip is necessary and aligned with business goals.
 •	Check your BFO diary (if applicable) to confirm appointments.
 ________________________________________
-Step 2: Evaluate Travel Options
 
-Compare all available travel methods:
-Option	When to Use
+Step 2: EVALUATE TRAVEL OPTIONS
+
 Company Car	If trip is under 150 miles or 3 hours. Required if you have a company car.
 Rail Travel	Book via SE Trainline Portal (Standard Class only).
 Car Hire	Book via SE Hertz Portal (Group CCMR cars like Vauxhall Astra).
 Taxi	Only if short distance and unavoidable.
-Consider:
+
+CONSIDER:
 •	Cost
 •	Travel time
 •	Convenience
 •	Environmental impact
 •	Policy compliance
 ________________________________________
-Step 3: Request Line Manager Approval
+
+Step 3: REQUEST LINE MANAGER APPROVAL
 
 Send a formal request to your Line Manager including:
 •	Trip purpose
 •	Preferred travel method
 •	Estimated costs
 •	Any overnight stay requirements
+
 Wait for explicit approval before booking.
 ________________________________________
-Step 4: Book Travel via Approved Portals
+
+Step 4: BOOK VIA APPROVED TRAVEL PORTALS
 
 •	Rail Travel: Book via SE Trainline Portal.
 •	Car Hire: Book via SE Hertz Portal.
 •	Company Car: Use if applicable and log mileage.
 •	Taxi: Minimise use; collect VAT receipt.
+
  Always use official portals unless you have written approval to use alternatives.
 ________________________________________
-Step 5: Book Accommodation (if overnight stay is required)
+
+Step 5: BOOKING OVERNIGHT ACCOMADATION
 
 •	Confirm if a hotel stay is needed.
 •	Book within pricing limits: 
@@ -46,25 +53,28 @@ o	London: £160/night
 •	If staying with friends/relatives, claim £50/night (taxable).
 •	Use Concur for hotel bookings and expense tracking.
 ________________________________________
-Step 6: Plan Subsistence & Daily Allowances
+
+Step 6: PLAN AHEAD WITH SUBSTINENCE & DAILY ALLOWANCES 
 
 Type of Expense	Amount	Conditions
 Breakfast	£10	Only if staying overnight
 Dinner	£30	For extended business trips (includes drinks & VAT)
 Off-site Travel	£4.15/day	If on the road for 5+ hours
 Lunch (UK)	Not claimable	Only claimable when abroad
+
 ________________________________________
-Step 7: Additional Passenger Allowance
+
+Step 7: ADDITIONAL PASSENGER ALLOWANCE
 
 •	If you take another SE employee in your company car: 
 o	Claim £0.10 per mile per passenger.
 o	Submit via the expense system.
 ________________________________________
-Step 8: Prepare for Expense Claims
 
-Use your Corporate AMEX Card for all business expenses.
+Step 8: PREPARE FOR EXTRA/OTHER EXPENSES
+Use your Corporate AMEX Card for all business expenses (if possible)
 
- Claimable Expenses
+EXAMPLE OF CLAIMABLE EXPENSES:
 •	Parking, tolls, congestion charges
 •	Hotel internet
 •	Eye tests & work-related glasses (VDU certified)
@@ -76,7 +86,8 @@ Use your Corporate AMEX Card for all business expenses.
 •	One newspaper/day (if staying overnight)
 •	Mileage (via HMRC AFR portal)
 •	£0.10/mile per SE passenger in your car
- Non-Claimable Expenses
+
+EXAMPLE OF NON CLAIMABLE EXPENSES:
 •	Stationery (collect from office)
 •	Traffic fines
 •	In-flight movies/refreshments (unless meals not included)
@@ -90,7 +101,8 @@ Use your Corporate AMEX Card for all business expenses.
 •	Luggage/briefcases
 •	Other non-policy expenses
 ________________________________________
-Step 9: Submit Expenses
+
+Step 9: SUBMIT EXPENSES ON TIME AND ACCORDINGLY 
 
 •	Submit via Concur: 
 o	Monthly (for regular claimants)
@@ -100,7 +112,8 @@ o	Valid VAT receipts
 o	Detailed descriptions
 o	Mileage logs (if applicable)
 ________________________________________
-Step 10: Post-Trip Actions
+
+Step 10: POST TRIP CHECKLIST 
 
 •	Submit all expenses promptly.
 •	Update BFO diary (Sales Engineers only).

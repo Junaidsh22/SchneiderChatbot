@@ -1,9 +1,7 @@
 What is an HMI?
-
 HMI stands for Human-Machine Interface — a system that allows operators to interact with machines through a visual and control interface.
 
 Core Functions:
-
 •	Monitor machine status
 •	Control operations (start/stop, adjust settings)
 •	Diagnose faults and performance issues
@@ -12,15 +10,13 @@ Core Functions:
 Think of it as the “dashboard” of a machine, just like a car dashboard shows speed, fuel, and alerts.
 
 Real-World Analogy: ATM Machine
+
 An ATM is a perfect example of an HMI:
 •	You input commands via buttons and screen
 •	The machine responds with actions (withdrawal, balance check)
 •	It provides feedback and status — just like industrial HMIs
 
-Industrial Applications of HMIs
-
-HMIs are used across virtually every industry, including:
-
+INDUSTRIAL APPLICATIONS:
 •	Manufacturing
 •	Energy & Utilities
 •	Water Treatment
@@ -28,7 +24,7 @@ HMIs are used across virtually every industry, including:
 •	Oil & Gas
 •	Pharmaceuticals
 
-What HMIs Display:
+WHAT THEY DISPLAY:
 •	Temperature
 •	Pressure
 •	Tank levels
@@ -37,26 +33,7 @@ What HMIs Display:
 •	Alarms and warnings
 
 
-
-Customization & Software
-
-HMIs are programmable using specialized software tailored to each manufacturer:
-•	Schneider Electric – Vijeo Designer
-•	Siemens – WinCC
-•	Rockwell Automation – FactoryTalk View
-•	Mitsubishi – GT Designer
-
-Customization Includes:
-•	Button layout
-•	Screen architecture
-•	Machine connectivity
-•	Alarm systems
-•	User permissions
-Engineers can design HMIs to match client needs, making them highly flexible and scalable.
-
-Integration with PLCs
-
-HMIs are tightly integrated with Programmable Logic Controllers (PLCs) to:
+HOW THEY INTEGRATE WITH PLCS:
 •	Display real-time logic and data
 •	Control machine operations
 •	Reduce need for laptops during troubleshooting
@@ -69,19 +46,11 @@ Communication Protocols:
 •	CANopen
 These protocols ensure seamless communication between HMI, PLC, and machinery.
 
-Advanced Capabilities
-
-Feature	Description
+FEATURE DESCRIPTION OF HMI'S:
 Remote Monitoring	View and control machines from off-site
 Multi-Machine Control	Manage several machines from one HMI
 Real-World Control	Operate pumps, valves, motors directly
 Alarm Management	Set thresholds and receive alerts
 Data Logging	Record historical data for analysis
 
-Further Learning
 
-To deepen your understanding:
-
-•	🔍 Study IEC 61131-3 for PLC-HMI standards
-•	🎓 Explore HMI courses on platforms like Udemy, PLC Academy, or Schneider Electric University
-•	🧪 Practice with HMI software simulators (e.g., Codesys, TIA Portal, FactoryTalk)

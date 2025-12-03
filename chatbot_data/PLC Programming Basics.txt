@@ -1,6 +1,6 @@
-Information about PLC Programming Languages
+PLC Programming Basics
 
-PLC programming isn't one-size-fits-all. The right language depends on:
+HOW TO CHOOSE THE RIGHT LANGUAGE FOR THE APPLICATION:
 
 •	Application type (discrete vs. continuous)
 •	Industry (manufacturing, process control, etc.)
@@ -8,14 +8,7 @@ PLC programming isn't one-size-fits-all. The right language depends on:
 •	Hardware compatibility (vendor-specific support)
 All major PLC languages follow the IEC 61131-3 standard, which defines five core languages. Mastery of all five is essential for advanced automation engineers.
 
-Global Trends & Industry Use
-
-•	Europe: Ladder Diagram & Function Block Diagram dominate in manufacturing.
-•	North America: Ladder Diagram is heavily used due to legacy systems.
-•	Asia: Structured Text is gaining popularity with younger engineers.
-•	Process industries (e.g., oil & gas, chemical): Prefer Function Block Diagram and Sequential Function Charts.
-
-The 5 IEC 61131-3 PLC Languages
+The 5 IEC 61131-3 PLC Languages:
 
 1. Ladder Diagram (LD)
 
@@ -75,6 +68,8 @@ o	Low-level control
 o	Compact code
 Visual Aid: IL snippet with MOV, ADD, JMP instructions.
 Extra Tip: Avoid IL for new projects; use ST or LD instead.
+
+
 
 Further Learning & Resources
 To deepen your skills:

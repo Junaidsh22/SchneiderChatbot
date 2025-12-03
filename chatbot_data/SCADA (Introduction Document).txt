@@ -1,6 +1,6 @@
 SCADA INTRODUCTION & WHAT IT IS
 
-SCADA – Supervisory Control & Data Acquisiton
+WHAT IS SCADA & HOW IS IT USED:
 Like a Control tower for a industrial facility
  (It helps user monitor and control critical processes) 
 Imagine a smart home system but on a huge scale (Fe: phone to adjust heating temperature, in a SCADA this is covered for water, distribution and manufacturing.
@@ -11,21 +11,17 @@ Control Capabilities – It lets operators adjust anything in the system on the go
 Data acquisition – Collects and analyses real time data (Measurements, fluid levels etc)
 The aim is to give ground operators a direct inside into how everything is running
 
-Where its used - Practically everywhere
+PRACTICAL APPLICATION:
 In water it manages: Quality, controls pumps and monitors chemical dosing
 In power grids: It ensures electricity flows smoothly and keeps tabs on subsections 
 In oil & gas: It monitors pipeline pressure & monitors storage levels 
 In manufacturing: all about maintaining product lines and the overall product quality  
 
-How It works:
+HOW IT WORKS IN THE REAL WORLD:
 Using sensors on the ground which are connected to everything which allows data collection and monitoring. The communication aspect is then used to control and link up all individual parts while the operators can in real time monitor the overall production using data and analysis to fix bugs and streamline the overall process when needed
 
-More modern systems of SCADA take technology further, they can automatically shut off flow to prevent emergencies , protect overflows and sort overheating. 
-Also keeps detailed record of bugs or issues which helps operators have historical data to analyse and predict future issues/trends should they arise
-It can also be controlled remotely more and more in the future using emerging tech
-
+OVERVIEW (TAKEAWAY INFORMATION):
 Essentially it’s a tool to integrate into a business to have a better understanding of overall operations, features and manageability of a overall system 
-
 SCADA is very skilled but needs people the ‘human operators’ to analyse and understand the data it produces to forge a better path/plan in the future from the data
 (Always a human control at the end) – its just a empowering tool we need that businesses can use to better manage and control their overall business needs!
  

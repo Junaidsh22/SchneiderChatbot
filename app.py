@@ -1,6 +1,5 @@
 
-from flask import Flask, request, jsonify, render_template
-from chatbot_gui import get_bot_response  # Import chatbot logic
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -10,12 +9,10 @@ def home():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_message = request.json.get('message')
-    response = get_bot_response(user_message)
-    return jsonify({"response": response})
+    data = request.get_json()
+    user_msg = data.get('message', '')
+    # Simple response logic (replace with your chatbot logic later)
+    return jsonify({"response": f"You said: {user_msg}"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
+    app.run(host='0.0.0.0', port=5000)

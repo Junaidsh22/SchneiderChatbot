@@ -3,9 +3,9 @@ import os, re, random
 
 app = Flask(__name__)
 
-# -----------------------------
-# LOAD CHATBOT TRAINING DATA
-# -----------------------------
+# -------------------------
+# LOAD TRAINING FILES
+# -------------------------
 def load_chatbot_data():
     responses = {}
     folder = "chatbot_data"
@@ -15,137 +15,126 @@ def load_chatbot_data():
             if filename.endswith(".txt"):
                 filepath = os.path.join(folder, filename)
 
-                # Read file safely (UTF-8 then fallback)
                 try:
-                    with open(filepath, 'r', encoding='utf-8') as file:
-                        content = file.read()
-                except UnicodeDecodeError:
-                    with open(filepath, 'r', encoding='latin-1') as file:
-                        content = file.read()
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        content = f.read()
+                except:
+                    with open(filepath, "r", encoding="latin-1") as f:
+                        content = f.read()
 
                 keyword = filename.replace(".txt", "").lower()
-                responses[keyword] = content
+                responses[keyword] = content.strip()
 
     return responses
 
 
-# Load all knowledge files
+# Load your REAL topics from text files
 main_topics = load_chatbot_data()
 
-# Additional manual topics
+# Manual topics (extra)
 side_topics = {
     "wfh policy": "Our WFH policy supports hybrid work up to 3 days a week.",
     "it support": "Need IT help? Contact helpdesk@se.com or dial extension 1234.",
     "benefits": "Benefits include health insurance, paid leave, wellness programs.",
-    "office hours": "Standard office hours are 9:00 AM – 5:30 PM, Monday to Friday.",
+    "office hours": "Standard office hours are 9:00 AM – 5:30 PM.",
     "vacation policy": "Employees receive 20 vacation days annually, plus public holidays."
 }
 
-# Merge training + manual topics
+# Combine both
 chatbot_knowledge = {**main_topics, **side_topics}
 
-# -----------------------------
-# INTENTS / PATTERNS
-# -----------------------------
+# -------------------------
+# SIMPLE INTENTS
+# -------------------------
 intents = {
-    "greetings": ["hello", "hi", "hey", "good morning", "good afternoon"],
-    "how_are_you": ["how are you", "how's it going", "what's up"],
-    "capabilities": ["what can you do", "your features"],
-    "identity": ["who are you", "introduce yourself"],
-    "joke": ["joke", "make me laugh"],
-    "company_info": ["schneider electric", "about schneider"],
-    "topics": ["main topics", "help", "resources"],
-    "small_talk": ["thanks", "thank you", "great", "awesome"]
+    "greetings": ["hello", "hi", "hey"],
+    "how_are_you": ["how are you"],
+    "joke": ["joke", "funny"],
+    "topics": ["main topics", "show topics", "help", "resources"]
 }
 
 jokes = [
     "Why did the PLC go to therapy? Because it had too many unresolved inputs!",
-    "Why don't electricians ever get lost? Because they always follow the current!",
-    "I'm reading a book on anti-gravity... It's impossible to put down."
+    "Why don't electricians get lost? Because they follow the current!",
+    "I'm reading a book on anti-gravity… it's impossible to put down."
 ]
 
 
-# -----------------------------
-# HELPER FUNCTIONS
-# -----------------------------
 def match_intent(query, intent_key):
     return any(phrase in query for phrase in intents.get(intent_key, []))
 
 
-def extract_topic_from_query(query):
+# -------------------------
+# OLD TOPIC EXTRACTION (Restored)
+# -------------------------
+def extract_topic(query):
+    # Check for exact filename keyword match
+    for topic in chatbot_knowledge.keys():
+        if topic in query:
+            return topic
+
+    # Patterns for: "tell me about X", "what is X"
     patterns = [
         r"tell me about (.+)",
-        r"show me (.+)",
-        r"give info on (.+)",
         r"what is (.+)",
-        r"details on (.+)",
-        r"(.+) info",
-        r"info about (.+)",
+        r"show me (.+)",
         r"explain (.+)"
     ]
 
     for pattern in patterns:
         match = re.search(pattern, query)
         if match:
-            candidate = match.group(1).strip().lower()
-
-            # Try to match to known topic
+            extracted = match.group(1).strip().lower()
             for topic in chatbot_knowledge.keys():
-                if topic in candidate or candidate in topic:
+                if extracted in topic:
                     return topic
 
     return None
 
 
-# -----------------------------
-# CHATBOT RESPONSE LOGIC
-# -----------------------------
+# -------------------------
+# MAIN RESPONSE FUNCTION (Restored Old Style)
+# -------------------------
 def get_bot_response(query):
     query = query.lower().strip()
 
+    # Greetings
     if match_intent(query, "greetings"):
-        return random.choice(["Hey there! 👋", "Hi! How can I help?", "Hello! Ready to assist!"])
+        return random.choice(["Hello! 👋", "Hi there!", "Hey! How can I help?"])
 
+    # How are you?
     if match_intent(query, "how_are_you"):
         return "I'm fully charged and ready to help ⚡"
 
-    if match_intent(query, "capabilities"):
-        return "I can help with onboarding, HR policies, IT support, office info, and more!"
-
-    if match_intent(query, "identity"):
-        return "I'm Schneider Electric’s smart assistant 🤖"
-
+    # Jokes
     if match_intent(query, "joke"):
         return random.choice(jokes)
 
-    if match_intent(query, "company_info"):
-        return "Schneider Electric is a global leader in energy management and industrial automation."
-
+    # "Show topics" → old behaviour
     if match_intent(query, "topics"):
-        topics_list = "\n".join(f"• {key.title()}" for key in chatbot_knowledge)
-        return f"Here are topics I know:\n\n{topics_list}"
+        topics = "\n".join(f"• {topic.title()}" for topic in chatbot_knowledge.keys())
+        return f"Here are the topics I can help with:\n\n{topics}"
 
-    # Topic extraction
-    extracted_topic = extract_topic_from_query(query)
-    if extracted_topic and extracted_topic in chatbot_knowledge:
-        return f"Here's what I found about {extracted_topic.title()}:\n\n{chatbot_knowledge[extracted_topic]}"
-
-    # Keyword direct match
-    for keyword, content in chatbot_knowledge.items():
-        if keyword in query:
-            return f"Here's what I found about {keyword.title()}:\n\n{content}"
-
-    if match_intent(query, "small_talk"):
-        return random.choice(["You're welcome! 😊", "Glad to help ⚡", "Anytime!"])
+    # Topic extraction from old method
+    topic = extract_topic(query)
+    if topic and topic in chatbot_knowledge:
+        return chatbot_knowledge[topic]
 
     # Fallback
-    return "🤔 I'm not sure about that. Try asking about policies, onboarding, IT support, or type 'help'."
+    return (
+        "I'm not sure about that 🤔\n"
+        "Try asking about:\n"
+        "- WFH policy\n"
+        "- IT support\n"
+        "- Vacation policy\n"
+        "- Benefits\n"
+        "Or type 'main topics' to see everything I know."
+    )
 
 
-
-# -----------------------------
+# -------------------------
 # ROUTES
-# -----------------------------
+# -------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -153,13 +142,10 @@ def home():
 
 @app.route("/get", methods=["POST"])
 def chatbot_response():
-    user_text = request.json.get("message", "")
-    reply = get_bot_response(user_text)
+    user_msg = request.json.get("message")
+    reply = get_bot_response(user_msg)
     return jsonify({"reply": reply})
 
 
-# -----------------------------
-# RUN
-# -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)

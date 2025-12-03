@@ -19,34 +19,49 @@
         .header {
             background: #00953B;
             color: white;
-            padding: 15px 20px;
-            font-size: 22px;
+            padding: 20px 25px;
+            font-size: 28px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .header img {
-            height: 45px;
-            width: 45px;
-            border-radius: 5px;
+        .header-logo {
+            height: 70px;
+            width: auto;
+            border-radius: 8px;
         }
 
-        /* CHAT CONTAINER */
+        /* WELCOME / HELP BOX */
+        .welcome-box {
+            padding: 15px 20px;
+            background: #e8f5e9;
+            border-left: 5px solid #00953B;
+            margin: 15px 20px 0 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .welcome-box strong {
+            font-size: 18px;
+        }
+
+        /* CHAT AREA */
         .chat-container {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         /* CHAT BUBBLES */
         .bot-message, .user-message {
-            max-width: 70%;
-            padding: 12px 16px;
+            max-width: 75%;
+            padding: 14px 18px;
             border-radius: 12px;
             line-height: 1.4;
             font-size: 16px;
@@ -65,10 +80,10 @@
             border-right: 5px solid #00953B;
         }
 
-        /* INPUT SECTION */
+        /* INPUT BAR */
         .input-area {
             display: flex;
-            padding: 12px;
+            padding: 14px;
             background: white;
             border-top: 1px solid #CCC;
         }
@@ -83,7 +98,7 @@
         }
 
         .input-area button {
-            padding: 12px 20px;
+            padding: 12px 22px;
             font-size: 16px;
             background: #00953B;
             border: none;
@@ -97,40 +112,34 @@
             background: #007e32;
         }
 
-        /* HELP / CONTENTS TAB */
-        .help-box {
-            padding: 10px 15px;
-            background: #e8f5e9;
-            border-left: 4px solid #00953B;
-            font-size: 14px;
-            margin: 10px 20px;
-            border-radius: 6px;
-        }
-
-        /* TYPING DOTS */
+        /* TYPING INDICATOR */
         .typing {
             font-style: italic;
-            opacity: 0.75;
+            opacity: 0.7;
         }
 
         @media (max-width: 600px) {
             .bot-message, .user-message { max-width: 90%; }
+            .header { font-size: 22px; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- HEADER WITH LOGO -->
+    <!-- TOP HEADER -->
     <div class="header">
         Schneider Electric Chatbot
-        <img src="/static/a.png" alt="Logo">
+        <img src="/static/a.png" alt="Logo" class="header-logo">
     </div>
 
-    <!-- HELP SECTION -->
-    <div class="help-box">
-        <strong>For further assistance – please contact:</strong>  
-        junaid.sheikh@se.com
+    <!-- WELCOME / SUMMARY TEXT -->
+    <div class="welcome-box">
+        <strong>Welcome to the Schneider Electric AI Assistant</strong><br>
+        Your one-stop intelligent partner for HR queries, IT support, onboarding guidance, 
+        policies, tools, and general company information. Designed to deliver fast, accurate 
+        answers and help you navigate the organisation with ease.<br><br>
+        For further support: <strong>junaid.sheikh@se.com</strong>
     </div>
 
     <!-- CHAT WINDOW -->
@@ -141,7 +150,7 @@
         </div>
     </div>
 
-    <!-- INPUT AREA -->
+    <!-- INPUT BOX -->
     <div class="input-area">
         <input type="text" id="user-input" placeholder="Type your message here...">
         <button onclick="sendMessage()">Send</button>
@@ -196,3 +205,4 @@
 
 </body>
 </html>
+

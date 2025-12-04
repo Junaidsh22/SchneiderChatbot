@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Schneider Electric Chatbot</title>
+    <title>IPA Hub Navigation Assistant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
@@ -19,33 +19,49 @@
         .header {
             background: #00953B;
             color: white;
-            padding: 20px 25px;
-            font-size: 28px;
+            padding: 15px 20px;
+            font-size: 22px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .header-logo {
-            height: 70px;
-            width: auto;
-            border-radius: 8px;
+        .header img {
+            height: 45px;
+            width: 45px;
+            border-radius: 5px;
         }
 
-        /* WELCOME BOX */
-        .welcome-box {
-            padding: 15px 20px;
-            background: #e8f5e9;
-            border-left: 5px solid #00953B;
-            margin: 15px 20px 0 20px;
+        /* INTRO SECTION */
+        .intro-box {
+            padding: 20px;
+            background: #E8F5E9;
+            margin: 15px;
+            border-left: 6px solid #00953B;
             border-radius: 6px;
+        }
+
+        .intro-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .intro-text {
             font-size: 15px;
             line-height: 1.5;
+            margin-bottom: 10px;
         }
 
-        .welcome-box strong {
-            font-size: 18px;
+        /* HELP SECTION */
+        .help-line {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .help-line strong {
+            font-weight: bold;
         }
 
         /* CHAT CONTAINER */
@@ -55,13 +71,13 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         /* CHAT BUBBLES */
         .bot-message, .user-message {
-            max-width: 75%;
-            padding: 14px 18px;
+            max-width: 70%;
+            padding: 12px 16px;
             border-radius: 12px;
             line-height: 1.4;
             font-size: 16px;
@@ -80,10 +96,10 @@
             border-right: 5px solid #00953B;
         }
 
-        /* INPUT BAR */
+        /* INPUT SECTION */
         .input-area {
             display: flex;
-            padding: 14px;
+            padding: 12px;
             background: white;
             border-top: 1px solid #CCC;
         }
@@ -98,7 +114,7 @@
         }
 
         .input-area button {
-            padding: 12px 22px;
+            padding: 12px 20px;
             font-size: 16px;
             background: #00953B;
             border: none;
@@ -112,42 +128,46 @@
             background: #007e32;
         }
 
-        /* TYPING INDICATOR */
+        /* TYPING DOTS */
         .typing {
             font-style: italic;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         @media (max-width: 600px) {
             .bot-message, .user-message { max-width: 90%; }
-            .header { font-size: 22px; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER WITH LOGO -->
     <div class="header">
-        Schneider Electric Chatbot
-        <img src="/static/a.png" alt="Logo" class="header-logo">
+        IPA Hub Navigation Assistant
+        <img src="/static/a.png" alt="Logo">
     </div>
 
-    <!-- WELCOME SECTION -->
-    <div class="welcome-box">
-        <strong>Welcome to the Schneider Electric AI Assistant</strong><br>
-        Your one-stop intelligent partner for HR queries, IT support, onboarding guidance, 
-        policies, tools, and wider company information.<br><br>
+    <!-- INTRO DESCRIPTION -->
+    <div class="intro-box">
+        <div class="intro-title">Welcome to the IPA Hub Navigation Assistant</div>
 
-        <strong>For further technical support - contact:</strong><br>
+        <div class="intro-text">
+            Ask me where to find templates, governance, tools, training, or documents on the IPA Hub.  
+            I can help you navigate the site faster and locate the correct resources instantly.
+        </div>
+
+        <div class="help-line">
+            <strong>For technical issues – contact:</strong><br>
             junaid.sheikh@se.com or reach out to Junaid Sheikh on Teams.
+        </div>
     </div>
 
     <!-- CHAT WINDOW -->
     <div class="chat-container" id="chat-container">
         <div class="bot-message">
-            👋 Hello! I'm your Schneider Electric onboarding assistant.  
-            How can I help you today?
+            👋 Hello! I'm your IPA Hub Navigation Assistant.  
+            What would you like help finding today?
         </div>
     </div>
 
@@ -172,7 +192,7 @@
             const typing = document.createElement("div");
             typing.className = "bot-message typing";
             typing.id = "typing";
-            typing.textContent = "Bot is typing...";
+            typing.textContent = "Assistant is typing...";
             chatContainer.appendChild(typing);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
@@ -206,3 +226,4 @@
 
 </body>
 </html>
+

@@ -1,402 +1,219 @@
-from flask import Flask, render_template, request, jsonify
 import os
 import re
-import difflib
-import random
+import math
+import numpy as np
+from flask import Flask, render_template, request, jsonify
+from openai import AzureOpenAI
 
 app = Flask(__name__)
 
+# -----------------------------
+# Azure OpenAI configuration
+# -----------------------------
+AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT")
+AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY")
+AZURE_OPENAI_API_VERSION = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-02-15-preview")
+
+# Deployment names (set as env vars in Render)
+AZURE_OPENAI_CHAT_DEPLOYMENT = os.environ.get("AZURE_OPENAI_CHAT_DEPLOYMENT")      # e.g. "se-chatbot-gpt"
+AZURE_OPENAI_EMBED_DEPLOYMENT = os.environ.get("AZURE_OPENAI_EMBED_DEPLOYMENT")    # e.g. "se-chatbot-embed"
+
+client = AzureOpenAI(
+    api_key=AZURE_OPENAI_API_KEY,
+    api_version=AZURE_OPENAI_API_VERSION,
+    azure_endpoint=AZURE_OPENAI_ENDPOINT,
+)
+
 DATA_FOLDER = "chatbot_data"
 
-# ---------------------------------------------------------
-# 1. LOAD TRAINING DATA (TOPICS + Q&A PAIRS)
-# ---------------------------------------------------------
-
-def parse_qa_from_content(content: str):
-    """
-    Parse Q/A blocks from a text file.
-    Works with:
-      Q: ...
-      A: ...
-    repeated multiple times.
-    Also works if [FAQ] / [DETAIL] markers are present, but they are optional.
-    """
-    qa_pairs = []
-
-    # If [FAQ] exists, restrict parsing to that section
-    faq_match = re.search(r"\[FAQ\](.*?)(\[DETAIL\]|$)", content, flags=re.S | re.I)
-    if faq_match:
-        raw = faq_match.group(1).strip()
-        detail_section = re.search(r"\[DETAIL\](.*)", content, flags=re.S | re.I)
-        detail_text = detail_section.group(1).strip() if detail_section else content.strip()
-    else:
-        raw = content
-        detail_text = content.strip()
-
-    blocks = raw.split("Q:")
-    for block in blocks:
-        block = block.strip()
-        if not block:
-            continue
-        parts = block.split("A:", 1)
-        if len(parts) == 2:
-            q = parts[0].strip()
-            a = parts[1].strip()
-            if q and a:
-                qa_pairs.append((q, a))
-
-    return qa_pairs, detail_text
+# This will hold our in-memory vector index
+# Each entry: {"topic": str, "chunk": str, "vector": np.ndarray}
+vector_index = []
 
 
-def load_training_data():
-    """
-    Load all .txt files from chatbot_data.
-    For each file, store:
-      - topic name (from filename)
-      - list of (question, answer) pairs
-      - full detail text
-    """
-    topics = {}
-    if not os.path.isdir(DATA_FOLDER):
-        return topics
+# -----------------------------
+# Helper: text loading & chunking
+# -----------------------------
+def load_documents(folder=DATA_FOLDER):
+    docs = []
+    if not os.path.isdir(folder):
+        return docs
 
-    for filename in os.listdir(DATA_FOLDER):
+    for filename in os.listdir(folder):
         if filename.lower().endswith(".txt"):
-            topic_name = filename.replace(".txt", "").strip()
-            filepath = os.path.join(DATA_FOLDER, filename)
+            topic = filename.replace(".txt", "").strip()
+            path = os.path.join(folder, filename)
 
             try:
-                with open(filepath, "r", encoding="utf-8") as f:
+                with open(path, "r", encoding="utf-8") as f:
                     content = f.read()
             except UnicodeDecodeError:
-                with open(filepath, "r", encoding="latin-1") as f:
+                with open(path, "r", encoding="latin-1") as f:
                     content = f.read()
 
-            qa_pairs, detail_text = parse_qa_from_content(content)
-
-            topics[topic_name] = {
-                "qa": qa_pairs,       # list of (Q, A)
-                "detail": detail_text # full topic text
-            }
-
-    return topics
+            docs.append((topic, content))
+    return docs
 
 
-# Main topics from txt files
-main_topics = load_training_data()
-
-# Side topics (manual)
-side_topics = {
-    "wfh policy": "Our WFH policy supports hybrid work up to 3 days a week. Confirm with your manager for team-specific details.",
-    "it support": "Need IT help? Contact helpdesk@se.com or dial extension 1234.",
-    "benefits": "Benefits include health insurance, paid leave, wellness programs, and learning budgets.",
-    "office hours": "Standard office hours are 9:00 AM – 5:30 PM, Monday to Friday.",
-    "vacation policy": "Employees receive 20 vacation days annually, plus public holidays."
-}
-
-# All topic names used for listing / keyword fallback
-all_topics_text = {**{k: v["detail"] for k, v in main_topics.items()}, **side_topics}
-
-# Build a global list of all Q&A across all topics for "AI-like" matching
-global_qa_index = []
-for topic_name, data in main_topics.items():
-    for q, a in data["qa"]:
-        global_qa_index.append({
-            "topic": topic_name,
-            "question": q,
-            "answer": a
-        })
-
-
-# ---------------------------------------------------------
-# 2. INTENTS & SIMPLE RESPONSES (FROM YOUR ORIGINAL BOT)
-# ---------------------------------------------------------
-
-intents = {
-    "greetings": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"],
-    "how_are_you": ["how are you", "how's it going", "how you doing", "what's up"],
-    "capabilities": ["what can you do", "how can you help", "your features", "what are you capable of"],
-    "identity": ["who are you", "what are you", "introduce yourself"],
-    "joke": ["joke", "make me laugh", "funny"],
-    "company_info": ["schneider electric", "about schneider", "company info", "what is schneider"],
-    "topics": ["main topics", "documents", "training files", "help", "resources", "files"],
-    "small_talk": ["thanks", "thank you", "cool", "great", "awesome", "nice", "perfect"]
-}
-
-jokes = [
-    "Why did the PLC go to therapy? Because it had too many unresolved inputs! 😄",
-    "Why don't electricians ever get lost? Because they always follow the current! ⚡",
-    "I'm reading a book on anti-gravity... It's impossible to put down. 😆"
-]
-
-
-def match_intent(query, intent_key):
-    return any(phrase in query for phrase in intents.get(intent_key, []))
-
-
-# ---------------------------------------------------------
-# 3. TOPIC EXTRACTION (YOUR ORIGINAL PATTERN LOGIC, IMPROVED)
-# ---------------------------------------------------------
-
-def normalize_text_for_match(text: str) -> str:
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9\s]", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
-
-
-def extract_topic_from_query(query, topic_keys):
+def split_into_chunks(text, max_chars=800):
     """
-    Re-uses your original pattern approach like:
-      - tell me about <topic>
-      - show me <topic>
-      - what is <topic>
-    but now with better cleaning and matching.
+    Simple chunking: split on blank lines, then merge
+    until max_chars is reached.
     """
-    q_norm = normalize_text_for_match(query)
+    paragraphs = re.split(r"\n\s*\n", text.strip())
+    chunks = []
+    current = ""
 
-    patterns = [
-        r"tell me about (.+)",
-        r"show me (.+)",
-        r"give info on (.+)",
-        r"what is (.+)",
-        r"details on (.+)",
-        r"info about (.+)",
-        r"explain (.+)",
-        r"(.+) info"
-    ]
-
-    for pattern in patterns:
-        m = re.search(pattern, q_norm)
-        if not m:
+    for p in paragraphs:
+        p = p.strip()
+        if not p:
             continue
-        candidate = m.group(1).strip()
-
-        # Try best match against known topics
-        best_topic = None
-        best_score = 0
-        for topic in topic_keys:
-            t_norm = normalize_text_for_match(topic)
-            # Fuzzy similarity between extracted phrase and topic
-            sim = difflib.SequenceMatcher(None, candidate, t_norm).ratio()
-            if sim > best_score:
-                best_score = sim
-                best_topic = topic
-
-        if best_topic and best_score > 0.4:
-            return best_topic
-
-    return None
-
-
-def detect_topic(query):
-    """
-    Multi-strategy topic detection:
-      1) Try pattern-based extraction (tell me about X...)
-      2) Keyword containment for topic names
-      3) Fuzzy topic name similarity
-    Works over BOTH main_topics and side_topics.
-    """
-    q_norm = normalize_text_for_match(query)
-    topic_keys = list(main_topics.keys()) + list(side_topics.keys())
-
-    # 1) Pattern-based
-    extracted = extract_topic_from_query(query, topic_keys)
-    if extracted and extracted in topic_keys:
-        return extracted
-
-    # 2) Keyword containment
-    for topic in topic_keys:
-        t_norm = normalize_text_for_match(topic)
-        # any significant token from topic in the query
-        topic_tokens = [t for t in t_norm.split() if len(t) > 2]
-        if any(tok in q_norm for tok in topic_tokens):
-            return topic
-
-    # 3) Fuzzy similarity on whole query vs topic name
-    best_topic = None
-    best_score = 0
-    for topic in topic_keys:
-        t_norm = normalize_text_for_match(topic)
-        sim = difflib.SequenceMatcher(None, q_norm, t_norm).ratio()
-        if sim > best_score:
-            best_score = sim
-            best_topic = topic
-
-    if best_topic and best_score > 0.40:
-        return best_topic
-
-    return None
-
-
-# ---------------------------------------------------------
-# 4. FAQ ANSWERING (WITHIN TOPIC + GLOBAL)
-# ---------------------------------------------------------
-
-def find_best_faq_answer_for_topic(topic, user_message):
-    """
-    Within a single topic, find the best FAQ Q/A match.
-    """
-    if topic not in main_topics:
-        return None
-
-    q_norm = normalize_text_for_match(user_message)
-    qa_list = main_topics[topic]["qa"]
-    if not qa_list:
-        return None
-
-    best_score = 0
-    best_answer = None
-
-    for q, a in qa_list:
-        q_text = normalize_text_for_match(q)
-        # Combined score: token overlap + fuzzy similarity
-        overlap = sum(1 for word in q_norm.split() if word in q_text)
-        sim = difflib.SequenceMatcher(None, q_norm, q_text).ratio()
-        score = overlap * 2.0 + sim * 2.0
-
-        if score > best_score:
-            best_score = score
-            best_answer = a
-
-    return best_answer if best_score > 2.2 else None  # tuned threshold
-
-
-def find_best_faq_answer_global(user_message):
-    """
-    Global FAQ matching across ALL topics.
-    This is your "AI-like" layer: if we can't confidently detect a topic,
-    we still try to find the best Q/A across everything.
-    """
-    if not global_qa_index:
-        return None
-
-    q_norm = normalize_text_for_match(user_message)
-    best_score = 0
-    best = None
-
-    for entry in global_qa_index:
-        q_text = normalize_text_for_match(entry["question"])
-        overlap = sum(1 for word in q_norm.split() if word in q_text)
-        sim = difflib.SequenceMatcher(None, q_norm, q_text).ratio()
-        score = overlap * 2.0 + sim * 2.0
-
-        if score > best_score:
-            best_score = score
-            best = entry
-
-    if best and best_score > 2.2:
-        # if you want to mention the topic, you could prepend it
-        return best["answer"]
-
-    return None
-
-
-# ---------------------------------------------------------
-# 5. MAIN BOT LOGIC (MIX OF YOUR OLD LOGIC + NEW FAQ INTELLIGENCE)
-# ---------------------------------------------------------
-
-def get_bot_response(query: str) -> str:
-    q = query.lower().strip()
-
-    # 1. Intents (your logic)
-    if match_intent(q, "greetings"):
-        return random.choice([
-            "Hey there! 👋 Ready to explore Schneider Electric together?",
-            "Hi! I'm your digital onboarding buddy here to help with all things Schneider ⚡",
-            "Hello! How can I assist with your Schneider journey today?"
-        ])
-
-    if match_intent(q, "how_are_you"):
-        return "I'm fully charged and ready to help ⚡ How can I support you today?"
-
-    if match_intent(q, "capabilities"):
-        return (
-            "I'm your assistant for all things Schneider Electric! 💼 Here's how I can help:\n"
-            "• Onboarding guidance\n"
-            "• Company policies & benefits\n"
-            "• Training resources & documents\n"
-            "• IT & HR support info\n"
-            "Try asking: 'What's the WFH policy?' or 'Show me training docs.'"
-        )
-
-    if match_intent(q, "identity"):
-        return (
-            "I'm Schneider Electric’s smart onboarding assistant 🤖.\n"
-            "Think of me as your friendly digital teammate here to make your first days smoother."
-        )
-
-    if match_intent(q, "joke"):
-        return random.choice(jokes)
-
-    if match_intent(q, "company_info"):
-        return (
-            "Schneider Electric is a global leader in energy management and industrial automation.\n"
-            "We're committed to sustainability, innovation, and empowering people to make the most of their energy."
-        )
-
-    if match_intent(q, "topics"):
-        if all_topics_text:
-            topics_list = "\n".join(f"• {key}" for key in all_topics_text.keys())
-            return (
-                "Here's what I can help you with right now:\n\n"
-                f"{topics_list}\n\n"
-                "You can ask something like 'Tell me about Working Time Regulations' or "
-                "'What is PLC Programming Basics?'."
-            )
+        if len(current) + len(p) + 2 <= max_chars:
+            current = (current + "\n\n" + p).strip()
         else:
-            return "I couldn't find any topics yet. Please check back later."
+            if current:
+                chunks.append(current)
+            current = p
 
-    if match_intent(q, "small_talk"):
-        return random.choice([
-            "You're most welcome! 😊 Let me know if there's anything else you need.",
-            "Anytime! I'm here to help ⚡",
-            "Glad I could help! Ask away if you need more info."
-        ])
+    if current:
+        chunks.append(current)
 
-    # 2. Topic detection (your pattern logic + improvements)
-    topic = detect_topic(query)
+    return chunks
 
-    # 3. If we have a topic with structured Q&A, try topic-level FAQ match
-    if topic and topic in main_topics:
-        faq_answer = find_best_faq_answer_for_topic(topic, query)
-        if faq_answer:
-            return faq_answer
 
-        # if no specific FAQ matched, fall back to full topic text
-        return main_topics[topic]["detail"]
+# -----------------------------
+# Helper: embeddings + similarity
+# -----------------------------
+def get_embedding(text: str) -> np.ndarray:
+    resp = client.embeddings.create(
+        model=AZURE_OPENAI_EMBED_DEPLOYMENT,
+        input=text
+    )
+    vec = resp.data[0].embedding
+    return np.array(vec, dtype="float32")
 
-    # 4. If topic is one of the side topics (manual)
-    if topic and topic in side_topics:
-        return side_topics[topic]
 
-    # 5. Global FAQ search (AI-like matching across all topics)
-    global_answer = find_best_faq_answer_global(query)
-    if global_answer:
-        return global_answer
+def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
+    if a is None or b is None:
+        return 0.0
+    denom = (np.linalg.norm(a) * np.linalg.norm(b))
+    if denom == 0:
+        return 0.0
+    return float(np.dot(a, b) / denom)
 
-    # 6. Keyword fallback (legacy behaviour)
-    for keyword, content in all_topics_text.items():
-        if keyword.lower() in q:
-            return content.strip()
 
-    # 7. Final fallback
-    return (
-        "I couldn't quite match that to anything I know yet. 🤔\n"
-        "Try asking about onboarding, working time, annual leave, PLCs, SCADA, HMI, "
-        "IT support, or type 'main topics' to see what I know.\n\n"
-        "Example questions:\n"
-        "• 'What are the working hours?'\n"
-        "• 'How many days of annual leave do I get?'\n"
-        "• 'What is a PLC?'\n"
-        "• 'How do I book business travel?'"
+def build_vector_index():
+    global vector_index
+    vector_index = []
+
+    docs = load_documents()
+    for topic, content in docs:
+        chunks = split_into_chunks(content)
+        for chunk in chunks:
+            vec = get_embedding(chunk)
+            vector_index.append({
+                "topic": topic,
+                "chunk": chunk,
+                "vector": vec
+            })
+
+
+def retrieve_relevant_chunks(query: str, top_k: int = 4):
+    if not vector_index:
+        return []
+
+    q_vec = get_embedding(query)
+    scored = []
+    for entry in vector_index:
+        score = cosine_similarity(q_vec, entry["vector"])
+        scored.append((score, entry))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top = [entry for score, entry in scored[:top_k] if score > 0.3]
+    return top
+
+
+# -----------------------------
+# Small-talk / intent handling
+# -----------------------------
+SMALL_TALK = {
+    "greetings": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"],
+    "how_are_you": ["how are you", "how's it going", "how you doing"],
+    "thanks": ["thanks", "thank you", "cheers", "appreciate it"]
+}
+
+def match_intent(text, intent_key):
+    q = text.lower()
+    return any(phrase in q for phrase in SMALL_TALK.get(intent_key, []))
+
+
+def handle_small_talk(user_message: str) -> str | None:
+    q = user_message.lower()
+    if match_intent(q, "greetings"):
+        return "Hello! 👋 How can I help you today?"
+    if match_intent(q, "how_are_you"):
+        return "I'm running smoothly and ready to help ⚡"
+    if match_intent(q, "thanks"):
+        return "You're very welcome! If you need anything else, just ask. 😊"
+    return None
+
+
+# -----------------------------
+# Core RAG + Azure OpenAI answer
+# -----------------------------
+def answer_with_rag(user_message: str) -> str:
+    # 1) Small-talk shortcut
+    st = handle_small_talk(user_message)
+    if st:
+        return st
+
+    # 2) Retrieve relevant document chunks
+    relevant = retrieve_relevant_chunks(user_message, top_k=4)
+
+    if not relevant:
+        # No context found – still try to be helpful, but admit limitation
+        system_msg = (
+            "You are Schneider Electric’s internal AI assistant. "
+            "If there is no relevant company information, say you don't know and suggest "
+            "who they can contact (HR, IT, or their manager)."
+        )
+        messages = [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": user_message}
+        ]
+    else:
+        # Build a context string from top chunks
+        context_blocks = []
+        for entry in relevant:
+            context_blocks.append(f"[Topic: {entry['topic']}]\n{entry['chunk']}")
+        context_text = "\n\n---\n\n".join(context_blocks)
+
+        system_msg = (
+            "You are Schneider Electric’s internal AI assistant. "
+            "Use ONLY the following company knowledge to answer the question. "
+            "If something is not covered, say you don't know and suggest contacting HR, IT, "
+            "or the relevant manager.\n\n"
+            "Respond clearly and concisely, and where appropriate, list key points."
+        )
+
+        messages = [
+            {"role": "system", "content": system_msg},
+            {"role": "assistant", "content": f"Here is the Schneider Electric reference material:\n\n{context_text}"},
+            {"role": "user", "content": user_message}
+        ]
+
+    chat_resp = client.chat.completions.create(
+        model=AZURE_OPENAI_CHAT_DEPLOYMENT,
+        messages=messages,
+        temperature=0.2
     )
 
+    return chat_resp.choices[0].message.content.strip()
 
-# ---------------------------------------------------------
-# 6. FLASK ROUTES
-# ---------------------------------------------------------
 
+# -----------------------------
+# Flask routes
+# -----------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -408,9 +225,26 @@ def get_response():
     user_message = data.get("message", "").strip()
     if not user_message:
         return jsonify({"reply": "Please type a message so I can help."})
-    reply = get_bot_response(user_message)
+
+    try:
+        reply = answer_with_rag(user_message)
+    except Exception as e:
+        # Don't expose internal errors to the user
+        print("Error in answer_with_rag:", e)
+        reply = (
+            "Sorry, I ran into a technical issue while processing that. "
+            "Please try again, or contact technical support if the problem continues."
+        )
+
     return jsonify({"reply": reply})
 
 
 if __name__ == "__main__":
+    # Build the in-memory vector index on startup
+    if AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY and AZURE_OPENAI_EMBED_DEPLOYMENT:
+        print("Building vector index from chatbot_data...")
+        build_vector_index()
+        print(f"Loaded {len(vector_index)} chunks into the index.")
+    else:
+        print("⚠ Azure OpenAI environment variables not set. Vector index not built.")
     app.run(debug=True)

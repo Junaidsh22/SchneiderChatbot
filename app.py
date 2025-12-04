@@ -1,150 +1,154 @@
 from flask import Flask, render_template, request, jsonify
-import os, re, random
+import os
+import re
+import difflib
 
 app = Flask(__name__)
 
-# -------------------------
-# CLEAN TOPIC NAME HELPER
-# -------------------------
-def clean_topic_name(filename):
-    name = filename.replace(".txt", "").lower()
-    # Remove special chars
-    name = re.sub(r"[^\w\s]", "", name)
-    # Replace spaces with _
-    name = name.replace(" ", "_")
-    return name
+DATA_FOLDER = "chatbot_data"
 
-# -------------------------
-# LOAD TRAINING FILES
-# -------------------------
-def load_chatbot_data():
-    responses = {}
-    folder = "chatbot_data"
+# ---------------------------------------------------------
+# 1. LOAD ALL TRAINING FILES + SPLIT FAQ / DETAIL SECTIONS
+# ---------------------------------------------------------
+def load_training_data():
+    topics = {}
 
-    if os.path.isdir(folder):
-        for filename in os.listdir(folder):
-            if filename.endswith(".txt"):
-                filepath = os.path.join(folder, filename)
+    for filename in os.listdir(DATA_FOLDER):
+        if filename.lower().endswith(".txt"):
+            topic_name = filename.replace(".txt", "").strip()
 
-                try:
-                    with open(filepath, "r", encoding="utf-8") as f:
-                        content = f.read().strip()
-                except:
-                    with open(filepath, "r", encoding="latin-1") as f:
-                        content = f.read().strip()
+            with open(os.path.join(DATA_FOLDER, filename), "r", encoding="utf-8") as f:
+                content = f.read()
 
-                clean_key = clean_topic_name(filename)
-                responses[clean_key] = content
+            # Extract FAQ block
+            faq_match = re.search(r"\[FAQ\](.*?)\[DETAIL\]", content, flags=re.S)
+            detail_match = re.search(r"\[DETAIL\](.*)", content, flags=re.S)
 
-    return responses
+            faq_entries = []
+            if faq_match:
+                raw_faq = faq_match.group(1).strip()
+                qa_blocks = raw_faq.split("Q:")
 
-# Load your REAL topics (clean keys)
-main_topics = load_chatbot_data()
+                for block in qa_blocks:
+                    block = block.strip()
+                    if block:
+                        parts = block.split("A:")
+                        if len(parts) == 2:
+                            question = parts[0].strip()
+                            answer = parts[1].strip()
+                            faq_entries.append((question, answer))
 
-# Manual topics (clean keys)
-side_topics = {
-    "wfh_policy": "Our WFH policy supports hybrid work up to 3 days a week.",
-    "it_support": "Need IT help? Contact helpdesk@se.com or dial extension 1234.",
-    "benefits": "Benefits include health insurance, paid leave, wellness programs.",
-    "office_hours": "Standard office hours are 9:00 AM – 5:30 PM.",
-    "vacation_policy": "Employees receive 20 vacation days annually, plus public holidays."
-}
+            details = detail_match.group(1).strip() if detail_match else ""
 
-# Combine both
-chatbot_knowledge = {**main_topics, **side_topics}
+            topics[topic_name] = {
+                "faq": faq_entries,
+                "detail": details
+            }
 
-# -------------------------
-# SIMPLE INTENTS
-# -------------------------
-intents = {
-    "greetings": ["hello", "hi", "hey"],
-    "how_are_you": ["how are you"],
-    "joke": ["joke", "funny"],
-    "topics": ["main topics", "show topics", "help", "resources"]
-}
+    return topics
 
-jokes = [
-    "Why did the PLC go to therapy? Because it had too many unresolved inputs!",
-    "Why don't electricians get lost? Because they follow the current!",
-    "I'm reading a book on anti-gravity… it's impossible to put down."
-]
 
-def match_intent(query, intent_key):
-    return any(phrase in query for phrase in intents.get(intent_key, []))
+training_data = load_training_data()
 
-# -------------------------
-# IMPROVED TOPIC MATCHING
-# -------------------------
-def extract_topic(query):
-    query = query.lower().replace("&", "and")
 
-    for topic in chatbot_knowledge.keys():
-        clean_topic = topic.replace("_", " ")
-        if clean_topic in query:
+# ---------------------------------------------------------
+# 2. TOPIC DETECTION – MULTI-KEYWORD + FUZZY MATCHING
+# ---------------------------------------------------------
+def detect_topic(user_message):
+    user_message = user_message.lower()
+
+    # Direct keyword match
+    for topic in training_data.keys():
+        clean_topic = topic.lower().replace("_", " ")
+
+        if any(word in user_message for word in clean_topic.split()):
             return topic
 
-    patterns = [
-        r"tell me about (.+)",
-        r"what is (.+)",
-        r"show me (.+)",
-        r"explain (.+)"
-    ]
+    # Secondary fuzzy match
+    closest = difflib.get_close_matches(user_message, training_data.keys(), n=1, cutoff=0.4)
+    return closest[0] if closest else None
 
-    for pattern in patterns:
-        match = re.search(pattern, query)
-        if match:
-            extracted = match.group(1).strip().lower()
-            extracted = extracted.replace("&", "and")
 
-            for topic in chatbot_knowledge.keys():
-                if extracted in topic.replace("_", " "):
-                    return topic
+# ---------------------------------------------------------
+# 3. INTELLIGENT FAQ MATCHING (Weighted scoring)
+# ---------------------------------------------------------
+def find_best_faq_answer(topic, user_message):
+    user_message = user_message.lower()
+    faqs = training_data[topic]["faq"]
 
-    return None
+    if not faqs:
+        return None
 
-# -------------------------
-# MAIN RESPONSE
-# -------------------------
-def get_bot_response(query):
-    query = query.lower().strip()
+    best_score = 0
+    best_answer = None
 
-    if match_intent(query, "greetings"):
-        return random.choice(["Hello! 👋", "Hi there!", "Hey! How can I help?"])
+    for q, a in faqs:
+        q_low = q.lower()
 
-    if match_intent(query, "how_are_you"):
-        return "I'm fully charged and ready to help ⚡"
+        # Keyword overlap score
+        overlap = sum(word in q_low for word in user_message.split())
 
-    if match_intent(query, "joke"):
-        return random.choice(jokes)
+        # Fuzzy similarity score
+        similarity = difflib.SequenceMatcher(None, user_message, q_low).ratio()
 
-    if match_intent(query, "topics"):
-        topics = "\n".join(f"• {topic.replace('_',' ').title()}" for topic in chatbot_knowledge.keys())
-        return f"Here are the topics I can help with:\n\n{topics}"
+        # Weighted score
+        score = (overlap * 2.2) + (similarity * 1.8)
 
-    topic = extract_topic(query)
-    if topic:
-        return chatbot_knowledge[topic]
+        if score > best_score:
+            best_score = score
+            best_answer = a
 
-    return (
-        "I'm not sure about that 🤔\n"
-        "Try asking about:\n"
-        "- WFH policy\n"
-        "- IT support\n"
-        "- Vacation policy\n"
-        "- Benefits\n"
-        "Or type 'main topics' to see everything I know."
-    )
+    return best_answer if best_score > 0.50 else None
 
-# ROUTES
+
+# ---------------------------------------------------------
+# 4. FINAL RESPONSE LOGIC
+# ---------------------------------------------------------
+def get_bot_response(user_message):
+    topic = detect_topic(user_message)
+
+    if not topic:
+        return (
+            "I'm not fully sure what you mean. Try asking about:\n"
+            "• Working Time Regulations\n"
+            "• Travel Booking\n"
+            "• PLC Basics\n"
+            "• Key Employee Tools\n"
+            "• SCADA\n"
+            "• HMI usage\n\n"
+            "Or ask a specific question like:\n"
+            "“How many hours rest do I need?”"
+        )
+
+    # First attempt: FAQ (specific answer)
+    faq_answer = find_best_faq_answer(topic, user_message)
+    if faq_answer:
+        return faq_answer
+
+    # Fallback: full detailed topic text
+    return training_data[topic]["detail"]
+
+
+# ---------------------------------------------------------
+# 5. FLASK ROUTES
+# ---------------------------------------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
 @app.route("/get", methods=["POST"])
-def chatbot_response():
-    user_msg = request.json.get("message")
-    reply = get_bot_response(user_msg)
+def get_response():
+    data = request.get_json()
+    user_message = data.get("message", "").strip()
+
+    if not user_message:
+        return jsonify({"reply": "Please type a message."})
+
+    reply = get_bot_response(user_message)
     return jsonify({"reply": reply})
 
+
+# ---------------------------------------------------------
 if __name__ == "__main__":
     app.run(debug=True)

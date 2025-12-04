@@ -1,121 +1,40 @@
+Q: What is the first step when booking business travel or expenses?
+A: Confirm the business need by identifying the purpose of the trip, ensuring it is necessary, and checking your BFO diary if applicable.
 
-Below are the list of rules that are laid out and should be followed if booking expenses or travel.
+Q: How should I choose a travel option?
+A: Evaluate cost, travel time, convenience, environmental impact, and policy compliance. Use:
+• Company car for trips under 150 miles or 3 hours (mandatory if you have one).
+• Rail via the SE Trainline Portal (Standard Class).
+• Car hire via the SE Hertz Portal.
+• Taxis only when unavoidable.
 
-Step 1: CONFIRM BUSINESS NEED
+Q: Do I need approval before booking travel?
+A: Yes. Send your Line Manager the trip purpose, travel method, estimated costs, and any hotel needs. Wait for explicit approval before booking.
 
-•	Identify the purpose of the trip (e.g. customer visit, internal meeting, training).
-•	Ensure the trip is necessary and aligned with business goals.
-•	Check your BFO diary (if applicable) to confirm appointments.
-________________________________________
+Q: How do I book travel once approved?
+A: Always use approved portals: SE Trainline for rail, SE Hertz for hire cars, and log mileage when using a company car. Minimise taxi use and keep VAT receipts.
 
-Step 2: EVALUATE TRAVEL OPTIONS
+Q: How do I book overnight accommodation?
+A: Confirm if a hotel stay is required. Stay within limits (£90 UK, £160 London). Claim £50/night (taxable) when staying with friends/relatives. Use Concur for hotel bookings and expenses.
 
-Company Car	If trip is under 150 miles or 3 hours. Required if you have a company car.
-Rail Travel	Book via SE Trainline Portal (Standard Class only).
-Car Hire	Book via SE Hertz Portal (Group CCMR cars like Vauxhall Astra).
-Taxi	Only if short distance and unavoidable.
+Q: What subsistence and daily allowances can I claim?
+A:
+• Breakfast: £10 (only with overnight stay)
+• Dinner: £30 (extended trips, includes drinks & VAT)
+• Off-site allowance: £4.15/day (on the road 5+ hours)
+• Lunch in the UK: not claimable
 
-CONSIDER:
-•	Cost
-•	Travel time
-•	Convenience
-•	Environmental impact
-•	Policy compliance
-________________________________________
+Q: Can I claim for taking another employee in my company car?
+A: Yes. Claim £0.10 per mile per SE passenger.
 
-Step 3: REQUEST LINE MANAGER APPROVAL
+Q: What expenses are claimable?
+A: Examples include parking, tolls, congestion charges, hotel internet, VDU eye tests/glasses, consumables, flight luggage, approved emergency purchases, foreign exchange fees, laundry if away >4 nights, one newspaper/day during overnight stays, mileage, and passenger allowance.
 
-Send a formal request to your Line Manager including:
-•	Trip purpose
-•	Preferred travel method
-•	Estimated costs
-•	Any overnight stay requirements
+Q: What expenses are not claimable?
+A: Examples include stationery, traffic fines, in-flight entertainment, unapproved purchases, hotel movies, personal items, car washes (except pool cars), car repairs, hairdressing, gifts, PPE/workwear from non-approved sources, luggage, and other non-policy items.
 
-Wait for explicit approval before booking.
-________________________________________
+Q: When should I submit expenses?
+A: Submit via Concur monthly (regular) or every two months (infrequent), including VAT receipts, descriptions, and mileage logs.
 
-Step 4: BOOK VIA APPROVED TRAVEL PORTALS
-
-•	Rail Travel: Book via SE Trainline Portal.
-•	Car Hire: Book via SE Hertz Portal.
-•	Company Car: Use if applicable and log mileage.
-•	Taxi: Minimise use; collect VAT receipt.
-
- Always use official portals unless you have written approval to use alternatives.
-________________________________________
-
-Step 5: BOOKING OVERNIGHT ACCOMADATION
-
-•	Confirm if a hotel stay is needed.
-•	Book within pricing limits: 
-o	UK: £90/night
-o	London: £160/night
-•	If staying with friends/relatives, claim £50/night (taxable).
-•	Use Concur for hotel bookings and expense tracking.
-________________________________________
-
-Step 6: PLAN AHEAD WITH SUBSTINENCE & DAILY ALLOWANCES 
-
-Type of Expense	Amount	Conditions
-Breakfast	£10	Only if staying overnight
-Dinner	£30	For extended business trips (includes drinks & VAT)
-Off-site Travel	£4.15/day	If on the road for 5+ hours
-Lunch (UK)	Not claimable	Only claimable when abroad
-
-________________________________________
-
-Step 7: ADDITIONAL PASSENGER ALLOWANCE
-
-•	If you take another SE employee in your company car: 
-o	Claim £0.10 per mile per passenger.
-o	Submit via the expense system.
-________________________________________
-
-Step 8: PREPARE FOR EXTRA/OTHER EXPENSES
-Use your Corporate AMEX Card for all business expenses (if possible)
-
-EXAMPLE OF CLAIMABLE EXPENSES:
-•	Parking, tolls, congestion charges
-•	Hotel internet
-•	Eye tests & work-related glasses (VDU certified)
-•	Batteries & consumables
-•	Flight luggage fees
-•	Emergency project purchases (VP pre-approval required)
-•	Foreign exchange (with invoice)
-•	Laundry (if away >4 nights)
-•	One newspaper/day (if staying overnight)
-•	Mileage (via HMRC AFR portal)
-•	£0.10/mile per SE passenger in your car
-
-EXAMPLE OF NON CLAIMABLE EXPENSES:
-•	Stationery (collect from office)
-•	Traffic fines
-•	In-flight movies/refreshments (unless meals not included)
-•	Unapproved material purchases
-•	Hotel room movies
-•	Personal items (toiletries, clothing)
-•	Car washes/screen wash (except pool cars)
-•	Car repairs (organised via LeasePlan)
-•	Hairdressing, gifts
-•	Workwear/PPE (must be sourced via approved vendor)
-•	Luggage/briefcases
-•	Other non-policy expenses
-________________________________________
-
-Step 9: SUBMIT EXPENSES ON TIME AND ACCORDINGLY 
-
-•	Submit via Concur: 
-o	Monthly (for regular claimants)
-o	Every 2 months (for infrequent claimants)
-•	Include: 
-o	Valid VAT receipts
-o	Detailed descriptions
-o	Mileage logs (if applicable)
-________________________________________
-
-Step 10: POST TRIP CHECKLIST 
-
-•	Submit all expenses promptly.
-•	Update BFO diary (Sales Engineers only).
-•	Ensure all data and documents from the trip are stored securely.
-________________________________________
+Q: What should I do after the trip?
+A: Submit all expenses, update the BFO diary if required, and store all documents and data securely.

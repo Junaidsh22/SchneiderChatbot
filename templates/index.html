@@ -1,318 +1,229 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>IPA Hub Navigation Assistant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>IPA Hub Navigation Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    /* ===== Design Tokens ===== */
-    :root {
-      --brand: #00953B;
-      --brand-dark: #007e32;
-      --bg: #F4F4F4;
-      --surface: #FFFFFF;
-      --surface-soft: #E8F5E9;
-      --text: #111;
-      --text-muted: #555;
-      --border: #CCCCCC;
-      --radius: 8px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.08);
-      --maxw: 1080px;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F4F4F4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
 
-    /* ===== Base ===== */
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+        /* HEADER */
+        .header {
+            background: #00953B;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    /* Constrain content for readability on large screens */
-    .page {
-      width: 100%;
-      max-width: var(--maxw);
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+        .header img {
+            height: 75px;
+            width: 75px;
+            border-radius: 10px;
+        }
 
-    /* ===== Header ===== */
-    .header {
-      background: var(--brand);
-      color: #fff;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: var(--shadow);
-    }
-    .header-title {
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .header-logo {
-      height: 80px;       /* Bigger logo */
-      width: auto;        /* Preserve aspect ratio */
-      border-radius: 6px;
-      object-fit: contain; /* Crisp scaling */
-    }
-    @media (max-width: 480px) {
-      .header-title { font-size: 18px; }
-      .header-logo { height: 64px; }
-    }
+        /* INTRO SECTION */
+        .intro-box {
+            padding: 20px;
+            background: #E8F5E9;
+            margin: 15px;
+            border-left: 6px solid #00953B;
+            border-radius: 6px;
+        }
 
-    /* ===== Intro / Hero ===== */
-    .intro-box {
-      padding: 20px;
-      background: var(--surface-soft);
-      margin: 16px 16px 0;
-      border-left: 6px solid var(--brand);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .intro-title {
-      font-weight: 700;
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-    .intro-text {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 10px;
-      color: var(--text-muted);
-    }
-    .help-line {
-      font-size: 14px;
-      margin-top: 8px;
-    }
-    .help-line strong { font-weight: 700; }
+        .intro-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
 
-    /* ===== Chat Window ===== */
-    .chat-container {
-      flex: 1;
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      overflow-y: auto;
-    }
+        .intro-text {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
 
-    /* ===== Chat Bubbles ===== */
-    .bot-message, .user-message {
-      max-width: 70%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      line-height: 1.5;
-      font-size: 16px;
-      white-space: pre-wrap;
-      box-shadow: var(--shadow);
-    }
-    .bot-message {
-      background: var(--surface);
-      align-self: flex-start;
-      border-left: 5px solid var(--brand);
-    }
-    .user-message {
-      background: #DCF8C6;
-      align-self: flex-end;
-      border-right: 5px solid var(--brand);
-    }
-    @media (max-width: 600px) {
-      .bot-message, .user-message { max-width: 90%; }
-    }
+        /* HELP SECTION */
+        .help-line {
+            font-size: 14px;
+            margin-top: 8px;
+        }
 
-    /* ===== Input Area ===== */
-    .input-area {
-      display: flex;
-      padding: 12px 16px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      gap: 10px;
-    }
-    .input-area input[type="text"] {
-      flex: 1;
-      padding: 12px;
-      font-size: 16px;
-      border: 2px solid var(--brand);
-      border-radius: 6px;
-      outline: none;
-    }
-    .input-area input[type="text"]::placeholder { color: #888; }
-    .input-area button {
-      padding: 12px 20px;
-      font-size: 16px;
-      background: var(--brand);
-      border: none;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s ease-in-out;
-    }
-    .input-area button:hover { background: var(--brand-dark); }
-    .input-area button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+        .help-line strong {
+            font-weight: bold;
+        }
 
-    /* ===== Typing Indicator ===== */
-    .typing {
-      font-style: italic;
-      opacity: 0.85;
-    }
+        /* CHAT CONTAINER */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    /* ===== Reduce Motion for Accessibility ===== */
-    @media (prefers-reduced-motion: reduce) {
-      .input-area button { transition: none; }
-    }
-  </style>
+        /* CHAT BUBBLES */
+        .bot-message, .user-message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .bot-message {
+            background: white;
+            align-self: flex-start;
+            border-left: 5px solid #00953B;
+        }
+
+        .user-message {
+            background: #DCF8C6;
+            align-self: flex-end;
+            border-right: 5px solid #00953B;
+        }
+
+        /* INPUT SECTION */
+        .input-area {
+            display: flex;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #CCC;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #00953B;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .input-area button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: #00953B;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background: #007e32;
+        }
+
+        /* TYPING DOTS */
+        .typing {
+            font-style: italic;
+            opacity: 0.75;
+        }
+
+        @media (max-width: 600px) {
+            .bot-message, .user-message { max-width: 90%; }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="page">
+
     <!-- HEADER WITH LOGO -->
-    <header class="header" role="banner" aria-label="Site Header">
-      <div class="header-title">IPA Hub Navigation Assistant</div>
-      /static/a.png
-    </header>
+    <div class="header">
+        IPA Hub Navigation Assistant
+        <img src="/static/a.png" alt="Logo">
+    </div>
 
     <!-- INTRO DESCRIPTION -->
-    <section class="intro-box" aria-labelledby="intro-title">
-      <h1 id="intro-title" class="intro-title">Welcome to the IPA Hub Navigation Assistant</h1>
-      <p class="intro-text">
-        Ask me where to find templates, governance, tools, training, or documents on the IPA Hub.
-        I can help you navigate the site faster and locate the correct resources instantly.
-      </p>
-      <p class="help-line">
-        <strong>For technical issues – contact:</strong><br>
-        mailto:junaid.sheikh@se.comjunaid.sheikh@se.com</a> or reach out to <strong>Junaid Sheikh</strong> on Teams.
-      </p>
-    </section>
+    <div class="intro-box">
+        <div class="intro-title">Welcome to the IPA Hub Navigation Assistant</div>
+
+        <div class="intro-text">
+            Ask me where to find templates, governance, tools, training, or documents on the IPA Hub.  
+            I can help you navigate the site faster and locate the correct resources instantly.
+        </div>
+
+        <div class="help-line">
+            <strong>For technical issues – contact:</strong><br>
+            junaid.sheikh@se.com or reach out to Junaid Sheikh on Teams.
+        </div>
+    </div>
 
     <!-- CHAT WINDOW -->
-    <main class="chat-container" id="chat-container" role="main" aria-live="polite" aria-atomic="false">
-      <div class="bot-message" aria-label="Assistant message">
-        👋 Hello! I'm your IPA Hub Navigation Assistant.
-        What would you like help finding today?
-      </div>
-    </main>
+    <div class="chat-container" id="chat-container">
+        <div class="bot-message">
+            👋 Hello! I'm your IPA Hub Navigation Assistant.  
+            What would you like help finding today?
+        </div>
+    </div>
 
     <!-- INPUT AREA -->
-    <form class="input-area" id="chat-form" aria-label="Send a message" autocomplete="off">
-      <label for="user-input" class="sr-only" aria-hidden="true">Your message</label>
-      <input
-        type="text"
-        id="user-input"
-        name="message"
-        placeholder="Type your message here..."
-        aria-label="Type your message"
-        required
-      >
-      <button type="submit" id="send-btn">Send</button>
-    </form>
-  </div>
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
-  <script>
-    // ===== Elements =====
-    const chatContainer = document.getElementById("chat-container");
-    const chatForm = document.getElementById("chat-form");
-    const userInput = document.getElementById("user-input");
-    const sendBtn = document.getElementById("send-btn");
+    <script>
+        const chatContainer = document.getElementById("chat-container");
 
-    // Focus input on load
-    window.addEventListener("load", () => userInput.focus());
+        function addMessage(msg, type) {
+            const bubble = document.createElement("div");
+            bubble.className = type === "user" ? "user-message" : "bot-message";
+            bubble.textContent = msg;
+            chatContainer.appendChild(bubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-    // ===== Helpers =====
-    function addMessage(msg, type) {
-      const bubble = document.createElement("div");
-      bubble.className = type === "user" ? "user-message" : "bot-message";
-      bubble.textContent = msg;
-      bubble.setAttribute("aria-label", type === "user" ? "Your message" : "Assistant message");
-      chatContainer.appendChild(bubble);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+        function showTypingIndicator() {
+            const typing = document.createElement("div");
+            typing.className = "bot-message typing";
+            typing.id = "typing";
+            typing.textContent = "Assistant is typing...";
+            chatContainer.appendChild(typing);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-    function showTypingIndicator() {
-      const typing = document.createElement("div");
-      typing.className = "bot-message typing";
-      typing.id = "typing";
-      typing.textContent = "Assistant is typing...";
-      typing.setAttribute("aria-label", "Assistant is typing");
-      chatContainer.appendChild(typing);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+        function removeTypingIndicator() {
+            const typing = document.getElementById("typing");
+            if (typing) typing.remove();
+        }
 
-    function removeTypingIndicator() {
-      const typing = document.getElementById("typing");
-      if (typing) typing.remove();
-    }
+        async function sendMessage() {
+            const input = document.getElementById("user-input");
+            const text = input.value.trim();
+            if (text === "") return;
 
-    function setSendingState(sending) {
-      sendBtn.disabled = sending;
-      userInput.disabled = sending;
-      if (sending) {
-        sendBtn.textContent = "Sending…";
-      } else {
-        sendBtn.textContent = "Send";
-        userInput.focus();
-      }
-    }
+            addMessage(text, "user");
+            input.value = "";
 
-    // ===== Networking =====
-    async function sendMessageToServer(text) {
-      const response = await fetch("/get", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text })
-      });
-      if (!response.ok) {
-        throw new Error(`Server responded with ${response.status}`);
-      }
-      return response.json();
-    }
+            showTypingIndicator();
 
-    // ===== Form Submit / Keyboard =====
-    chatForm.addEventListener("submit", async (evt) => {
-      evt.preventDefault();
-      const text = (userInput.value || "").trim();
-      if (!text) return;
+            const response = await fetch("/get", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ message: text })
+            });
 
-      addMessage(text, "user");
-      userInput.value = "";
+            const data = await response.json();
+            removeTypingIndicator();
+            addMessage(data.reply, "bot");
+        }
+    </script>
 
-      setSendingState(true);
-      showTypingIndicator();
-
-      try {
-        const data = await sendMessageToServer(text);
-        removeTypingIndicator();
-        addMessage(data.reply ?? "No reply received.", "bot");
-      } catch (err) {
-        removeTypingIndicator();
-        addMessage(
-          "❗ Sorry, I couldn't process that right now. Please try again.\n" +
-          "If the problem persists, check VPN or contact IT.",
-          "bot"
-        );
-        console.error(err);
-      } finally {
-        setSendingState(false);
-      }
-    });
-
-    // Optional: submit on Enter even if button loses focus (handled by form)
-    // Optional: prevent multiple submits via disabled state above
-  </script>
 </body>
 </html>
-
 

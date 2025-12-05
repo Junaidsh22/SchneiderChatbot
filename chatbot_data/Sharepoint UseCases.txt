@@ -1,0 +1,103 @@
+Document Access:
+1. Access HR policies and forms
+2. Download IT troubleshooting guides
+3. Retrieve compliance and audit documents
+4. View sustainability and strategy reports
+5. Access onboarding checklists
+6. Find project templates and governance packs
+7. Open training materials and e-learning modules
+8. Access video repository for tutorials and recorded sessions
+9. Download finance and budgeting templates
+10. Access engineering standards and design specifications
+11. Retrieve marketing and brand assets
+12. Access legal and contract documents
+13. Download procurement and vendor management forms
+14. Access quality assurance and non-conformance reports
+15. Retrieve meeting minutes and calendars
+16. Access product documentation and release notes
+
+Navigation:
+17. Navigate to UK & Ireland main SharePoint page
+18. Locate Export Control COE Group page
+19. Find Data Security guidelines
+20. Navigate to Global Spice+ portal
+21. Access NextGen Development Framework
+22. Find Designer resources
+23. Navigate to Learning Site on Spice+
+24. Access Endpoint (Enterprise Mobility) page
+25. Locate Industry End User & SI Campus
+26. Navigate to UK&I Onboarding Hub Group
+27. Access UK & I Sales Excellence Group
+28. Locate SE UK&I Graduate Community Group
+29. Navigate to IC Classic Video Repository
+
+Collaboration:
+30. Share documents internally with team members
+31. Bookmark frequently used SharePoint pages
+32. Subscribe to page updates for real-time notifications
+33. Sync SharePoint files with OneDrive for offline access
+34. Co-author documents in real-time using Office 365 integration
+35. Comment and provide feedback on shared documents
+36. Create shared folders for project collaboration
+37. Enable document approval workflows
+
+Compliance & Governance:
+38. Review export compliance workflows and approval processes
+39. Check data protection and GDPR compliance policies
+40. Access ISO and regulatory standards documentation
+41. Validate audit trails and version history
+42. Ensure correct document classification for compliance
+43. Access risk management and safety guidelines
+44. Retrieve HSE (Health, Safety, Environment) documentation
+
+Troubleshooting:
+45. Resolve access denied errors on restricted pages
+46. Report broken SharePoint links to IT support
+47. Restore deleted documents from recycle bin
+48. Reset SharePoint password via corporate portal
+49. Report security issues or suspicious activity
+50. Fix VPN connectivity issues for remote access
+51. Troubleshoot slow loading pages or timeouts
+52. Resolve document sync issues with OneDrive
+53. Fix permission errors when sharing documents
+
+Advanced Features:
+54. Customize SharePoint homepage for personalized navigation
+55. Create new folders for organizing project documents
+56. Enable alerts for document changes and updates
+57. Check version history of documents for audit purposes
+58. Manage document permissions for secure sharing
+59. Schedule page update notifications for critical content
+60. Integrate SharePoint with Teams for collaboration
+61. Use metadata tagging for better search results
+62. Enable multilingual support for global teams
+63. Configure automated workflows for document approvals
+
+Training & Learning:
+64. Access graduate program resources and development plans
+65. Find onboarding videos and interactive guides
+66. Download certification materials and exam guides
+67. Access leadership training resources
+68. Explore career development frameworks
+69. Retrieve technical training for IT systems
+70. Access compliance training modules
+71. Find soft skills and professional development courses
+
+Communication & Updates:
+72. View company-wide announcements on All Company Group
+73. Access newsletters and leadership messages
+74. Subscribe to HR updates and policy changes
+75. Receive notifications for IT system maintenance
+76. Track project milestones and roadmap updates
+77. Access event calendars and schedules
+78. View onboarding event details
+79. Receive alerts for critical compliance updates
+
+Integration:
+80. Integrate SharePoint with Microsoft Teams for chat and file sharing
+81. Connect SharePoint with Power BI for dashboards
+82. Enable SharePoint integration with ServiceNow for IT requests
+83. Link SharePoint with HR portals for employee self-service
+84. Integrate SharePoint with project management tools like MS Project
+85. Enable API access for custom applications
+86. Connect SharePoint with external vendor portals securely

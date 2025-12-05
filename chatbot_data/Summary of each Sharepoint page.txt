@@ -1,0 +1,78 @@
+Here are all the overall pages currently published to the IPA Sharepoint as of the last chatbot update (Dec, 2025):
+
+
+UK and Ireland - Main Page:
+The central landing page for UK & Ireland operations.
+Includes regional updates, policies, templates, and key announcements.
+
+Export Control COE Group:
+Hub for export compliance and regulations.
+Contains export control policies, approval workflows, and related forms.
+
+Data Security:
+Guidelines and best practices for protecting company data.
+Includes security policies, encryption standards, and access control procedures.
+
+Global Spice+:
+Main portal for the Spice+ collaboration platform.
+Provides governance documents, user guides, and feature updates.
+
+ITDocs Group:
+Repository for IT-related documentation.
+Includes troubleshooting guides, system setup instructions, and IT policies.
+
+NextGen Development Framework:
+Resources for development standards and frameworks.
+Contains coding guidelines, architecture principles, and best practices.
+
+Designer:
+Design team resources and tools.
+Includes templates, branding guidelines, and design assets.
+
+Learning Site on Spice+:
+Training and learning hub hosted on Spice+.
+Offers e-learning modules, certification paths, and skill development guides.
+
+Endpoint (Enterprise Mobility):
+Documentation for managing mobile devices and endpoints.
+Includes setup instructions, security policies, and compliance requirements.
+
+Industry End User & SI Campus:
+Knowledge hub for industry-specific solutions and system integrators.
+Contains case studies, technical documentation, and onboarding materials.
+
+Global HR:
+Central HR resource center.
+Includes policies, forms, benefits information, and onboarding guides.
+
+SE UK&I Graduate Community Group:
+Community hub for graduates in UK & Ireland.
+Includes event details, development programs, and networking resources.
+
+IC Classic Video Repository:
+Library of instructional and corporate videos.
+Includes training sessions, product demos, and recorded webinars.
+
+Pages:
+General content pages for various internal topics.
+Acts as a container for miscellaneous documentation.
+
+UK & I Sales Excellence Group:
+Sales enablement resources for UK & Ireland teams.
+Includes playbooks, KPIs, and performance dashboards.
+
+UK&I Onboarding Hub Group:
+Centralized onboarding resources for new hires.
+Includes welcome guides, mandatory training, and process checklists.
+
+Grads Planner Group:
+Planning and scheduling resources for graduate programs.
+Includes calendars, event timelines, and task trackers.
+
+Spice + Stratergy & Sustainability:
+Documentation on corporate strategy and sustainability initiatives.
+Includes reports, goals, and progress dashboards.
+
+All Company Group:
+Global communication hub for company-wide announcements.
+Includes newsletters, leadership messages, and major updates.

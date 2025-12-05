@@ -1,0 +1,22 @@
+Why do we use a sharepoint?
+
+Below are a detailed range of reasons for why we use a sharepoint?
+
+- Centralied Repository
+SharePoint acts as a single source of truth for all company documents—policies, templates, reports, technical guides—reducing duplication and confusion.
+
+- Easy Access & Search
+Built-in search functionality lets users quickly find documents by keywords, tags, or metadata.
+Supports filters and refiners (e.g., by department, document type, last updated), making navigation intuitive.
+
+- Collaboration & Version Control
+Multiple users can co-author documents in real time.
+Automatic version history ensures older versions are archived and changes are tracked—critical for compliance and audits.
+
+
+
+- Remote Accessibility 
+Cloud-based access means employees can retrieve documents securely from anywhere—ideal for hybrid or global teams.
+
+
+

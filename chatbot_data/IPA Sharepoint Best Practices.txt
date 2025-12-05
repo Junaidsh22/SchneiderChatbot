@@ -1,0 +1,22 @@
+IPA Sharepoint Best Practices 
+
+1. Use the search bar to quickly locate documents, pages, or templates.
+2. Bookmark frequently accessed pages for faster navigation.
+3. Enable alerts on critical pages to receive update notifications.
+4. Organize documents into folders for better structure and easy retrieval.
+5. Use metadata tags and keywords to improve search accuracy.
+6. Regularly review and update outdated documents to maintain accuracy.
+7. Follow permission guidelines to ensure secure document sharing.
+8. Use version history to track changes and restore previous versions if needed.
+9. Sync SharePoint files with OneDrive for offline access and backup.
+10. Utilize the 'Follow' feature to keep track of important pages.
+11. Use advanced search filters to narrow down results effectively.
+12. Avoid duplicate uploads by checking existing files before adding new ones.
+13. Leverage SharePoint integration with Teams for seamless collaboration.
+14. Use document approval workflows for compliance and governance.
+15. Maintain consistent naming conventions for files and folders.
+16. Regularly clear browser cache to prevent loading issues.
+17. Report broken links or incorrect information promptly to IT support.
+18. Use SharePoint mobile app for quick access on the go.
+19. Ensure VPN connectivity when accessing SharePoint remotely.
+20. Familiarize yourself with SharePoint help guides for advanced features.

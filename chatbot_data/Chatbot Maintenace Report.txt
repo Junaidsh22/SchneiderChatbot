@@ -1,0 +1,12 @@
+Chatbot Maintenace Report
+
+
+The main goal of this chatbot is to be used alongside the IPA Sharepoint as accesss and direction tool - below is the scheduled maintenance and update report:
+
+Chatbot will be updated once a month (Aim to have updates published by last day of the month)
+
+Any new versions will be published with bug/error fix documentation, to give users a better understanding of the improvements made to the chabot feature.
+
+Finally, after any new updates or releases are made there will be a post/announcment to reflect the new version and summarise the main updates.
+
+

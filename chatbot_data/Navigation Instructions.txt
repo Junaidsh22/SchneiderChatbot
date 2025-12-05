@@ -1,0 +1,94 @@
+Navigate to UK & Ireland Main Page: Go to SharePoint homepage > Click 'Sites' > Select 'UK & Ireland'.
+
+Access Export Control COE Group: From main page > Use search bar > Type 'Export Control COE' > Click result.
+
+Find Data Security Page: Navigate to 'Resources' > Click 'Data Security'.
+
+Open Global Spice+: From homepage > Click 'Applications' > Select 'Spice+'.
+
+Access ITDocs Group: Use top navigation > Click 'ITDocs'.
+
+Locate NextGen Development Framework: Search 'NextGen Framework' in SharePoint search bar.
+
+Find Designer Resources: Navigate to 'Design Hub' under 'Resources'
+
+Access Learning Site on Spice+: From Spice+ dashboard > Click 'Learning'.
+
+Open Endpoint (Enterprise Mobility): Go to 'IT Resources' > Click 'Endpoint Management'.
+
+Navigate to Industry End User & SI Campus: Use search > Enter 'SI Campus'.
+
+Access Global HR: From homepage > Click 'HR Portal'.
+
+Find SE UK&I Graduate Community Group: Search 'Graduate Community' in SharePoint.
+
+Open IC Classic Video Repository: Navigate to 'Media Library' > Click 'IC Classic Videos'.
+
+Access UK & I Sales Excellence Group: From main menu > Click 'Sales Excellence'.
+
+Navigate to UK&I Onboarding Hub Group: From HR portal > Click 'Onboarding Hub'.
+
+Find Grads Planner Group: Search 'Grads Planner' in SharePoint.
+
+Access Spice+ Strategy & Sustainability: From Spice+ > Click 'Strategy & Sustainability'.
+
+Navigate to All Company Group: From homepage > Click 'All Company Announcements'.
+
+Search for Templates: Use search bar > Type 'Templates' > Filter by 'Document Type'.
+
+Locate Compliance Documents: Navigate to 'Compliance & Audit' section.
+
+Access Meeting Minutes: Go to 'Collaboration' > Click 'Meeting Minutes'.
+
+Find Release Notes: Navigate to 'Product Documentation' > Click 'Release Notes'.
+
+Access Procurement Forms: From 'Procurement Hub' > Click 'Forms'.
+
+Locate Marketing Assets: Navigate to 'Brand Resources' > Click 'Marketing Assets'.
+
+Access Legal Contracts: From 'Legal Hub' > Click 'Contracts'.
+
+Find Quality Assurance Reports: Navigate to 'QA Hub' > Click 'Reports'.
+
+Access Finance Templates: From 'Finance Portal' > Click 'Templates'.
+
+Navigate to Engineering Standards: Search 'Engineering Standards' in SharePoint.
+
+Access Training Modules: From 'Learning Hub' > Click 'Modules'.
+
+Find Sustainability Reports: Navigate to 'Corporate Strategy' > Click 'Sustainability Reports'.
+Access HR Benefits Info: From 'HR Portal' > Click 'Benefits'.
+
+Locate IT Troubleshooting Guides: Navigate to 'ITDocs' > Click 'Troubleshooting'.
+
+Access Endpoint Setup Instructions: From 'IT Resources' > Click 'Endpoint Setup'.
+
+Find Graduate Program Details: Navigate to 'Graduate Community' > Click 'Program Details'.
+
+Access Video Tutorials: From 'Media Library' > Click 'Tutorials'.
+
+Locate Project Governance Packs: Navigate to 'Project Hub' > Click 'Governance Packs'.
+
+Access RAID Logs: From 'Project Templates' > Click 'RAID Log'.
+
+Find Stage Gate Packs: Navigate to 'Project Templates' > Click 'Stage Gate Pack'.
+
+Access Branding Guidelines: From 'Design Hub' > Click 'Brand Guidelines'.
+
+Locate IT Security Policies: Navigate to 'Data Security' > Click 'Policies'.
+
+Access Export Approval Workflow: From 'Export Control COE' > Click 'Approval Workflow'.
+
+Find Compliance Audit Checklist: Navigate to 'Compliance Hub' > Click 'Audit Checklist'.
+
+Access Risk Management Guidelines: From 'Safety Hub' > Click 'Risk Management'.
+
+Locate HSE Documentation: Navigate to 'Safety Hub' > Click 'HSE Docs'.
+
+Access Procurement Vendor List: From 'Procurement Hub' > Click 'Vendor List'.
+
+Find Marketing Campaign Assets: Navigate to 'Marketing Hub' > Click 'Campaign Assets'.
+
+Access Legal NDA Templates: From 'Legal Hub' > Click 'NDA Templates'.
+
+Locate Quality Non-Conformance Reports: Navigate to 'QA Hub' > Click 'Non-Conformance Reports'.

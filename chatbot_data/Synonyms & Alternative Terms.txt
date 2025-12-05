@@ -1,0 +1,208 @@
+SYNONYMS & ALTERNATE TERMS (Expanded):
+
+HR policy → leave rules, vacation policy, employee guidelines, personnel policy, HR guideline
+
+Annual leave → holiday, PTO, paid time off, vacation days
+
+Sick leave → illness absence, medical leave, sick days
+
+IT support → tech help, service desk, IS support, helpdesk
+
+Troubleshooting → problem solving, fix guide, issue resolution, diagnostics
+
+Onboarding → induction, new hire process, joiner workflow, welcome program
+
+Offboarding → leaver process, exit procedure, separation workflow
+
+Compliance → regulatory adherence, audit, governance, policy conformance
+
+Audit → review, inspection, compliance check, assessment
+
+Template → form, sample, example document, blueprint
+
+Document library → folder, repository, file store, archive
+
+Meeting minutes → MoM, meeting notes, discussion record, action log
+
+Training → learning, e-learning, education, skill development, course
+
+Project roadmap → timeline, schedule, milestone plan, delivery plan
+
+Data security → information protection, cybersecurity, privacy, infosec
+
+Encryption → data locking, cryptography, secure encoding
+
+Export control → trade compliance, shipment rules, export regulations
+
+Graduate program → early careers, trainee scheme, grads track
+
+Video repository → media library, training videos, content archive
+
+Sales excellence → sales enablement, performance hub, go-to-market resources
+
+Strategy → corporate plan, business goals, roadmap, direction
+
+Sustainability → ESG, green initiatives, environmental goals, net zero
+
+Finance templates → budgeting sheets, expense forms, cost tracker
+
+Legal contracts → agreements, NDAs, terms, legal docs
+
+Quality assurance → QA, inspection, quality control, compliance check
+
+Endpoint management → device control, mobility setup, MDM, Intune
+
+Designer resources → branding kit, creative assets, style guide, brand book
+
+Global HR → HR portal, employee services, people systems
+
+Industry campus → SI hub, partner resources, integrator portal
+
+Spice+ → collaboration hub, global portal, enterprise workspace
+
+ITDocs → IT documentation, tech guides, knowledge base
+
+NextGen framework → development standards, coding rules, engineering guidelines
+
+Procurement → vendor management, purchasing, sourcing, supply
+
+Risk management → safety guidelines, hazard control, risk register
+
+Audit checklist → compliance checklist, review sheet, audit list
+
+Governance pack → control documents, policy bundle, governance kit
+
+Stage gate pack → project approval kit, milestone pack, gate review
+
+RAID log → risk log, issue tracker, assumptions register, dependencies list
+
+Brand guidelines → design standards, visual identity, brand manual
+
+Marketing assets → campaign materials, promo files, collateral
+
+Release notes → update log, version history, changelog
+
+Graduate planner → grad schedule, trainee calendar, development plan
+
+Onboarding hub → welcome center, induction portal, new joiner site
+
+All Company group → announcements, global updates, company news
+
+Templates hub → forms library, document samples, template repository
+
+Compliance hub → audit center, governance portal, regulatory site
+
+Learning site → training portal, education hub, LMS
+
+Password reset → credential recovery, login help, reset password
+
+Permissions → access rights, authorization, entitlements
+
+Alerts → notifications, update reminders, page alerts
+
+Recycle bin → deleted items, restore folder, recovery bin
+
+Metadata → tags, classification, properties
+
+Workflow → process automation, approval flow, Power Automate
+
+Version history → document history, change log, revisions
+
+OneDrive sync → offline access, file sync, local sync
+
+Follow page → bookmark, subscribe, favorite
+
+Search bar → site search, keyword search, query box
+
+Navigation menu → site menu, quick links, header nav
+
+UK & Ireland site → UK&I, UKI, UKEI regional portal
+
+Azure AD → AAD, Entra ID, single sign-on, SSO
+
+Multi-factor authentication → MFA, 2FA, two-step verification
+
+Virtual private network → VPN, remote access, secure tunnel
+
+Service desk → helpdesk, ticket portal, IT support center
+
+Information architecture → IA, site structure, taxonomy
+
+Retention policy → records management, data retention, disposal rules
+
+Content type → document type, file category, schema
+
+Site collection → site group, parent site, hub
+
+Hub site → parent hub, central hub, umbrella site
+
+Subsite → child site, nested site
+
+Permissions group → security group, role group, access group
+
+Owner → page owner, content owner, steward
+
+Page → site page, content page, landing page
+
+Library → document library, files list, repo
+
+List → tracker, register, structured table
+
+Power BI dashboard → analytics board, KPI dashboard, reporting view
+
+ServiceNow → ITSM portal, ticketing system, support platform
+
+Intune → endpoint manager, device management, MDM
+
+CAB → change advisory board, change committee, release board
+
+RFC → request for change, change request
+
+CAPA → corrective and preventive action, quality action
+
+HSE → health, safety, environment, safety management
+
+PPE → personal protective equipment, safety gear
+
+NDA → non-disclosure agreement, confidentiality agreement
+
+PO → purchase order, buying order
+
+RFQ → request for quotation, quote request
+
+SOP → standard operating procedure, procedure guide
+
+Work instruction → WI, task instruction, procedure step
+
+Datasheet → specification sheet, product sheet
+
+Manual → user manual, guidebook, handbook
+
+Datasets → data files, CSVs, tables
+
+Meeting agenda → agenda, plan, schedule
+
+KPI → key performance indicator, metric
+
+Dashboard → reporting view, analytics screen
+
+Changelog → release notes, update log
+
+Acronyms → abbreviations, short forms
+
+Help → assistance, support, guidance
+
+Escalation → raise issue, escalate ticket, call out
+
+Owner contact → point of contact, POC, responsible person
+
+Region → geography, locale, area
+
+Policy highlights → key points, summary bullets, headline rules
+
+Checklist → to-do list, task list, action list
+
+Guide → how-to, walkthrough, tutorial
+
+
+

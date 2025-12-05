@@ -1,0 +1,58 @@
+Purpose of Each SharePoint Page
+
+UK and Ireland – Main Page:
+Acts as the central hub for UK & Ireland operations, providing quick access to regional updates, policies, and essential resources.
+
+Export Control COE Group:
+Ensures compliance with export regulations by hosting guidelines, approval workflows, and mandatory documentation.
+
+Data Security:
+Promotes secure handling of company data through policies, best practices, and compliance standards.
+
+Global Spice+:
+Serves as the main portal for the Spice+ collaboration platform, offering governance documents, user guides, and updates.
+
+ITDocs Group:
+Provides IT-related documentation, troubleshooting guides, and system setup instructions for employees.
+
+NextGen Development Framework:
+Defines development standards and frameworks, including coding guidelines and architecture principles.
+
+Designer:
+Supplies design teams with templates, branding guidelines, and creative assets for consistent visual identity.
+
+Learning Site on Spice+:
+Centralizes training resources and e-learning modules to support employee development and certifications.
+
+Endpoint (Enterprise Mobility):
+Guides employees on managing mobile devices and endpoints securely, including setup and compliance instructions.
+
+Industry End User & SI Campus:
+Offers industry-specific knowledge and onboarding materials for system integrators and end users.
+
+Global HR:
+Provides HR policies, forms, and resources for employee benefits, onboarding, and compliance.
+
+SE UK&I Graduate Community Group:
+Connects graduates in UK & Ireland, sharing development programs, events, and networking opportunities.
+
+IC Classic Video Repository:
+Hosts a library of instructional and corporate videos for training and knowledge sharing.
+
+Pages:
+Acts as a container for general internal content and miscellaneous documentation.
+
+UK & I Sales Excellence Group:
+Supports sales teams with enablement resources, playbooks, KPIs, and performance dashboards.
+
+UK&I Onboarding Hub Group:
+Streamlines onboarding for new hires with welcome guides, mandatory training, and process checklists.
+
+Grads Planner Group:
+Helps graduates plan and track events, schedules, and tasks for development programs.
+
+Spice+ Strategy & Sustainability:
+Communicates corporate strategy and sustainability initiatives through reports and progress dashboards.
+
+All Company Group:
+Serves as the global communication hub for company-wide announcements and leadership messages.

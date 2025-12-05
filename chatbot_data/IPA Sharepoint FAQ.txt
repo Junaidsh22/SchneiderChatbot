@@ -1,0 +1,209 @@
+Q: What is the Schneider Electric UK & Ireland SharePoint site used for?
+A: It is used as a central hub for documents, policies, templates, and resources for UK & Ireland operations.
+
+Q: How do I access the UK & Ireland SharePoint site?
+A: You can access it via the link: https://schneiderelectric.sharepoint.com/sites/ukandireland using your company credentials.
+
+Q: Do I need VPN to access SharePoint?
+A: Yes, VPN may be required if you are off the corporate network.
+
+Q: What kind of documents can I find on SharePoint?
+A: Policies, templates, reports, training materials, and governance documents.
+
+Q: Where can I find HR policies on SharePoint?
+A: HR policies are available under the Global HR page.
+
+Q: Where are IT troubleshooting guides located?
+A: IT troubleshooting guides are located in the ITDocs Group page.
+
+Q: How do I search for a document on SharePoint?
+A: Use the search bar at the top of the SharePoint site and enter keywords.
+
+Q: Can I access SharePoint from my mobile device?
+A: Yes, SharePoint is accessible via mobile browsers and the SharePoint app.
+
+Q: What is the Export Control COE Group page for?
+A: It hosts export compliance guidelines and approval workflows.
+
+Q: What is the Data Security page for?
+A: It provides data protection policies and security best practices.
+
+Q: What is Global Spice+ used for?
+A: Global Spice+ is used for collaboration and project management resources.
+
+Q: Where can I find templates for projects?
+A: Templates are available under the Templates & Tools section or relevant project pages.
+
+Q: What is the NextGen Development Framework page for?
+A: It defines coding standards and development frameworks for projects.
+
+Q: Where do I find design resources?
+A: Design resources are available on the Designer page.
+
+Q: What is the Learning Site on Spice+?
+A: It is a hub for e-learning modules and training resources.
+
+Q: What is the Endpoint (Enterprise Mobility) page for?
+A: It provides guidance for managing mobile devices and endpoints securely.
+
+Q: Where can I find onboarding resources?
+A: Onboarding resources are available in the UK&I Onboarding Hub Group.
+
+Q: What is the UK & I Sales Excellence Group page for?
+A: It supports sales teams with playbooks and performance dashboards.
+
+Q: What is the UK&I Onboarding Hub Group page for?
+A: It centralizes onboarding materials for new hires.
+
+Q: What is the Grads Planner Group page for?
+A: It helps graduates plan events and track schedules.
+
+Q: What is the SE UK&I Graduate Community Group page for?
+A: It connects graduates and shares development programs and events.
+
+Q: What is the IC Classic Video Repository?
+A: It hosts instructional and corporate videos for training.
+
+Q: What is the Spice+ Strategy & Sustainability page for?
+A: It communicates corporate strategy and sustainability initiatives.
+
+Q: What is the All Company Group page for?
+A: It shares company-wide announcements and leadership messages.
+
+Q: How often is SharePoint content updated?
+A: Content is updated regularly, typically monthly or as needed.
+
+Q: Who manages the SharePoint site?
+A: The SharePoint site is managed by the internal IT and content governance teams.
+
+Q: Can I upload documents to SharePoint?
+A: Upload permissions depend on your role; contact your administrator for access.
+
+Q: How do I request access to a restricted page?
+A: Request access via the SharePoint permissions request feature or contact IT.
+
+Q: What should I do if a SharePoint link is broken?
+A: Report broken links to IT support or the page owner.
+
+Q: How do I reset my password for SharePoint?
+A: Reset your password via the corporate password reset portal.
+
+Q: Can I share SharePoint documents externally?
+A: External sharing is restricted; follow company policy for secure sharing.
+
+Q: What is the purpose of SharePoint in Schneider Electric?
+A: Its purpose is to centralize resources and improve collaboration.
+
+Q: Why does Schneider Electric use SharePoint?
+A: Schneider Electric uses SharePoint for secure document management and easy access.
+
+Q: What can I access on SharePoint?
+A: You can access policies, templates, reports, training materials, and more.
+
+Q: How do I find training materials on SharePoint?
+A: Training materials are available on the Learning Site on Spice+.
+
+Q: Where can I find compliance and audit documents?
+A: Compliance and audit documents are under the Compliance & Audit section.
+
+Q: What is the Industry End User & SI Campus page for?
+A: It provides resources for industry-specific solutions and system integrators.
+
+Q: How do I find sustainability reports?
+A: Sustainability reports are available on the Spice+ Strategy & Sustainability page.
+
+Q: Where can I find onboarding checklists?
+A: Onboarding checklists are in the UK&I Onboarding Hub Group.
+
+Q: How do I download templates from SharePoint?
+A: Click the document and use the download option in the toolbar.
+
+Q: Can I edit documents directly on SharePoint?
+A: Yes, documents can be edited online using Office 365 integration.
+
+Q: How do I check version history of a document?
+A: Click on the document, then select Version History from the menu.
+
+Q: What file formats are supported on SharePoint?
+A: SharePoint supports PDF, Word, Excel, PowerPoint, and image files.
+
+Q: How do I subscribe to updates on SharePoint pages?
+A: Use the alert feature on the page to subscribe to updates.
+
+Q: What should I do if SharePoint is not loading?
+A: Check VPN connectivity and browser settings; contact IT if issues persist.
+
+Q: How do I report a security issue on SharePoint?
+A: Report security issues to the Data Security team or IT support.
+
+Q: Where can I find graduate program resources?
+A: Graduate program resources are in the SE UK&I Graduate Community Group.
+
+Q: How do I access the video repository?
+A: Access the video repository via the IC Classic Video Repository page.
+
+Q: What is the best way to navigate SharePoint?
+A: Use the navigation menu or search bar for quick access.
+
+Q: How do I contact support for SharePoint issues?
+A: Contact IT support or use the Help link on SharePoint for assistance.
+
+Q: How do I bookmark a SharePoint page for quick access?
+A: Click the star icon or use the 'Follow' feature to bookmark a page.
+
+Q: Can I customize my SharePoint homepage?
+A: Yes, you can customize your homepage using the settings menu.
+
+Q: How do I upload large files to SharePoint?
+A: Use the upload option and ensure your file meets size limits.
+
+Q: What is the maximum file size allowed on SharePoint?
+A: The maximum file size is typically 250 MB, but check company policy.
+
+Q: How do I enable alerts for document changes?
+A: Enable alerts by selecting 'Alert Me' from the page options.
+
+Q: Can I restore a deleted document on SharePoint?
+A: Yes, use the recycle bin feature to restore deleted documents.
+
+Q: How do I check who last edited a document?
+A: Open the document details pane to see the last editor.
+
+Q: Can I create a new folder on SharePoint?
+A: Yes, click 'New' and select 'Folder' to create a new folder.
+
+Q: How do I share a document internally?
+A: Use the 'Share' button and select internal recipients.
+
+Q: What should I do if I see an access denied error?
+A: Contact IT or request access through the permissions feature.
+
+Q: How do I update my profile information on SharePoint?
+A: Update your profile via the 'My Account' settings on SharePoint.
+
+Q: Can I sync SharePoint files with OneDrive?
+A: Yes, SharePoint files can be synced with OneDrive for offline access.
+
+Q: How do I print a document from SharePoint?
+A: Open the document and use the print option in your browser or app.
+
+Q: What browsers are supported for SharePoint?
+A: SharePoint supports modern browsers like Edge, Chrome, and Firefox.
+
+Q: How do I change document permissions?
+A: Select the document, click 'Manage Access,' and adjust permissions.
+
+Q: Can I schedule a page update notification?
+A: Use the alert feature and set a schedule for notifications.
+
+Q: How do I find archived documents?
+A: Archived documents are in the 'Archive' or 'Records' section.
+
+Q: Can I use SharePoint offline?
+A: Yes, with OneDrive sync you can work offline and sync later.
+
+Q: How do I report incorrect information on a page?
+A: Report incorrect info using the feedback option or contact the page owner.
+
+Q: Where can I find help guides for SharePoint features?
+A: Help guides are available under the 'Help' section or ITDocs Group page.

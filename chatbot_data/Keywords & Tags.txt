@@ -1,0 +1,154 @@
+HR & Policies:
+1. working hours, work schedule, office hours, shift timings, core hours
+2. flexitime, flexible working, hybrid schedule, flex hours
+3. annual leave, holiday policy, vacation days, PTO
+4. sick leave, medical leave, illness absence
+5. overtime policy, extra hours, OT rules, time-and-a-half
+6. remote work, work from home, telecommuting, WFH
+7. parental leave, maternity leave, paternity leave
+8. public holidays, bank holidays, company holidays
+9. dress code, attire policy, clothing guidelines
+10. employee benefits, perks, allowances
+11. travel policy, business travel rules, expense claims, T&E
+12. performance review, appraisal, evaluation, PDP
+13. code of conduct, ethics policy, behavior rules
+14. grievance procedure, complaints process, HR escalation
+15. disciplinary policy, misconduct, corrective action
+16. wellbeing resources, EAP, wellness program
+17. payroll, payslip, salary, compensation
+18. timesheet, time entry, clock in, time reporting
+19. job grading, bands, levels, compensation bands
+20. probation policy, trial period, probation review
+
+IT & Technical:
+21. password reset, credential recovery, login help
+22. VPN access, remote connection, secure tunnel
+23. endpoint setup, device management, Intune, MDM
+24. email configuration, Outlook setup, mailbox
+25. Teams integration, chat tool, collaboration app
+26. SharePoint navigation, site access, portal login
+27. browser compatibility, supported browsers, Edge Chrome Firefox
+28. software installation, app setup, program install
+29. OneDrive sync, offline access, file sync
+30. Wi-Fi access, wireless network, SSID, network login
+31. multi-factor authentication, MFA, 2FA, authenticator
+32. Azure AD, Entra ID, SSO, single sign-on
+33. service desk, helpdesk, ticket portal, IT support
+34. printing setup, printer driver, print queue
+35. mobile email, iOS Outlook, Android Outlook
+36. data backup, restore, retention, recovery
+
+Compliance & Governance:
+37. audit checklist, compliance review, regulatory check
+38. ISO 9001, ISO 27001, certification, quality compliance
+39. GDPR, data privacy, information security
+40. export control, trade compliance, shipment rules
+41. risk management, hazard control, safety policy
+42. governance pack, control documents, approval kit
+43. stage gate process, milestone approval, project governance
+44. policy highlights, summary rules, key points
+45. document retention, archiving, disposal policy
+46. legal contracts, NDA, agreements, terms
+47. HSE, health safety environment, incident reporting
+48. CAPA, corrective and preventive action, quality action
+49. SOX compliance, internal controls, audit trail
+50. data classification, sensitivity labels, public internal confidential
+
+Training & Learning:
+51. onboarding checklist, induction guide, new hire steps
+52. graduate program, early careers, trainee scheme
+53. learning site, training portal, LMS
+54. certification courses, skill development, e-learning
+55. leadership training, management development
+56. technical training, IT courses, system tutorials
+57. compliance training, mandatory courses, audit learning
+58. soft skills, communication training, professional development
+59. video tutorials, media library, recorded sessions
+60. training calendar, schedule, learning plan
+61. mentoring, buddy program, career coaching
+
+Navigation & Search:
+62. search bar, keyword search, quick find
+63. navigation menu, site links, quick links
+64. bookmark page, follow site, subscribe
+65. alerts, notifications, update reminders
+66. site homepage, landing page, main portal
+67. hub site, parent site, subsite
+68. document library, file repository, archive
+69. list view, tracker, register
+70. metadata tags, classification, properties
+71. advanced filters, refine search, query options
+72. site map, sitemap, page directory
+73. recent files, frequent sites, suggested content
+
+Troubleshooting & Support:
+74. access denied, permission error, authorization issue
+75. page not loading, timeout, slow performance
+76. broken link, missing page, 404 error
+77. file upload issue, size limit, format error
+78. alerts not working, notifications missing
+79. version history missing, change log absent
+80. workflow failure, process not triggering
+81. OneDrive sync error, offline access issue
+82. browser error, compatibility issue
+83. security warning, suspicious activity
+84. file locked, check out, in use by another user
+85. conflicts, merge changes, coauthoring issues
+86. cache clear, cookies, site data reset
+87. proxy settings, firewall block, network restrictions
+
+Advanced Features:
+88. customize homepage, personalize site, UI settings
+89. create folder, organize files, structure library
+90. enable workflow, automate process, approval flow
+91. manage permissions, access control, sharing settings
+92. check version history, audit trail, revisions
+93. configure alerts, set notifications, subscribe
+94. integrate Teams, connect Power BI, link ServiceNow
+95. multilingual support, language settings, translation
+96. metadata tagging, improve search, classification
+97. schedule updates, page refresh, content review
+98. content types, site columns, library settings
+99. Power Automate, flow, automation
+
+Sustainability & Strategy:
+100. sustainability report, ESG, environmental goals, net zero
+101. strategy roadmap, corporate plan, business goals
+102. KPIs, key performance indicators, metrics
+103. dashboards, analytics, Power BI reports
+104. initiatives, programs, strategic pillars
+
+Procurement & Finance:
+105. purchase order, PO, buying order
+106. request for quotation, RFQ, quote request
+107. vendor management, supplier list, approved vendors
+108. expense claim, reimbursement, travel expense
+109. budget template, cost tracker, forecasting
+110. invoice, billing, accounts payable
+
+Engineering & Product:
+111. engineering standards, design specifications, spec
+112. datasheet, product sheet, technical data
+113. manual, user guide, handbook
+114. release notes, changelog, version history
+115. architecture diagram, system design, blueprint
+116. PLC documentation, controller guide, firmware notes
+
+People & Communities:
+117. All Company announcements, company news, global updates
+118. graduate community, grads hub, early careers
+119. onboarding hub, welcome center, induction portal
+120. sales excellence, enablement hub, performance resources
+121. industry campus, SI campus, partner resources
+
+CANONICAL CONCEPT MAPPINGS:
+- Working Hours → working hours, work schedule, office hours, shift timings, core hours
+- Annual Leave → annual leave, holiday policy, vacation days, PTO
+- Sick Leave → sick leave, medical leave, illness absence
+- Password Reset → password reset, credential recovery, login help
+- VPN Access → VPN access, remote connection, secure tunnel
+- Data Privacy → GDPR, data privacy, information security
+- Export Control → export control, trade compliance, shipment rules
+- Onboarding → onboarding checklist, induction guide, new hire steps
+- HSE Incident → HSE, incident reporting, safety event
+- RAID Log → RAID log, risk log, issue tracker, assumptions, dependencies

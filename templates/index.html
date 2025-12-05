@@ -1,31 +1,217 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Chatbot</title>
+    <meta charset="UTF-8">
+    <title>IPA Hub Navigation Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
-        body { font-family: Arial; margin: 20px; }
-        #chat { margin-top: 20px; }
-        p { margin: 5px 0; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F4F4F4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: #00953B;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header img {
+            height: 60px;     /* Larger logo as requested */
+            width: auto;
+        }
+
+        /* SUBTITLE / DESCRIPTION */
+        .subheader {
+            padding: 15px 20px;
+            background: #E8F5E9;
+            border-left: 5px solid #00953B;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* HELP BOX */
+        .help-box {
+            padding: 10px 20px;
+            background: #ffffff;
+            border-left: 4px solid #00953B;
+            margin: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .help-box strong {
+            font-weight: bold;
+        }
+
+        /* CHAT WINDOW */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* CHAT BUBBLES */
+        .bot-message, .user-message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .bot-message {
+            background: white;
+            align-self: flex-start;
+            border-left: 5px solid #00953B;
+        }
+
+        .user-message {
+            background: #DCF8C6;
+            align-self: flex-end;
+            border-right: 5px solid #00953B;
+        }
+
+        /* INPUT BAR */
+        .input-area {
+            display: flex;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #CCC;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #00953B;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .input-area button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: #00953B;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background: #007e32;
+        }
+
+        .typing {
+            font-style: italic;
+            opacity: 0.75;
+        }
+
+        @media (max-width: 600px) {
+            .bot-message, .user-message { max-width: 90%; }
+        }
     </style>
 </head>
+
 <body>
-    <h1>Chatbot Interface</h1>
-    <input type="text" id="message" placeholder="Type your message">
-    <button onclick="sendMessage()">Send</button>
-    <div id="chat"></div>
+
+    <!-- HEADER -->
+    <div class="header">
+        IPA Hub Navigation Assistant
+        <img src="/static/a.png" alt="Schneider Logo">
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="subheader">
+        Ask me where to find templates, governance, tools, training,
+        best-practice documents, troubleshooting information, or any page on the IPA SharePoint Hub.
+        <br><br>
+        I can also answer FAQs, explain topics, and guide your navigation.
+    </div>
+
+    <!-- HELP CONTACT -->
+    <div class="help-box">
+        <strong>For technical support contact:</strong><br>
+        junaid.sheikh@se.com or reach out to Junaid Sheikh on Teams.
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <div class="chat-container" id="chat-container">
+        <div class="bot-message">
+            👋 Hello! I'm your IPA Hub Navigation Assistant.  
+            How can I help you today?
+        </div>
+    </div>
+
+    <!-- INPUT AREA -->
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="Type your question here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
     <script>
+        const chatContainer = document.getElementById("chat-container");
+
+        function addMessage(msg, type) {
+            const bubble = document.createElement("div");
+            bubble.className = type === "user" ? "user-message" : "bot-message";
+            bubble.textContent = msg;
+            chatContainer.appendChild(bubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const typing = document.createElement("div");
+            typing.className = "bot-message typing";
+            typing.id = "typing";
+            typing.textContent = "Assistant is typing...";
+            chatContainer.appendChild(typing);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const t = document.getElementById("typing");
+            if (t) t.remove();
+        }
+
         async function sendMessage() {
-            const message = document.getElementById('message').value;
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({message})
+            const input = document.getElementById("user-input");
+            const text = input.value.trim();
+            if (text === "") return;
+
+            addMessage(text, "user");
+            input.value = "";
+
+            showTyping();
+
+            const response = await fetch("/get", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ message: text })
             });
+
             const data = await response.json();
-            document.getElementById('chat').innerHTML += `<p>You: ${message}</p><p>Bot: ${data.response}</p>`;
+            hideTyping();
+            addMessage(data.reply, "bot");
         }
     </script>
+
 </body>
 </html>

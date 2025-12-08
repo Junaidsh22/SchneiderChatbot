@@ -3,11 +3,11 @@ gunicorn
 rapidfuzz
 numpy
 
-# CPU-only torch (compatible with Render)
-torch==2.2.2+cpu
-torchvision==0.17.2+cpu
-torchaudio==2.2.2+cpu
+# CPU-only torch (works on Python 3.10)
+torch==2.2.0
+torchvision==0.17.0
+torchaudio==2.2.0
 -f https://download.pytorch.org/whl/cpu
 
-# Semantic search
+# Semantic search model
 sentence-transformers==2.2.2

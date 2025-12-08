@@ -1,17 +1,12 @@
-# Web framework
 Flask==2.3.2
 gunicorn
-
-# Utilities
 rapidfuzz
 numpy
 
-# CPU-only PyTorch (DO NOT CHANGE THESE LINES)
 --extra-index-url https://download.pytorch.org/whl/cpu
 
-torch==2.2.0+cpu
-torchvision==0.17.0+cpu
-torchaudio==2.2.0+cpu
+torch==2.2.0
+torchvision==0.17.0
+torchaudio==2.2.0
 
-# Sentence transformers
 sentence-transformers==2.2.2

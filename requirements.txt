@@ -2,5 +2,12 @@ Flask==2.3.2
 gunicorn
 rapidfuzz
 numpy
-torch
-sentence-transformers
+
+# CPU-only torch (compatible with Render)
+torch==2.2.2+cpu
+torchvision==0.17.2+cpu
+torchaudio==2.2.2+cpu
+-f https://download.pytorch.org/whl/cpu
+
+# Semantic search
+sentence-transformers==2.2.2

@@ -24,7 +24,7 @@ FAQ_LIST: List[Dict[str, str]] = []
 
 # phrase (synonym) -> canonical concept
 CONCEPT_SYNONYMS: Dict[str, str] = {}
-# canonical concept -> topic key
+# canonical concept (normalised) -> topic key
 CONCEPT_TO_TOPIC: Dict[str, str] = {}
 
 MAINTENANCE_TEXT: Optional[str] = None
@@ -40,9 +40,7 @@ def normalise_text(text: str) -> str:
     if not text:
         return ""
     text = text.lower()
-    # Replace punctuation with spaces
     text = re.sub(r"[^a-z0-9]+", " ", text)
-    # Collapse multiple spaces
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
@@ -66,7 +64,6 @@ def read_file_safely(path: str) -> str:
 def register_topic(title: str, content: str):
     key = to_topic_key(title)
     TOPIC_TITLES[key] = title.strip()
-    # Normalise whitespace in content but keep original wording
     cleaned = re.sub(r"\s+\n", "\n", content.strip())
     cleaned = re.sub(r"\n\s+", "\n", cleaned)
     TOPIC_CONTENT[key] = cleaned
@@ -79,9 +76,9 @@ def register_concept(canonical: str, phrases: List[str]):
         p = normalise_text(phrase)
         if not p:
             continue
-        # If phrase already mapped, prefer the shorter canonical name
         existing = CONCEPT_SYNONYMS.get(p)
         if existing:
+            # prefer shorter canonical names (more general)
             if len(canonical_norm) < len(existing):
                 CONCEPT_SYNONYMS[p] = canonical_norm
         else:
@@ -164,7 +161,6 @@ def parse_synonyms_file(text: str):
         line = line.strip()
         if not line or "→" not in line:
             continue
-        # Ignore headers or comments
         if line.lower().startswith("synonyms"):
             continue
         left, right = line.split("→", 1)
@@ -194,10 +190,8 @@ def load_all_training_data():
         base_lower = base.lower()
         RAW_FILES[base_lower] = content
 
-        # Register all files as topics for generic fallback
         register_topic(base, content)
 
-        # Special handling based on filename
         if "faq" in base_lower:
             parse_faq_file(content, base)
         elif "keyword" in base_lower:
@@ -209,16 +203,12 @@ def load_all_training_data():
         elif "navigation" in base_lower:
             NAVIGATION_TEXT = content.strip()
 
-    # Add manual high-value concepts (HR + navigation + best practice)
     add_manual_concepts()
     build_concept_to_topic_mapping()
 
 
 def add_manual_concepts():
-    """
-    Extend concepts with some HR and navigation ones that we know are important
-    for your use-case (annual leave, working hours, navigation, etc.).
-    """
+    """Extend concept table with important HR/navigation concepts."""
     manual = {
         "Annual Leave": [
             "annual leave",
@@ -299,15 +289,11 @@ def add_manual_concepts():
 
 
 def build_concept_to_topic_mapping():
-    """
-    Map canonical concepts to the most relevant topic (.txt file)
-    using fuzzy matching on topic titles, plus manual overrides for core HR topics.
-    """
+    """Map canonical concepts to the most relevant topic (.txt file)."""
     concepts = sorted(set(CONCEPT_SYNONYMS.values()))
     if not concepts or not TOPIC_TITLES:
         return
 
-    # Reverse: key -> title
     topic_items = list(TOPIC_TITLES.items())
 
     for concept in concepts:
@@ -324,7 +310,7 @@ def build_concept_to_topic_mapping():
         if best_topic and best_score >= 60:
             CONCEPT_TO_TOPIC[c_norm] = best_topic
 
-    # Manual overrides for concepts we know should go to specific files if present
+    # Helpful manual overrides based on known filenames
     topic_by_name = {normalise_text(v): k for k, v in TOPIC_TITLES.items()}
 
     wtr_key = topic_by_name.get("working time regulations")
@@ -353,7 +339,7 @@ def build_concept_to_topic_mapping():
         CONCEPT_TO_TOPIC[normalise_text("faq")] = faq_key
 
 
-# Load everything at startup
+# Load data at startup
 load_all_training_data()
 
 
@@ -363,41 +349,68 @@ load_all_training_data()
 
 def detect_concept(user_message: str) -> Tuple[Optional[str], Optional[str], int]:
     """
-    Return (canonical_concept, topic_key, score) or (None, None, 0)
+    Stronger intent detection:
+    - Multi-stage scoring
+    - Longer phrase priority
+    - Concept weight boosting
+    - Hybrid fuzzy and substring matching
     """
     msg_norm = normalise_text(user_message)
-    if not msg_norm or not CONCEPT_SYNONYMS:
+    if not msg_norm:
         return None, None, 0
 
     best_concept = None
     best_score = 0
 
-    # 1) Direct substring matches on phrases
+    # Weight multipliers for certain domains (keys are normalised)
+    WEIGHTS = {
+        "annual leave": 1.35,
+        "working hours": 1.30,
+        "sharepoint access": 1.25,
+        "sharepoint purpose": 1.25,
+        "troubleshooting": 1.20,
+        "best practices": 1.15,
+        "onboarding": 1.10,
+    }
+
+    # 1) Direct phrase detection (prioritise longer phrases)
     for phrase, concept in CONCEPT_SYNONYMS.items():
-        if phrase and phrase in msg_norm:
-            # Longer phrases are more specific -> give them higher score
-            score = len(phrase)
+        phrase_norm = phrase  # already normalised when stored
+        concept_norm = normalise_text(concept)
+        if phrase_norm in msg_norm:
+            score = len(phrase_norm) * 4
+            score *= WEIGHTS.get(concept_norm, 1)
             if score > best_score:
                 best_score = score
-                best_concept = concept
+                best_concept = concept_norm
 
-    # 2) Fuzzy match against all canonical concepts
-    concept_names = list(set(CONCEPT_SYNONYMS.values()))
-    if concept_names:
-        best_name, score, _ = process.extractOne(
-            msg_norm, concept_names, scorer=fuzz.token_set_ratio
+    # 2) Fuzzy matching against canonical concepts
+    concepts = list(set(CONCEPT_SYNONYMS.values()))
+    if concepts:
+        concepts_norm = [normalise_text(c) for c in concepts]
+        fuzzy_best, fuzzy_score, _ = process.extractOne(
+            msg_norm, concepts_norm, scorer=fuzz.token_set_ratio
         )
-        if score > best_score:
-            best_score = int(score)
-            best_concept = best_name
+        fuzzy_score *= WEIGHTS.get(fuzzy_best, 1)
+        if fuzzy_score > best_score:
+            best_score = fuzzy_score
+            best_concept = fuzzy_best
+
+    # 3) Semantic fingerprint rules for very common HR framings
+    if any(k in msg_norm for k in ("holiday", "annual leave", "vacation", "holiday days")):
+        best_concept = "annual leave"
+        best_score = max(best_score, 95)
+
+    if "hours" in msg_norm or "working time" in msg_norm:
+        best_concept = "working hours"
+        best_score = max(best_score, 90)
 
     if not best_concept:
         return None, None, 0
 
     canonical_norm = normalise_text(best_concept)
     topic_key = CONCEPT_TO_TOPIC.get(canonical_norm)
-
-    return canonical_norm, topic_key, best_score
+    return canonical_norm, topic_key, int(best_score)
 
 
 # ============================================================
@@ -436,9 +449,8 @@ def answer_sharepoint_access() -> str:
     if topic_key and topic_key in TOPIC_CONTENT:
         return TOPIC_CONTENT[topic_key]
 
-    # Generic fallback using FAQ wording
     return (
-        "🔐 **What You Can Access on SharePoint**\n\n"
+        "🔐 **What You Can Access on the IPA SharePoint Hub**\n\n"
         "On the IPA SharePoint Hub you can typically access:\n"
         "• Policies and governance documents\n"
         "• Templates & tools\n"
@@ -485,7 +497,6 @@ def answer_best_practices() -> str:
 
 
 def answer_troubleshooting() -> str:
-    # Prefer explicit troubleshooting topic if available
     for key, title in TOPIC_TITLES.items():
         if "troubleshooting" in title.lower():
             return TOPIC_CONTENT.get(key, "")
@@ -525,48 +536,63 @@ def answer_maintenance() -> str:
     )
 
 
+# ============================================================
+# SEARCH HELPERS
+# ============================================================
+
 def search_faq_for_answer(msg: str) -> Optional[str]:
-    """Try to answer from FAQ file using fuzzy match on questions."""
+    """
+    Improved FAQ matching with:
+    - stronger minimum score
+    - multi-pass fuzzy scoring
+    - question weight boosting
+    """
     if not FAQ_LIST:
         return None
 
     msg_norm = normalise_text(msg)
+
     questions = [entry["q_norm"] for entry in FAQ_LIST]
-    best, score, _ = process.extractOne(
+
+    best_norm, score_norm, _ = process.extractOne(
         msg_norm, questions, scorer=fuzz.token_set_ratio
     )
+    best_partial, score_partial, _ = process.extractOne(
+        msg_norm, questions, scorer=fuzz.partial_ratio
+    )
 
-    if score < 70:
+    best_score = max(score_norm, score_partial)
+    if best_score < 65:
         return None
 
     for entry in FAQ_LIST:
-        if entry["q_norm"] == best:
+        if entry["q_norm"] in (best_norm, best_partial):
             return entry["a"]
+
     return None
 
 
 def search_topics_for_answer(msg: str) -> Optional[str]:
-    """Fuzzy match against topic titles and content as a last resort."""
+    """Fuzzy match against topic titles and content."""
     if not TOPIC_CONTENT:
         return None
 
     msg_norm = normalise_text(msg)
 
-    # 1) Match on titles
-    titles = [normalise_text(t) for t in TOPIC_TITLES.values()]
-    best_title, score_title, _ = process.extractOne(
-        msg_norm, titles, scorer=fuzz.token_set_ratio
+    # Match on titles
+    titles_norm = [normalise_text(t) for t in TOPIC_TITLES.values()]
+    best_title_norm, score_title, _ = process.extractOne(
+        msg_norm, titles_norm, scorer=fuzz.token_set_ratio
     )
 
     chosen_key = None
     if score_title >= 70:
-        # Find key with that title
         for key, title in TOPIC_TITLES.items():
-            if normalise_text(title) == best_title:
+            if normalise_text(title) == best_title_norm:
                 chosen_key = key
                 break
 
-    # 2) If no good title match, match against content
+    # If no strong title, match content
     if not chosen_key:
         contents = list(TOPIC_CONTENT.values())
         best_content, score_content, idx = process.extractOne(
@@ -589,6 +615,29 @@ def list_all_topics() -> str:
     for title in sorted(TOPIC_TITLES.values()):
         lines.append(f"• {title}")
     return "\n".join(lines)
+
+
+def extract_navigation_target(msg: str) -> Optional[str]:
+    """
+    Pulls out the 'thing' the user wants to find:
+    e.g. 'Where is NextGen Framework?' → 'NextGen Framework'
+    """
+    msg_clean = msg.replace("?", "").strip().lower()
+
+    triggers = [
+        "where do i find",
+        "where can i find",
+        "where is",
+        "how do i get to",
+        "navigate to",
+        "open",
+        "access",
+    ]
+    for t in triggers:
+        if msg_clean.startswith(t):
+            return msg_clean[len(t):].strip()
+
+    return None
 
 
 # ============================================================
@@ -616,7 +665,7 @@ def generate_response(user_message: str) -> str:
         )
 
     # Capabilities / help
-    if "what can you do" in msg_norm or "help" == msg_norm or "help me" in msg_norm:
+    if "what can you do" in msg_norm or msg_norm in ("help", "help me"):
         return (
             "I can help you navigate the IPA SharePoint Hub and answer common questions.\n\n"
             "You can ask me to:\n"
@@ -637,18 +686,19 @@ def generate_response(user_message: str) -> str:
 
     # Navigation-specific wording
     if any(k in msg_norm for k in ("where do i find", "where can i find", "where is", "how do i get to", "navigate to")):
-        # Try to use navigation topic if we have one
+        target = extract_navigation_target(msg)
+        if target:
+            nav_answer = search_topics_for_answer(target)
+            if nav_answer:
+                return nav_answer
+
         if NAVIGATION_TEXT:
             return NAVIGATION_TEXT
-        nav_answer = search_topics_for_answer(msg)
-        if nav_answer:
-            return nav_answer
 
     # Core concept detection
     concept, topic_key, score = detect_concept(msg)
 
     if concept:
-        # HR-specific handling
         if concept == normalise_text("annual leave"):
             return answer_annual_leave()
         if concept == normalise_text("working hours"):
@@ -664,29 +714,30 @@ def generate_response(user_message: str) -> str:
         if concept == normalise_text("onboarding"):
             return answer_onboarding()
 
-        # Generic concept mapped to a topic
         if topic_key and topic_key in TOPIC_CONTENT:
             return TOPIC_CONTENT[topic_key]
 
-    # No clear concept → try FAQ
+    # FAQ match
     faq_answer = search_faq_for_answer(msg)
     if faq_answer:
         return faq_answer
 
-    # Try topic-based fallback
+    # Topic-based fallback
     topic_answer = search_topics_for_answer(msg)
     if topic_answer:
         return topic_answer
 
-    # Final fallback
+    # Final rich fallback
     return (
-        "I wasn’t fully sure what you meant 🤔\n\n"
-        "You can ask me about things like:\n"
-        "• **Annual leave** and **working hours**\n"
-        "• **What you can access** on the IPA SharePoint Hub\n"
-        "• **Why we use SharePoint**\n"
-        "• **Troubleshooting issues** or **navigation help**\n\n"
-        "Try rephrasing your question with the main topic you’re interested in."
+        "I may not have interpreted your question perfectly, but I can definitely help.\n\n"
+        "Here are the main areas I can guide you on:\n"
+        "• **Annual leave**, holidays, working hours, HR policies\n"
+        "• **Where to find pages**, tools, documents, and training on the IPA Hub\n"
+        "• **What SharePoint is used for** and what you can access\n"
+        "• **Troubleshooting** issues such as access denied, missing pages, slow loading\n"
+        "• **Best practices**, governance, onboarding and navigation\n\n"
+        "Try asking for a topic directly — for example: *Working Time Regulations*, *Best Practices*, "
+        "or *What can I access on SharePoint?*"
     )
 
 
@@ -710,10 +761,6 @@ def get_reply():
     reply = generate_response(user_message)
     return jsonify({"reply": reply})
 
-
-# ============================================================
-# LOCAL DEBUG ENTRYPOINT
-# ============================================================
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

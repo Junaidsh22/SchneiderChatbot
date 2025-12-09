@@ -2,912 +2,628 @@ import os
 import re
 from typing import Dict, List, Tuple, Optional
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, jsonify, render_template, request
 from rapidfuzz import fuzz, process
+
 
 # ============================================================
 # CONFIG
 # ============================================================
 
-DATA_FOLDER = "chatbot_data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "chatbot_data")
 
 app = Flask(__name__)
 
-# ============================================================
-# GLOBAL STATE
-# ============================================================
-
-TOPIC_CONTENT: Dict[str, str] = {}
-TOPIC_TITLES: Dict[str, str] = {}
-RAW_FILES: Dict[str, str] = {}
-FAQ_LIST: List[Dict[str, str]] = []
-
-# phrase (synonym) -> canonical concept
-CONCEPT_SYNONYMS: Dict[str, str] = {}
-# canonical concept (normalised) -> topic key
-CONCEPT_TO_TOPIC: Dict[str, str] = {}
-
-MAINTENANCE_TEXT: Optional[str] = None
-NAVIGATION_TEXT: Optional[str] = None
-
 
 # ============================================================
-# HELPERS
+# NORMALISATION HELPERS
 # ============================================================
 
 def normalise_text(text: str) -> str:
-    """Lowercase and remove extra punctuation/spacing for matching."""
+    """Normalise text for matching – lowercase, strip punctuation, condense spaces."""
     if not text:
         return ""
     text = text.lower()
+    # keep letters, numbers and spaces
     text = re.sub(r"[^a-z0-9]+", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
 
-def to_topic_key(name: str) -> str:
-    """Create a simple key from a filename or title."""
-    name = normalise_text(name)
-    return name.replace(" ", "_")
+def split_into_blocks(text: str) -> List[str]:
+    """
+    Split a training file into logical blocks using blank lines as boundaries.
+
+    This keeps FAQ-style Q/A sections and long documents in smaller chunks so that
+    we can return short, focused answers instead of the entire file.
+    """
+    if not text:
+        return []
+    blocks = re.split(r"\n\s*\n+", text.strip())
+    return [b.strip() for b in blocks if b.strip()]
 
 
-def read_file_safely(path: str) -> str:
-    """Read a text file with utf-8 then latin-1 fallback."""
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    except UnicodeDecodeError:
-        with open(path, "r", encoding="latin-1") as f:
-            return f.read()
+def split_into_sentences(text: str) -> List[str]:
+    """Lightweight sentence splitter – good enough for support content."""
+    if not text:
+        return []
+    # Break on ., ?, ! followed by whitespace / end-of-line
+    parts = re.split(r"(?<=[.!?])\s+", text.strip())
+    sentences = [p.strip() for p in parts if p.strip()]
+    return sentences
 
 
-def register_topic(title: str, content: str):
-    key = to_topic_key(title)
-    TOPIC_TITLES[key] = title.strip()
-    cleaned = re.sub(r"\s+\n", "\n", content.strip())
-    cleaned = re.sub(r"\n\s+", "\n", cleaned)
-    TOPIC_CONTENT[key] = cleaned
+# ============================================================
+# DATA STRUCTURES
+# ============================================================
+
+class TopicBlock:
+    __slots__ = ("topic_key", "topic_title", "block_text", "norm_text")
+
+    def __init__(self, topic_key: str, topic_title: str, block_text: str):
+        self.topic_key = topic_key
+        self.topic_title = topic_title
+        self.block_text = block_text.strip()
+        self.norm_text = normalise_text(self.block_text)
 
 
-def register_concept(canonical: str, phrases: List[str]):
-    """Add canonical concept and all its phrases to the synonym table."""
-    canonical_norm = normalise_text(canonical)
-    for phrase in phrases:
-        p = normalise_text(phrase)
-        if not p:
+class FAQEntry:
+    __slots__ = ("topic_key", "topic_title", "question_raw", "question_norm", "answer")
+
+    def __init__(self, topic_key: str, topic_title: str, question_raw: str, answer: str):
+        self.topic_key = topic_key
+        self.topic_title = topic_title
+        self.question_raw = question_raw.strip()
+        self.question_norm = normalise_text(self.question_raw)
+        self.answer = answer.strip()
+
+
+# Global stores populated at startup
+TOPIC_TEXT: Dict[str, str] = {}
+TOPIC_TITLES: Dict[str, str] = {}
+BLOCK_INDEX: List[TopicBlock] = []
+FAQ_INDEX: List[FAQEntry] = []
+
+# concept → list of phrases that should map to it
+CONCEPT_PATTERNS: Dict[str, List[str]] = {}
+
+# phrase (normalised) → canonical concept
+PHRASE_TO_CONCEPT: Dict[str, str] = {}
+
+
+# ============================================================
+# LOADING SYNONYMS / KEYWORDS
+# ============================================================
+
+def add_concept_phrases(concept: str, phrases: List[str]):
+    """Register helper phrases for a high-level intent."""
+    concept_norm = normalise_text(concept)
+    if concept_norm not in CONCEPT_PATTERNS:
+        CONCEPT_PATTERNS[concept_norm] = []
+    for p in phrases:
+        p_norm = normalise_text(p)
+        if not p_norm:
             continue
-        existing = CONCEPT_SYNONYMS.get(p)
-        if existing:
-            # prefer shorter canonical names (more general)
-            if len(canonical_norm) < len(existing):
-                CONCEPT_SYNONYMS[p] = canonical_norm
-        else:
-            CONCEPT_SYNONYMS[p] = canonical_norm
+        if p_norm not in CONCEPT_PATTERNS[concept_norm]:
+            CONCEPT_PATTERNS[concept_norm].append(p_norm)
+        PHRASE_TO_CONCEPT[p_norm] = concept_norm
+
+
+def load_synonyms_file():
+    """
+    Parse 'Synonyms & Alternative Terms.txt' if present.
+
+    Expected pattern (examples from your training file):
+        annual leave / holidays / vacation → Annual Leave
+        bank holidays / public holidays → Bank Holidays
+    """
+    path = os.path.join(DATA_DIR, "Synonyms & Alternative Terms.txt")
+    if not os.path.exists(path):
+        return
+
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            # Look for "→" or "->" style mappings
+            if "→" in line:
+                left, right = line.split("→", 1)
+            elif "->" in line:
+                left, right = line.split("->", 1)
+            else:
+                continue
+
+            canon = right.strip()
+            # left side may be slash- or comma-separated synonyms
+            raw_terms = re.split(r"[,/]", left)
+            terms = [t.strip() for t in raw_terms if t.strip()]
+            if not canon or not terms:
+                continue
+
+            add_concept_phrases(canon, terms)
+
+
+def load_keywords_file():
+    """
+    Use 'Keywords & Tags.txt' as extra hints.
+
+    We treat each line as describing a concept followed by example phrases, for example:
+        Annual Leave: annual leave, holiday, holidays, time off
+    """
+    path = os.path.join(DATA_DIR, "Keywords & Tags.txt")
+    if not os.path.exists(path):
+        return
+
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            # e.g. "Annual Leave: holidays, time off"
+            if ":" not in line:
+                continue
+            concept, raw_terms = line.split(":", 1)
+            canon = concept.strip()
+            terms = [t.strip() for t in re.split(r"[,/]", raw_terms) if t.strip()]
+            if canon and terms:
+                add_concept_phrases(canon, terms)
+
+
+def register_manual_concepts():
+    """
+    Add a curated set of core intents which we want to match perfectly even if
+    the training files change.
+    """
+    add_concept_phrases(
+        "Annual Leave",
+        [
+            "annual leave",
+            "holiday entitlement",
+            "holidays",
+            "paid leave",
+            "time off",
+            "annual leave days",
+        ],
+    )
+    add_concept_phrases(
+        "Bank Holidays",
+        [
+            "bank holidays",
+            "public holidays",
+            "uk bank holidays",
+        ],
+    )
+    add_concept_phrases(
+        "Working Time Regulations",
+        [
+            "working hours",
+            "work hours",
+            "work time",
+            "working time regulations",
+            "weekly hours",
+            "daily hours",
+        ],
+    )
+    add_concept_phrases(
+        "SharePoint Access",
+        [
+            "what can i access",
+            "what is on the sharepoint",
+            "what is on the ipa sharepoint",
+            "what pages are on ipa sharepoint",
+            "what can i see on sharepoint",
+        ],
+    )
+    add_concept_phrases(
+        "Templates & Documents",
+        [
+            "templates",
+            "document templates",
+            "forms",
+            "project templates",
+            "where do i find templates",
+        ],
+    )
+    add_concept_phrases(
+        "Troubleshooting",
+        [
+            "sharepoint not loading",
+            "access denied",
+            "permission error",
+            "broken link",
+            "page not found",
+            "sharepoint is slow",
+            "vpn issue",
+            "sync issue",
+            "it support",
+            "troubleshooting",
+        ],
+    )
+    add_concept_phrases(
+        "Navigation / Where to find",
+        [
+            "where do i find",
+            "where can i find",
+            "how do i access",
+            "how do i get to",
+            "where is the page",
+            "where is this on ipa hub",
+        ],
+    )
 
 
 # ============================================================
-# PARSERS FOR TRAINING FILES
+# PARSING TRAINING FILES
 # ============================================================
 
-def parse_faq_file(text: str, base_name: str):
-    """
-    Parse Q/A style FAQ documents.
+def parse_topic_file(filename: str):
+    """Load a .txt training file and create FAQ and block entries."""
+    path = os.path.join(DATA_DIR, filename)
+    if not os.path.exists(path):
+        return
 
-    Expected pattern:
+    with open(path, "r", encoding="utf-8") as f:
+        raw = f.read().strip()
 
-        Q: question text
-        A: answer text
-    """
-    base_topic_key = to_topic_key(base_name)
+    base_name = os.path.splitext(filename)[0]
+    topic_key = normalise_text(base_name)
+    topic_title = base_name.strip()
 
-    blocks = re.split(r"\bQ:", text, flags=re.IGNORECASE)
+    TOPIC_TEXT[topic_key] = raw
+    TOPIC_TITLES[topic_key] = topic_title
+
+    # Build block index
+    for block in split_into_blocks(raw):
+        BLOCK_INDEX.append(TopicBlock(topic_key, topic_title, block))
+
+    # Extract FAQ-style Q&A pairs inside this file
+    blocks = split_into_blocks(raw)
     for block in blocks:
-        block = block.strip()
-        if not block or "A:" not in block:
+        # We consider blocks that contain at least one "Q:" and one "A:"
+        if "Q:" not in block or "A:" not in block:
             continue
-        try:
-            q_raw, a_raw = re.split(r"\bA:", block, maxsplit=1, flags=re.IGNORECASE)
-        except ValueError:
+        # Some blocks include many Q lines followed by a single A.
+        # We keep all Q lines together as one question string.
+        q_part, a_part = re.split(r"\bA:", block, maxsplit=1, flags=re.IGNORECASE)
+        questions = []
+        for line in q_part.splitlines():
+            line = line.strip()
+            if line.lower().startswith("q:"):
+                questions.append(line[2:].strip())
+        if not questions:
             continue
-        q = q_raw.strip()
-        a = a_raw.strip()
-        if not q or not a:
-            continue
-
-        FAQ_LIST.append(
-            {
-                "q_raw": q,
-                "q_norm": normalise_text(q),
-                "a": a,
-                "topic": base_topic_key,
-            }
-        )
+        question_text = " ".join(questions)
+        answer_text = a_part.strip()
+        FAQ_INDEX.append(FAQEntry(topic_key, topic_title, question_text, answer_text))
 
 
-def parse_keywords_and_concepts(text: str):
+def load_all_training_files():
+    """Discover and parse all .txt files in chatbot_data."""
+    if not os.path.isdir(DATA_DIR):
+        return
+
+    for filename in os.listdir(DATA_DIR):
+        if not filename.lower().endswith(".txt"):
+            continue
+        parse_topic_file(filename)
+
+
+# ============================================================
+# INTENT & MATCHING
+# ============================================================
+
+def detect_concept(message: str) -> Optional[str]:
     """
-    From 'Keywords & Tags.txt' we only need the CANONICAL CONCEPT MAPPINGS section.
-    Example:
-        - Working Hours → working hours, work schedule, office hours, shift timings, core hours
+    Try to map the user message to a high-level concept like 'Annual Leave'
+    or 'Troubleshooting'.
     """
-    in_canonical = False
+    msg_norm = normalise_text(message)
+    if not msg_norm:
+        return None
+
+    # Direct phrase containment / fuzzy
+    best_concept = None
+    best_score = 0
+
+    for phrase_norm, concept_norm in PHRASE_TO_CONCEPT.items():
+        if not phrase_norm:
+            continue
+        if phrase_norm in msg_norm:
+            score = len(phrase_norm)
+        else:
+            # Fuzzy match short phrases
+            score = fuzz.partial_ratio(msg_norm, phrase_norm)
+        if score > best_score:
+            best_score = score
+            best_concept = concept_norm
+
+    # Small threshold – we always want *something* when user asks a meaningful question
+    if best_score < 40:
+        return None
+    return best_concept
+
+
+def find_best_faq_answer(message: str) -> Optional[str]:
+    """Search all FAQ entries for the best matching question."""
+    if not FAQ_INDEX:
+        return None
+
+    msg_norm = normalise_text(message)
+    best: Optional[Tuple[FAQEntry, float]] = None
+
+    for entry in FAQ_INDEX:
+        score = fuzz.token_set_ratio(msg_norm, entry.question_norm)
+        # Small bonus if we exactly contain big words
+        if entry.question_norm in msg_norm or msg_norm in entry.question_norm:
+            score += 5
+        if not best or score > best[1]:
+            best = (entry, score)
+
+    if not best:
+        return None
+
+    entry, score = best
+    if score < 55:
+        # not confident enough, let topic-based search handle it
+        return None
+
+    snippet = build_snippet(entry.answer)
+    title = entry.topic_title
+    return f"📌 **{title}**\n\n{snippet}"
+
+
+def find_best_topic_block(message: str) -> Optional[str]:
+    """Fallback: search general blocks in all topics and return a short snippet."""
+    if not BLOCK_INDEX:
+        return None
+
+    msg_norm = normalise_text(message)
+    best: Optional[Tuple[TopicBlock, float]] = None
+
+    for block in BLOCK_INDEX:
+        score = fuzz.token_set_ratio(msg_norm, block.norm_text)
+        if not best or score > best[1]:
+            best = (block, score)
+
+    if not best:
+        return None
+
+    block, score = best
+    if score < 40:
+        return None
+
+    snippet = build_snippet(block.block_text)
+    title = block.topic_title
+    return f"📌 **{title}**\n\n{snippet}"
+
+
+# ============================================================
+# ANSWER BUILDING
+# ============================================================
+
+def build_snippet(text: str, max_sentences: int = 6, max_chars: int = 900) -> str:
+    """
+    Turn a raw training block into a concise, HR-friendly snippet.
+
+    - Prefer the section after 'A:' if present (answer part)
+    - Strip leftover 'Q:' labels
+    - Limit to a few sentences and characters
+    """
+    if not text:
+        return ""
+
+    # If there's an explicit answer section, keep only that.
+    if "A:" in text:
+        _, text = re.split(r"\bA:", text, maxsplit=1, flags=re.IGNORECASE)
+    # Remove Q: lines if they leaked into the answer
+    cleaned_lines: List[str] = []
     for line in text.splitlines():
         line = line.strip()
         if not line:
             continue
-        if line.upper().startswith("CANONICAL CONCEPT MAPPINGS"):
-            in_canonical = True
+        if line.lower().startswith("q:"):
             continue
-        if not in_canonical:
-            continue
-        if not line.startswith("-") or "→" not in line:
-            continue
+        cleaned_lines.append(line)
+    cleaned = " ".join(cleaned_lines).strip()
 
-        try:
-            left, right = line[1:].split("→", 1)
-        except ValueError:
-            continue
-        canonical = left.strip()
-        synonyms_str = right.strip()
-        phrases = [canonical] + [p.strip() for p in synonyms_str.split(",")]
-        register_concept(canonical, phrases)
+    sentences = split_into_sentences(cleaned)
+    if not sentences:
+        snippet = cleaned
+    else:
+        snippet = " ".join(sentences[:max_sentences])
+
+    if len(snippet) > max_chars:
+        snippet = snippet[: max_chars - 3].rsplit(" ", 1)[0] + "..."
+
+    return snippet
 
 
-def parse_synonyms_file(text: str):
+def answer_for_concept(concept: str, message: str) -> Optional[str]:
     """
-    Parse 'Synonyms & Alternative Terms.txt' which uses '→' mappings.
+    For key concepts like Annual Leave or Troubleshooting, provide a
+    hand-crafted, concise answer using the training text as reference.
     """
-    for line in text.splitlines():
-        line = line.strip()
-        if not line or "→" not in line:
-            continue
-        if line.lower().startswith("synonyms"):
-            continue
-        left, right = line.split("→", 1)
-        canonical = left.strip()
-        phrases = [canonical] + [p.strip() for p in right.split(",")]
-        register_concept(canonical, phrases)
+    concept = concept or ""
+    concept = concept.lower()
 
-
-# ============================================================
-# TRAINING DATA LOADER
-# ============================================================
-
-def load_all_training_data():
-    global MAINTENANCE_TEXT, NAVIGATION_TEXT
-
-    if not os.path.isdir(DATA_FOLDER):
-        print(f"[WARN] Training data folder '{DATA_FOLDER}' not found.")
-        return
-
-    for filename in os.listdir(DATA_FOLDER):
-        if not filename.lower().endswith(".txt"):
-            continue
-
-        path = os.path.join(DATA_FOLDER, filename)
-        content = read_file_safely(path)
-        base = filename[:-4].strip()
-        base_lower = base.lower()
-        RAW_FILES[base_lower] = content
-
-        register_topic(base, content)
-
-        if "faq" in base_lower:
-            parse_faq_file(content, base)
-        elif "keyword" in base_lower:
-            parse_keywords_and_concepts(content)
-        elif "synonym" in base_lower:
-            parse_synonyms_file(content)
-        elif "maintenance" in base_lower:
-            MAINTENANCE_TEXT = content.strip()
-        elif "navigation" in base_lower:
-            NAVIGATION_TEXT = content.strip()
-
-    add_manual_concepts()
-    build_concept_to_topic_mapping()
-
-
-def add_manual_concepts():
-    """
-    Extend concept table with important HR / navigation / IPA Hub concepts.
-    These link natural language into your training files.
-    """
-    manual = {
-        # Core HR
-        "Annual Leave": [
-            "annual leave",
-            "annual leave days",
-            "how many annual leave days",
-            "how many holidays",
-            "holiday entitlement",
-            "holiday days",
-            "vacation days",
-            "paid time off",
-            "pto",
-            "annual holiday",
-            "leave allowance",
-            "leave entitlements",
-        ],
-        "Working Hours": [
-            "working hours",
-            "work hours",
-            "working time",
-            "working time regulations",
-            "normal working hours",
-            "core hours",
-            "hours per week",
-            "shift pattern",
-            "shift timings",
-            "standard hours",
-            "start time",
-            "finish time",
-        ],
-        "HR Policies": [
-            "hr policies",
-            "hr policy",
-            "company policies",
-            "hr rules",
-            "hr guidance",
-            "where are hr policies",
-        ],
-
-        # SharePoint core
-        "SharePoint Access": [
-            "what can i access",
-            "what can i access on sharepoint",
-            "what can i access on the ipa sharepoint",
-            "sharepoint access",
-            "access on ipa hub",
-            "what is available on sharepoint",
-            "what does the sharepoint allow me to access",
-            "what can i see on sharepoint",
-        ],
-        "SharePoint Purpose": [
-            "why do we use a sharepoint",
-            "why sharepoint",
-            "purpose of sharepoint",
-            "what is the purpose of sharepoint",
-            "why do we use sharepoint",
-            "why does schneider use sharepoint",
-            "sharepoint use case reasoning",
-        ],
-        "SharePoint Navigation": [
-            "where do i find",
-            "where can i find",
-            "where is",
-            "navigate to",
-            "how do i get to",
-            "how do i find",
-            "navigation",
-            "ipa hub navigation",
-            "sharepoint navigation",
-            "how to get to page",
-        ],
-        "SharePoint Use Cases": [
-            "sharepoint use cases",
-            "what is sharepoint used for",
-            "how do we use sharepoint",
-            "examples of sharepoint usage",
-            "sharepoint scenario",
-            "sharepoint business use",
-        ],
-
-        # Themed topics from your training data
-        "Document Access": [
-            "access hr policies",
-            "open hr policies",
-            "where are policies stored",
-            "find templates",
-            "project templates",
-            "governance packs",
-            "open training materials",
-            "access e learning",
-            "where are finance templates",
-            "where are engineering standards",
-            "where are legal contracts",
-            "where are qa reports",
-            "how do i access documents",
-            "document access",
-        ],
-        "Collaboration": [
-            "share documents",
-            "share files",
-            "co author",
-            "work together",
-            "collaborate",
-            "collaboration",
-            "shared folders",
-            "document approval workflow",
-        ],
-        "Compliance & Governance": [
-            "compliance",
-            "governance",
-            "audit trail",
-            "iso standards",
-            "regulatory standards",
-            "gdpr",
-            "data protection",
-            "risk management",
-            "hse documentation",
-            "safety guidelines",
-        ],
-        "Advanced Features": [
-            "advanced features",
-            "version history",
-            "metadata tagging",
-            "alerts",
-            "customise homepage",
-            "automated workflows",
-            "approvals",
-            "multilingual",
-        ],
-        "Training & Learning": [
-            "training",
-            "learning hub",
-            "mandatory training",
-            "onboarding training",
-            "graduate programme resources",
-            "development plans",
-            "compliance training modules",
-            "leadership training",
-            "technical training",
-            "soft skills courses",
-        ],
-        "Communication & Updates": [
-            "company wide announcements",
-            "all company group",
-            "newsletters",
-            "leadership messages",
-            "policy updates",
-            "system maintenance updates",
-            "event calendars",
-            "roadmap updates",
-        ],
-        "Integration": [
-            "integrate sharepoint",
-            "sharepoint with teams",
-            "sharepoint with power bi",
-            "sharepoint and servicenow",
-            "project tools like ms project",
-            "api access",
-            "vendor portals",
-            "sharepoint integration tips",
-        ],
-
-        # Other
-        "Troubleshooting": [
-            "troubleshooting",
-            "problem",
-            "issue",
-            "error",
-            "access denied",
-            "page not loading",
-            "broken link",
-            "link not working",
-            "sharepoint not loading",
-            "vpn issue",
-            "sync issue",
-        ],
-        "Best Practices": [
-            "best practice",
-            "best practices",
-            "how should i use sharepoint",
-            "sharepoint tips",
-            "sharepoint guidelines",
-            "sharepoint best practices",
-        ],
-        "Onboarding": [
-            "onboarding",
-            "new hire",
-            "induction",
-            "joiner",
-            "welcome programme",
-            "onboarding hub",
-            "onboarding checklist",
-            "new starter",
-        ],
-        "IT Support": [
-            "it support",
-            "it help",
-            "password reset",
-            "vpn not working",
-            "laptop issue",
-            "wifi issue",
-            "endpoint setup",
-        ],
-    }
-
-    for canonical, phrases in manual.items():
-        register_concept(canonical, phrases)
-
-
-def build_concept_to_topic_mapping():
-    """Map canonical concepts to the most relevant topic (.txt file)."""
-    concepts = sorted(set(CONCEPT_SYNONYMS.values()))
-    if not concepts or not TOPIC_TITLES:
-        return
-
-    topic_items = list(TOPIC_TITLES.items())
-
-    for concept in concepts:
-        c_norm = normalise_text(concept)
-        best_topic = None
-        best_score = 0
-
-        for key, title in topic_items:
-            score = fuzz.token_set_ratio(c_norm, normalise_text(title))
-            if score > best_score:
-                best_score = score
-                best_topic = key
-
-        if best_topic and best_score >= 60:
-            CONCEPT_TO_TOPIC[c_norm] = best_topic
-
-    # Helpful manual overrides based on known filenames
-    topic_by_name = {normalise_text(v): k for k, v in TOPIC_TITLES.items()}
-
-    wtr_key = topic_by_name.get("working time regulations")
-    if wtr_key:
-        for c in ("annual leave", "working hours", "sick leave", "hr policies"):
-            CONCEPT_TO_TOPIC[normalise_text(c)] = wtr_key
-
-    why_sp_key = topic_by_name.get("why do we use a sharepoint")
-    if why_sp_key:
-        for c in ("sharepoint purpose", "sharepoint use cases"):
-            CONCEPT_TO_TOPIC[normalise_text(c)] = why_sp_key
-
-    access_key = topic_by_name.get("what does the sharepoint allow me to access")
-    if access_key:
-        for c in ("sharepoint access", "document access"):
-            CONCEPT_TO_TOPIC[normalise_text(c)] = access_key
-
-    nav_key = topic_by_name.get("navigation instructions")
-    if nav_key:
-        CONCEPT_TO_TOPIC[normalise_text("sharepoint navigation")] = nav_key
-
-    best_practice_key = topic_by_name.get("ipa sharepoint best practices")
-    if best_practice_key:
-        CONCEPT_TO_TOPIC[normalise_text("best practices")] = best_practice_key
-
-    faq_key = topic_by_name.get("ipa sharepoint faq")
-    if faq_key:
-        CONCEPT_TO_TOPIC[normalise_text("faq")] = faq_key
-
-    usecases_key = topic_by_name.get("sharepoint usecases")
-    if usecases_key:
-        CONCEPT_TO_TOPIC[normalise_text("sharepoint use cases")] = usecases_key
-
-    doc_access_key = topic_by_name.get("document access")
-    if doc_access_key:
-        CONCEPT_TO_TOPIC[normalise_text("document access")] = doc_access_key
-
-
-# Load data at startup
-load_all_training_data()
-
-
-# ============================================================
-# INTENT DETECTION
-# ============================================================
-
-def detect_concept(user_message: str) -> Tuple[Optional[str], Optional[str], int]:
-    """
-    Stronger intent detection:
-    - Multi-stage scoring
-    - Longer phrase priority
-    - Concept weight boosting
-    - Hybrid fuzzy and substring matching
-    """
-    msg_norm = normalise_text(user_message)
-    if not msg_norm:
-        return None, None, 0
-
-    best_concept = None
-    best_score = 0
-
-    # Weight multipliers for certain domains (keys are normalised)
-    WEIGHTS = {
-        "annual leave": 1.35,
-        "working hours": 1.30,
-        "hr policies": 1.25,
-        "sharepoint access": 1.25,
-        "sharepoint purpose": 1.25,
-        "sharepoint navigation": 1.25,
-        "sharepoint use cases": 1.25,
-        "document access": 1.22,
-        "collaboration": 1.20,
-        "compliance governance": 1.20,
-        "advanced features": 1.18,
-        "training learning": 1.18,
-        "communication updates": 1.15,
-        "integration": 1.15,
-        "troubleshooting": 1.20,
-        "best practices": 1.15,
-        "onboarding": 1.10,
-        "it support": 1.15,
-    }
-
-    # 1) Direct phrase detection (prioritise longer phrases)
-    for phrase, concept in CONCEPT_SYNONYMS.items():
-        phrase_norm = phrase  # already normalised when stored
-        concept_norm = normalise_text(concept)
-        if phrase_norm and phrase_norm in msg_norm:
-            score = len(phrase_norm) * 4
-            score *= WEIGHTS.get(concept_norm, 1)
-            if score > best_score:
-                best_score = score
-                best_concept = concept_norm
-
-    # 2) Fuzzy matching against canonical concepts
-    concepts = list(set(CONCEPT_SYNONYMS.values()))
-    if concepts:
-        concepts_norm = [normalise_text(c) for c in concepts]
-        fuzzy_best, fuzzy_score, _ = process.extractOne(
-            msg_norm, concepts_norm, scorer=fuzz.token_set_ratio
+    # Annual leave / holidays
+    if "annual leave" in concept:
+        return (
+            "🗓️ **Annual Leave / Holiday Entitlement**\n\n"
+            "Your exact annual leave allowance depends on your role, location, and contract.\n\n"
+            "In general:\n"
+            "• Standard entitlement is *around* 28 days per year **including bank holidays**.\n"
+            "• The formal rules are set out in the **Working Time Regulations** and your HR policies.\n\n"
+            "For an HR-approved answer specific to you, always check:\n"
+            "• Your employment contract or offer letter\n"
+            "• The official HR / Working Time Regulations policy on the IPA Hub\n"
+            "• Your live balance in the HR system (for example **Workday** or **Time@Schneider**)."
         )
-        fuzzy_score *= WEIGHTS.get(fuzzy_best, 1)
-        if fuzzy_score > best_score:
-            best_score = fuzzy_score
-            best_concept = fuzzy_best
 
-    # 3) Semantic fingerprints for very common HR framings
-    if any(k in msg_norm for k in ("holiday", "annual leave", "vacation", "holiday days", "leave days")):
-        best_concept = "annual leave"
-        best_score = max(best_score, 95)
+    # Bank holidays
+    if "bank holiday" in concept:
+        return (
+            "🏦 **Bank Holidays (UK)**\n\n"
+            "Official UK bank holiday dates are published on the GOV.UK website:\n"
+            "https://www.gov.uk/bank-holidays\n\n"
+            "Use that page to confirm the exact public holidays for England, Scotland, Wales or "
+            "Northern Ireland. Your local HR policy explains how bank holidays interact with your "
+            "annual leave entitlement."
+        )
 
-    if "working time" in msg_norm or "hours" in msg_norm or "shift" in msg_norm:
-        best_concept = "working hours"
-        best_score = max(best_score, 90)
+    # Working time / hours
+    if "working time regulations" in concept or "working time" in concept:
+        return (
+            "⌚ **Working Time / Standard Working Hours**\n\n"
+            "Working patterns are governed by Schneider Electric’s **Working Time Regulations** policy.\n\n"
+            "It covers:\n"
+            "• Your contracted weekly hours and core working times\n"
+            "• Rules on daily and weekly rest periods\n"
+            "• Night work, overtime and flexible working where applicable\n\n"
+            "To see the exact rules for you, review:\n"
+            "• Your contract or offer letter\n"
+            "• The **Working Time Regulations** section on the IPA Hub\n"
+            "• Any local agreements confirmed with your manager or HR."
+        )
 
-    if "onboard" in msg_norm or "new starter" in msg_norm or "new joiner" in msg_norm:
-        best_concept = "onboarding"
-        best_score = max(best_score, 88)
+    # What can I access on SharePoint?
+    if "sharepoint access" in concept:
+        return (
+            "📂 **What can I access on the IPA SharePoint Hub?**\n\n"
+            "The IPA Hub is a central place for:\n"
+            "• Policies and governance documents\n"
+            "• Templates, forms and project packs\n"
+            "• Training and learning materials\n"
+            "• Collaboration spaces for teams and communities\n"
+            "• Troubleshooting guides and IT information\n\n"
+            "If you tell me *what you’re trying to do* (for example *find a template*, "
+            "*open IT troubleshooting guides* or *view onboarding content*), I can point you "
+            "to the right page."
+        )
 
-    if not best_concept:
-        return None, None, 0
+    # Templates
+    if "templates" in concept:
+        return (
+            "📄 **Finding Templates and Forms**\n\n"
+            "On the IPA SharePoint Hub you can usually find templates by:\n"
+            "1. Using the SharePoint search bar and typing **“template”** plus a keyword "
+            "(for example *RAID log*, *governance pack*, *NDA*, *HR form*).\n"
+            "2. Browsing the relevant hub area such as **Project Templates**, **Legal**, **HR**, "
+            "or **Finance**.\n\n"
+            "If you tell me what kind of template you need (project, HR, legal, procurement, etc.), "
+            "I can suggest the most likely page to start from."
+        )
 
-    canonical_norm = normalise_text(best_concept)
-    topic_key = CONCEPT_TO_TOPIC.get(canonical_norm)
-    return canonical_norm, topic_key, int(best_score)
+    # Troubleshooting / IT support
+    if "troubleshooting" in concept:
+        # Use the Troubleshooting Tips topic if we have it – but only as a short snippet.
+        topic_key = normalise_text("Troubleshooting Tips")
+        block_answer = None
+        if TOPIC_TEXT.get(topic_key):
+            block_answer = build_snippet(TOPIC_TEXT[topic_key])
+        if block_answer:
+            header = "🛠️ **Troubleshooting SharePoint / IPA Hub Issues**\n\n"
+            return header + block_answer
 
+        # Fallback generic advice
+        return (
+            "🛠️ **Troubleshooting SharePoint / IPA Hub Issues**\n\n"
+            "Try these quick checks first:\n"
+            "1. Make sure you are connected to VPN (if required).\n"
+            "2. Refresh the page or open it in a private/incognito window.\n"
+            "3. Try another browser (Edge or Chrome are recommended).\n"
+            "4. If you see *access denied*, use **Request Access** or contact the site owner.\n\n"
+            "If issues continue, please raise an IT ticket or speak to your local IT support team."
+        )
 
-# ============================================================
-# ANSWER BUILDERS FOR KEY CONCEPTS
-# ============================================================
-
-def answer_annual_leave() -> str:
-    return (
-        "🗓️ **Annual Leave / Holiday Entitlement**\n\n"
-        "Your exact annual leave entitlement depends on your role, location, and contract.\n\n"
-        "For HR-approved information, always refer to:\n"
-        "• Your employment contract\n"
-        "• The official HR / Working Time Regulations policy\n"
-        "• Your time-off balance in the HR system (e.g. Workday / Time@Schneider)\n\n"
-        "You can also review the **Working Time Regulations** section on the IPA Hub for detailed guidance."
-    )
-
-
-def answer_working_hours() -> str:
-    return (
-        "⌚ **Working Time / Standard Working Hours**\n\n"
-        "Standard working patterns are defined in Schneider Electric’s **Working Time Regulations**.\n\n"
-        "Key points include:\n"
-        "• Your contracted weekly hours and core working times\n"
-        "• Rules for rest breaks and daily/weekly rest periods\n"
-        "• Guidance for night work and flexible working where applicable\n\n"
-        "For an HR-proof answer specific to *you*, please check:\n"
-        "• Your contract or offer letter\n"
-        "• The official Working Time Regulations policy on the IPA Hub\n"
-        "• Any local agreements with your manager or HR."
-    )
-
-
-def answer_sharepoint_access() -> str:
-    topic_key = CONCEPT_TO_TOPIC.get("sharepoint access")
-    if topic_key and topic_key in TOPIC_CONTENT:
-        return TOPIC_CONTENT[topic_key]
-
-    return (
-        "🔐 **What You Can Access on the IPA SharePoint Hub**\n\n"
-        "On the IPA SharePoint Hub you can typically access:\n"
-        "• Policies and governance documents\n"
-        "• Templates & tools\n"
-        "• Training & onboarding materials\n"
-        "• Troubleshooting guides\n"
-        "• Project and team resources\n\n"
-        "Access can vary by role and permissions, so if something is missing or you see 'Access denied', "
-        "please contact IT or the page owner."
-    )
-
-
-def answer_sharepoint_purpose() -> str:
-    topic_key = CONCEPT_TO_TOPIC.get("sharepoint purpose")
-    if topic_key and topic_key in TOPIC_CONTENT:
-        return TOPIC_CONTENT[topic_key]
-
-    return (
-        "📘 **Why We Use SharePoint**\n\n"
-        "SharePoint is used as a central, secure hub for documents, templates, policies, and collaboration.\n"
-        "It helps teams:\n"
-        "• Work from a single, trusted source of information\n"
-        "• Collaborate on documents with version history\n"
-        "• Access content from anywhere with secure permissions\n"
-        "• Support governance, compliance, and audit needs."
-    )
-
-
-def answer_best_practices() -> str:
-    for key, title in TOPIC_TITLES.items():
-        if "best practice" in title.lower():
-            return TOPIC_CONTENT.get(key, "")
-
-    return (
-        "✅ **IPA SharePoint Best Practices**\n\n"
-        "• Use the search bar with clear keywords\n"
-        "• Bookmark or 'Follow' your key pages\n"
-        "• Keep documents up to date and remove duplicates\n"
-        "• Use metadata tags to improve search\n"
-        "• Follow permission guidelines and avoid oversharing\n"
-        "• Use version history instead of saving multiple copies\n"
-        "• Sync important libraries with OneDrive for offline access."
-    )
-
-
-def answer_troubleshooting() -> str:
-    for key, title in TOPIC_TITLES.items():
-        if "troubleshooting" in title.lower():
-            return TOPIC_CONTENT.get(key, "")
-
-    return (
-        "🛠️ **SharePoint Troubleshooting Tips**\n\n"
-        "Common issues and quick checks:\n"
-        "• *Access denied*: request access or contact the page owner / IT\n"
-        "• *Page not loading / very slow*: check VPN, network, and try a different browser\n"
-        "• *Broken link*: search the document name in SharePoint search, then report the broken link\n"
-        "• *Sync issues*: restart OneDrive and verify you are logged in with your SE account\n"
-        "• *Browser glitches*: clear cache/cookies or try InPrivate/Incognito mode."
-    )
-
-
-def answer_onboarding() -> str:
-    return (
-        "👋 **Onboarding & New Starter Resources**\n\n"
-        "You’ll typically find onboarding content in the **UK&I Onboarding Hub** or related IPA pages.\n"
-        "Look for:\n"
-        "• Onboarding checklists\n"
-        "• Mandatory training\n"
-        "• Key links for HR, IT setup, and local processes\n\n"
-        "If you are unsure which hub or page applies to you, please check with your manager or HR contact."
-    )
-
-
-def answer_maintenance() -> str:
-    if MAINTENANCE_TEXT:
-        return MAINTENANCE_TEXT
-
-    return (
-        "🧩 **Chatbot Maintenance & Updates**\n\n"
-        "The chatbot is maintained as a companion to the IPA SharePoint Hub. "
-        "Content and logic are reviewed regularly, with updates typically aligned "
-        "to monthly SharePoint or process changes."
-    )
-
-
-# ============================================================
-# SEARCH HELPERS
-# ============================================================
-
-def search_faq_for_answer(msg: str) -> Optional[str]:
-    """
-    Improved FAQ matching with:
-    - stronger minimum score
-    - multi-pass fuzzy scoring
-    - question weight boosting
-    """
-    if not FAQ_LIST:
-        return None
-
-    msg_norm = normalise_text(msg)
-
-    questions = [entry["q_norm"] for entry in FAQ_LIST]
-
-    best_norm, score_norm, _ = process.extractOne(
-        msg_norm, questions, scorer=fuzz.token_set_ratio
-    )
-    best_partial, score_partial, _ = process.extractOne(
-        msg_norm, questions, scorer=fuzz.partial_ratio
-    )
-
-    best_score = max(score_norm, score_partial)
-    if best_score < 65:
-        return None
-
-    for entry in FAQ_LIST:
-        if entry["q_norm"] in (best_norm, best_partial):
-            return entry["a"]
+    # Navigation / where to find things – concept only gives a light answer;
+    # we still rely on FAQ/topic matching for specifics.
+    if "navigation" in concept:
+        return (
+            "🧭 **Finding Content on the IPA Hub**\n\n"
+            "You can usually find what you need by:\n"
+            "• Using the SharePoint search bar with a few key words (e.g. *onboarding checklist*, *NDA template*).\n"
+            "• Browsing via the IPA Hub home page and following the HR, IT, Project, or Governance sections.\n\n"
+            "Tell me what you’re looking for (for example *onboarding hub*, *HR policies*, *IT troubleshooting* "
+            "or *graduate community*) and I’ll point you to the right page or summary."
+        )
 
     return None
 
 
-def search_topics_for_answer(msg: str) -> Optional[str]:
-    """Fuzzy match against topic titles and content."""
-    if not TOPIC_CONTENT:
-        return None
+# ============================================================
+# MAIN CHAT LOGIC
+# ============================================================
 
-    msg_norm = normalise_text(msg)
-
-    # Match on titles
-    titles_norm = [normalise_text(t) for t in TOPIC_TITLES.values()]
-    best_title_norm, score_title, _ = process.extractOne(
-        msg_norm, titles_norm, scorer=fuzz.token_set_ratio
-    )
-
-    chosen_key = None
-    if score_title >= 70:
-        for key, title in TOPIC_TITLES.items():
-            if normalise_text(title) == best_title_norm:
-                chosen_key = key
-                break
-
-    # If no strong title, match content
-    if not chosen_key:
-        contents = list(TOPIC_CONTENT.values())
-        best_content, score_content, idx = process.extractOne(
-            msg_norm, contents, scorer=fuzz.partial_ratio
-        )
-        if score_content >= 70:
-            chosen_key = list(TOPIC_CONTENT.keys())[idx]
-
-    if not chosen_key:
-        return None
-
-    return TOPIC_CONTENT.get(chosen_key)
+def is_greeting(message: str) -> bool:
+    msg = normalise_text(message)
+    return any(word in msg for word in ["hello", "hi ", "hi", "hey", "good morning", "good afternoon", "good evening"])
 
 
-def list_all_topics() -> str:
-    if not TOPIC_TITLES:
-        return "I don't have any topics loaded yet. Please check the training data folder."
-
-    lines = ["Here are the main topics I can help with:\n"]
-    for title in sorted(TOPIC_TITLES.values()):
-        lines.append(f"• {title}")
-    return "\n".join(lines)
-
-
-def extract_navigation_target(msg: str) -> Optional[str]:
-    """
-    Pulls out the 'thing' the user wants to find:
-    e.g. 'Where is NextGen Framework?' → 'NextGen Framework'
-    """
-    msg_clean = msg.replace("?", "").strip().lower()
-
-    triggers = [
-        "where do i find",
-        "where can i find",
-        "where is",
-        "how do i get to",
-        "navigate to",
-        "open",
-        "access",
+def list_main_topics() -> str:
+    topics = [
+        "Annual Leave & Bank Holidays",
+        "Working Time Regulations & Hours",
+        "What you can access on the IPA Hub",
+        "Navigation – where to find pages, templates and tools",
+        "SharePoint best practices & advanced features",
+        "Onboarding hub, training and learning",
+        "Troubleshooting and IT / access issues",
     ]
-    for t in triggers:
-        if msg_clean.startswith(t):
-            return msg_clean[len(t):].strip()
+    bullet = "\n".join(f"• {t}" for t in topics)
+    return (
+        "Here are the main areas I can help with:\n\n"
+        f"{bullet}\n\n"
+        "You can ask in natural language, for example:\n"
+        "• *How many annual leave days do I get?*\n"
+        "• *Where do I find bank holiday information?*\n"
+        "• *What can I access on the IPA SharePoint?*\n"
+        "• *Where do I find templates for projects?*\n"
+        "• *SharePoint is slow – what can I try?*"
+    )
 
-    return None
 
+def generate_answer(message: str) -> str:
+    message = (message or "").strip()
+    if not message:
+        return "Please type a question and I’ll do my best to help."
 
-# ============================================================
-# MAIN RESPONSE FUNCTION
-# ============================================================
+    msg_norm = normalise_text(message)
 
-def generate_response(user_message: str) -> str:
-    msg = user_message.strip()
-    msg_norm = normalise_text(msg)
-
-    if not msg_norm:
-        return "Please type a question or topic about the IPA Hub or SharePoint, and I’ll do my best to help."
-
-    tokens = msg_norm.split()
-
-    # Greetings / small talk
-    if any(t in tokens for t in ("hello", "hi", "hey")) or \
-       "good morning" in msg_norm or "good afternoon" in msg_norm or "good evening" in msg_norm:
+    # 1) Greetings and main-topics shortcuts
+    if "main topics" in msg_norm or "what can you do" in msg_norm:
+        return list_main_topics()
+    if is_greeting(message):
         return (
             "Hi! I’m your IPA Hub Navigation Assistant 👋\n\n"
-            "You can ask me about:\n"
-            "• Annual leave and working time policies\n"
-            "• Where to find templates, tools, or training\n"
-            "• What you can access on the IPA SharePoint Hub\n"
-            "• Troubleshooting issues (access, errors, broken links)\n\n"
-            "Try something like: *How many annual leave days do I get?* or "
-            "*Where do I find onboarding resources?*"
-        )
-
-    # Thanks / closing
-    if "thank" in msg_norm or "thanks" in msg_norm:
-        return (
-            "You’re welcome! 😊\n\n"
-            "If you have another question about the IPA Hub, SharePoint, HR topics, or navigation, "
-            "just type it and I’ll help you again."
-        )
-
-    # Capabilities / help
-    if "what can you do" in msg_norm or msg_norm in ("help", "help me", "how do you work"):
-        return (
-            "I can help you navigate the IPA SharePoint Hub and answer common questions.\n\n"
-            "You can ask me to:\n"
-            "• Explain **why we use SharePoint** or what it allows you to access\n"
-            "• Find **templates, governance packs, or training pages**\n"
-            "• Clarify **annual leave** and **working time** policies (HR-safe guidance)\n"
-            "• Provide **troubleshooting tips** if something is not working\n"
-            "• Explain **how to use SharePoint effectively** (best practices, collaboration, integrations)\n\n"
+            "Ask me about annual leave, working hours, HR policies, SharePoint pages, templates, "
+            "training, or troubleshooting issues.\n"
             "You can also type **main topics** to see everything I know."
         )
 
-    # Main topics
-    if "main topics" in msg_norm or ("what" in msg_norm and "topics" in msg_norm):
-        return list_all_topics()
+    # 2) High-level concept detection with curated answers
+    concept = detect_concept(message)
+    concept_answer = answer_for_concept(concept or "", message) if concept else None
+    if concept_answer:
+        return concept_answer
 
-    # Maintenance / updates questions
-    if any(k in msg_norm for k in ("maintenance", "updated", "version", "release notes", "changelog")):
-        return answer_maintenance()
-
-    # Navigation-specific wording
-    if any(k in msg_norm for k in ("where do i find", "where can i find", "where is", "how do i get to", "navigate to")):
-        target = extract_navigation_target(msg)
-        if target:
-            nav_answer = search_topics_for_answer(target)
-            if nav_answer:
-                return nav_answer
-
-        if NAVIGATION_TEXT:
-            return NAVIGATION_TEXT
-
-    # Core concept detection
-    concept, topic_key, score = detect_concept(msg)
-
-    if concept:
-        if concept == normalise_text("annual leave"):
-            return answer_annual_leave()
-        if concept == normalise_text("working hours"):
-            return answer_working_hours()
-        if concept == normalise_text("sharepoint access"):
-            return answer_sharepoint_access()
-        if concept == normalise_text("sharepoint purpose") or concept == normalise_text("sharepoint use cases"):
-            return answer_sharepoint_purpose()
-        if concept == normalise_text("best practices"):
-            return answer_best_practices()
-        if concept == normalise_text("troubleshooting") or concept == normalise_text("it support"):
-            return answer_troubleshooting()
-        if concept == normalise_text("onboarding"):
-            return answer_onboarding()
-
-        # For all other concepts (document access, collaboration, training, etc.)
-        if topic_key and topic_key in TOPIC_CONTENT:
-            return TOPIC_CONTENT[topic_key]
-
-    # FAQ match
-    faq_answer = search_faq_for_answer(msg)
+    # 3) FAQ-style Q&A matching
+    faq_answer = find_best_faq_answer(message)
     if faq_answer:
         return faq_answer
 
-    # Topic-based fallback
-    topic_answer = search_topics_for_answer(msg)
-    if topic_answer:
-        return topic_answer
+    # 4) Block / topic matching
+    block_answer = find_best_topic_block(message)
+    if block_answer:
+        return block_answer
 
-    # Final rich fallback
+    # 5) Final fallback – never say "I don't know", always give something useful
     return (
-        "I may not have interpreted your question perfectly, but I can definitely help.\n\n"
-        "Here are the main areas I can guide you on:\n"
-        "• **Annual leave**, holidays, working hours, HR policies\n"
-        "• **Where to find pages**, tools, documents, and training on the IPA Hub\n"
-        "• **What SharePoint is used for** and what you can access\n"
-        "• **Troubleshooting** issues such as access denied, missing pages, slow loading\n"
-        "• **Best practices**, governance, onboarding, collaboration, integrations and navigation\n\n"
-        "Try asking for a topic directly — for example: *Working Time Regulations*, *Best Practices*, "
-        "or *What can I access on SharePoint?*"
+        "I couldn’t perfectly match your question to a specific page or policy, "
+        "but I can definitely help.\n\n"
+        + list_main_topics()
     )
 
 
@@ -916,23 +632,32 @@ def generate_response(user_message: str) -> str:
 # ============================================================
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
 
-@app.route("/get", methods=["POST"])
-def get_reply():
-    """
-    Expects JSON: { "message": "user question" }
-    Returns JSON: { "reply": "bot answer" }
-    """
-    data = request.get_json(force=True, silent=True) or {}
-    user_message = data.get("message", "") or ""
-    reply = generate_response(user_message)
-    return jsonify({"reply": reply})
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.get_json(force=True) or {}
+    message = data.get("message", "")
+    answer = generate_answer(message)
+    return jsonify({"answer": answer})
 
+
+# ============================================================
+# APP STARTUP
+# ============================================================
+
+def initialise_chatbot():
+    load_synonyms_file()
+    load_keywords_file()
+    register_manual_concepts()
+    load_all_training_files()
+
+
+# Initialise at import time (Render / Gunicorn)
+initialise_chatbot()
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(debug=True)
 

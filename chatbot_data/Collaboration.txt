@@ -1,0 +1,23 @@
+Q: How do I share documents internally with my team on SharePoint?
+A: Use the Share button on the document and select your internal colleagues. Permissions will automatically apply based on your team’s access level.
+
+Q: How do I bookmark or save frequently used SharePoint pages?
+A: Click Follow (the star icon) at the top of the page to bookmark it for quick access later.
+
+Q: How can I subscribe to updates on a SharePoint page?
+A: Use the Alert Me feature to receive notifications when a page or document is updated.
+
+Q: How do I sync SharePoint files to OneDrive for offline access?
+A: Open the document library and click Sync. This will connect the library to your OneDrive for offline use.
+
+Q: Can multiple people work on the same document at the same time?
+A: Yes. SharePoint supports real-time co-authoring using Office 365 apps such as Word, Excel, and PowerPoint.
+
+Q: How do I comment or give feedback on a SharePoint document?
+A: Open the document in Office Online and use the Comments panel to add notes, tag colleagues, or start threaded discussions.
+
+Q: How do I set up a shared folder for project collaboration?
+A: Go to the project library, click New > Folder, name it appropriately, and assign the correct permissions for your team.
+
+Q: How do I enable approval workflows for documents?
+A: In the library settings, activate Document Approval or use Power Automate templates for customised approval workflows.

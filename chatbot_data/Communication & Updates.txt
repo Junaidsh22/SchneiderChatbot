@@ -1,0 +1,23 @@
+Q: Where can I view company-wide announcements?
+A: Company-wide announcements are available on the All Company Group page, which displays leadership messages, important updates, and organisation-wide communications.
+
+Q: How do I access newsletters or leadership communications?
+A: Newsletters and leadership messages can be found on the IPA SharePoint under communication or announcement sections, depending on your local site structure.
+
+Q: How can I subscribe to HR updates or policy changes?
+A: You can subscribe to HR updates by using the “Alert Me” feature on HR policy pages or by following the HR Portal for automatic notifications when content changes.
+
+Q: How will I receive notifications for IT system maintenance?
+A: IT maintenance notifications are issued through SharePoint announcements, system banners, or email alerts managed by the IT department.
+
+Q: How can I track project milestones or roadmap updates?
+A: Project milestones and roadmap updates are usually posted in relevant project SharePoint groups or within the Project Hub where progress updates are maintained.
+
+Q: Where can I access event calendars and schedules?
+A: Event calendars and schedules can be found under the Events or Calendar section of SharePoint, or within specific group sites that host internal activities.
+
+Q: Where can I view onboarding event details?
+A: Onboarding event details are available within the UK&I Onboarding Hub Group, which includes schedules, welcome sessions, and key onboarding activities.
+
+Q: How do I receive alerts for critical compliance updates?
+A: You can receive alerts for compliance updates by enabling notifications on the Compliance & Audit page or by following the relevant governance sections on SharePoint.

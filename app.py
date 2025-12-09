@@ -208,17 +208,25 @@ def load_all_training_data():
 
 
 def add_manual_concepts():
-    """Extend concept table with important HR/navigation concepts."""
+    """
+    Extend concept table with important HR / navigation / IPA Hub concepts.
+    These link natural language into your training files.
+    """
     manual = {
+        # Core HR
         "Annual Leave": [
             "annual leave",
             "annual leave days",
-            "holiday entitlement",
+            "how many annual leave days",
             "how many holidays",
+            "holiday entitlement",
+            "holiday days",
             "vacation days",
             "paid time off",
             "pto",
             "annual holiday",
+            "leave allowance",
+            "leave entitlements",
         ],
         "Working Hours": [
             "working hours",
@@ -229,8 +237,21 @@ def add_manual_concepts():
             "core hours",
             "hours per week",
             "shift pattern",
+            "shift timings",
             "standard hours",
+            "start time",
+            "finish time",
         ],
+        "HR Policies": [
+            "hr policies",
+            "hr policy",
+            "company policies",
+            "hr rules",
+            "hr guidance",
+            "where are hr policies",
+        ],
+
+        # SharePoint core
         "SharePoint Access": [
             "what can i access",
             "what can i access on sharepoint",
@@ -239,6 +260,7 @@ def add_manual_concepts():
             "access on ipa hub",
             "what is available on sharepoint",
             "what does the sharepoint allow me to access",
+            "what can i see on sharepoint",
         ],
         "SharePoint Purpose": [
             "why do we use a sharepoint",
@@ -246,16 +268,113 @@ def add_manual_concepts():
             "purpose of sharepoint",
             "what is the purpose of sharepoint",
             "why do we use sharepoint",
+            "why does schneider use sharepoint",
+            "sharepoint use case reasoning",
         ],
         "SharePoint Navigation": [
             "where do i find",
+            "where can i find",
             "where is",
             "navigate to",
-            "navigation",
             "how do i get to",
             "how do i find",
+            "navigation",
             "ipa hub navigation",
+            "sharepoint navigation",
+            "how to get to page",
         ],
+        "SharePoint Use Cases": [
+            "sharepoint use cases",
+            "what is sharepoint used for",
+            "how do we use sharepoint",
+            "examples of sharepoint usage",
+            "sharepoint scenario",
+            "sharepoint business use",
+        ],
+
+        # Themed topics from your training data
+        "Document Access": [
+            "access hr policies",
+            "open hr policies",
+            "where are policies stored",
+            "find templates",
+            "project templates",
+            "governance packs",
+            "open training materials",
+            "access e learning",
+            "where are finance templates",
+            "where are engineering standards",
+            "where are legal contracts",
+            "where are qa reports",
+            "how do i access documents",
+            "document access",
+        ],
+        "Collaboration": [
+            "share documents",
+            "share files",
+            "co author",
+            "work together",
+            "collaborate",
+            "collaboration",
+            "shared folders",
+            "document approval workflow",
+        ],
+        "Compliance & Governance": [
+            "compliance",
+            "governance",
+            "audit trail",
+            "iso standards",
+            "regulatory standards",
+            "gdpr",
+            "data protection",
+            "risk management",
+            "hse documentation",
+            "safety guidelines",
+        ],
+        "Advanced Features": [
+            "advanced features",
+            "version history",
+            "metadata tagging",
+            "alerts",
+            "customise homepage",
+            "automated workflows",
+            "approvals",
+            "multilingual",
+        ],
+        "Training & Learning": [
+            "training",
+            "learning hub",
+            "mandatory training",
+            "onboarding training",
+            "graduate programme resources",
+            "development plans",
+            "compliance training modules",
+            "leadership training",
+            "technical training",
+            "soft skills courses",
+        ],
+        "Communication & Updates": [
+            "company wide announcements",
+            "all company group",
+            "newsletters",
+            "leadership messages",
+            "policy updates",
+            "system maintenance updates",
+            "event calendars",
+            "roadmap updates",
+        ],
+        "Integration": [
+            "integrate sharepoint",
+            "sharepoint with teams",
+            "sharepoint with power bi",
+            "sharepoint and servicenow",
+            "project tools like ms project",
+            "api access",
+            "vendor portals",
+            "sharepoint integration tips",
+        ],
+
+        # Other
         "Troubleshooting": [
             "troubleshooting",
             "problem",
@@ -266,6 +385,8 @@ def add_manual_concepts():
             "broken link",
             "link not working",
             "sharepoint not loading",
+            "vpn issue",
+            "sync issue",
         ],
         "Best Practices": [
             "best practice",
@@ -273,6 +394,7 @@ def add_manual_concepts():
             "how should i use sharepoint",
             "sharepoint tips",
             "sharepoint guidelines",
+            "sharepoint best practices",
         ],
         "Onboarding": [
             "onboarding",
@@ -281,6 +403,17 @@ def add_manual_concepts():
             "joiner",
             "welcome programme",
             "onboarding hub",
+            "onboarding checklist",
+            "new starter",
+        ],
+        "IT Support": [
+            "it support",
+            "it help",
+            "password reset",
+            "vpn not working",
+            "laptop issue",
+            "wifi issue",
+            "endpoint setup",
         ],
     }
 
@@ -315,16 +448,18 @@ def build_concept_to_topic_mapping():
 
     wtr_key = topic_by_name.get("working time regulations")
     if wtr_key:
-        for c in ("annual leave", "working hours", "sick leave"):
+        for c in ("annual leave", "working hours", "sick leave", "hr policies"):
             CONCEPT_TO_TOPIC[normalise_text(c)] = wtr_key
 
     why_sp_key = topic_by_name.get("why do we use a sharepoint")
     if why_sp_key:
-        CONCEPT_TO_TOPIC[normalise_text("sharepoint purpose")] = why_sp_key
+        for c in ("sharepoint purpose", "sharepoint use cases"):
+            CONCEPT_TO_TOPIC[normalise_text(c)] = why_sp_key
 
     access_key = topic_by_name.get("what does the sharepoint allow me to access")
     if access_key:
-        CONCEPT_TO_TOPIC[normalise_text("sharepoint access")] = access_key
+        for c in ("sharepoint access", "document access"):
+            CONCEPT_TO_TOPIC[normalise_text(c)] = access_key
 
     nav_key = topic_by_name.get("navigation instructions")
     if nav_key:
@@ -337,6 +472,14 @@ def build_concept_to_topic_mapping():
     faq_key = topic_by_name.get("ipa sharepoint faq")
     if faq_key:
         CONCEPT_TO_TOPIC[normalise_text("faq")] = faq_key
+
+    usecases_key = topic_by_name.get("sharepoint usecases")
+    if usecases_key:
+        CONCEPT_TO_TOPIC[normalise_text("sharepoint use cases")] = usecases_key
+
+    doc_access_key = topic_by_name.get("document access")
+    if doc_access_key:
+        CONCEPT_TO_TOPIC[normalise_text("document access")] = doc_access_key
 
 
 # Load data at startup
@@ -366,18 +509,29 @@ def detect_concept(user_message: str) -> Tuple[Optional[str], Optional[str], int
     WEIGHTS = {
         "annual leave": 1.35,
         "working hours": 1.30,
+        "hr policies": 1.25,
         "sharepoint access": 1.25,
         "sharepoint purpose": 1.25,
+        "sharepoint navigation": 1.25,
+        "sharepoint use cases": 1.25,
+        "document access": 1.22,
+        "collaboration": 1.20,
+        "compliance governance": 1.20,
+        "advanced features": 1.18,
+        "training learning": 1.18,
+        "communication updates": 1.15,
+        "integration": 1.15,
         "troubleshooting": 1.20,
         "best practices": 1.15,
         "onboarding": 1.10,
+        "it support": 1.15,
     }
 
     # 1) Direct phrase detection (prioritise longer phrases)
     for phrase, concept in CONCEPT_SYNONYMS.items():
         phrase_norm = phrase  # already normalised when stored
         concept_norm = normalise_text(concept)
-        if phrase_norm in msg_norm:
+        if phrase_norm and phrase_norm in msg_norm:
             score = len(phrase_norm) * 4
             score *= WEIGHTS.get(concept_norm, 1)
             if score > best_score:
@@ -396,14 +550,18 @@ def detect_concept(user_message: str) -> Tuple[Optional[str], Optional[str], int
             best_score = fuzzy_score
             best_concept = fuzzy_best
 
-    # 3) Semantic fingerprint rules for very common HR framings
-    if any(k in msg_norm for k in ("holiday", "annual leave", "vacation", "holiday days")):
+    # 3) Semantic fingerprints for very common HR framings
+    if any(k in msg_norm for k in ("holiday", "annual leave", "vacation", "holiday days", "leave days")):
         best_concept = "annual leave"
         best_score = max(best_score, 95)
 
-    if "hours" in msg_norm or "working time" in msg_norm:
+    if "working time" in msg_norm or "hours" in msg_norm or "shift" in msg_norm:
         best_concept = "working hours"
         best_score = max(best_score, 90)
+
+    if "onboard" in msg_norm or "new starter" in msg_norm or "new joiner" in msg_norm:
+        best_concept = "onboarding"
+        best_score = max(best_score, 88)
 
     if not best_concept:
         return None, None, 0
@@ -414,7 +572,7 @@ def detect_concept(user_message: str) -> Tuple[Optional[str], Optional[str], int
 
 
 # ============================================================
-# ANSWER BUILDERS
+# ANSWER BUILDERS FOR KEY CONCEPTS
 # ============================================================
 
 def answer_annual_leave() -> str:
@@ -424,7 +582,7 @@ def answer_annual_leave() -> str:
         "For HR-approved information, always refer to:\n"
         "• Your employment contract\n"
         "• The official HR / Working Time Regulations policy\n"
-        "• Your time-off balance in the HR system (e.g. Workday)\n\n"
+        "• Your time-off balance in the HR system (e.g. Workday / Time@Schneider)\n\n"
         "You can also review the **Working Time Regulations** section on the IPA Hub for detailed guidance."
     )
 
@@ -479,7 +637,6 @@ def answer_sharepoint_purpose() -> str:
 
 
 def answer_best_practices() -> str:
-    # If we have a dedicated Best Practices topic, return it; otherwise generic.
     for key, title in TOPIC_TITLES.items():
         if "best practice" in title.lower():
             return TOPIC_CONTENT.get(key, "")
@@ -504,7 +661,7 @@ def answer_troubleshooting() -> str:
     return (
         "🛠️ **SharePoint Troubleshooting Tips**\n\n"
         "Common issues and quick checks:\n"
-        "• *Access denied*: request access or contact the page owner/IT\n"
+        "• *Access denied*: request access or contact the page owner / IT\n"
         "• *Page not loading / very slow*: check VPN, network, and try a different browser\n"
         "• *Broken link*: search the document name in SharePoint search, then report the broken link\n"
         "• *Sync issues*: restart OneDrive and verify you are logged in with your SE account\n"
@@ -651,8 +808,11 @@ def generate_response(user_message: str) -> str:
     if not msg_norm:
         return "Please type a question or topic about the IPA Hub or SharePoint, and I’ll do my best to help."
 
+    tokens = msg_norm.split()
+
     # Greetings / small talk
-    if any(g in msg_norm for g in ("hello", "hi ", "hi", "hey", "good morning", "good afternoon", "good evening")):
+    if any(t in tokens for t in ("hello", "hi", "hey")) or \
+       "good morning" in msg_norm or "good afternoon" in msg_norm or "good evening" in msg_norm:
         return (
             "Hi! I’m your IPA Hub Navigation Assistant 👋\n\n"
             "You can ask me about:\n"
@@ -664,15 +824,24 @@ def generate_response(user_message: str) -> str:
             "*Where do I find onboarding resources?*"
         )
 
+    # Thanks / closing
+    if "thank" in msg_norm or "thanks" in msg_norm:
+        return (
+            "You’re welcome! 😊\n\n"
+            "If you have another question about the IPA Hub, SharePoint, HR topics, or navigation, "
+            "just type it and I’ll help you again."
+        )
+
     # Capabilities / help
-    if "what can you do" in msg_norm or msg_norm in ("help", "help me"):
+    if "what can you do" in msg_norm or msg_norm in ("help", "help me", "how do you work"):
         return (
             "I can help you navigate the IPA SharePoint Hub and answer common questions.\n\n"
             "You can ask me to:\n"
             "• Explain **why we use SharePoint** or what it allows you to access\n"
             "• Find **templates, governance packs, or training pages**\n"
             "• Clarify **annual leave** and **working time** policies (HR-safe guidance)\n"
-            "• Provide **troubleshooting tips** if something is not working\n\n"
+            "• Provide **troubleshooting tips** if something is not working\n"
+            "• Explain **how to use SharePoint effectively** (best practices, collaboration, integrations)\n\n"
             "You can also type **main topics** to see everything I know."
         )
 
@@ -705,15 +874,16 @@ def generate_response(user_message: str) -> str:
             return answer_working_hours()
         if concept == normalise_text("sharepoint access"):
             return answer_sharepoint_access()
-        if concept == normalise_text("sharepoint purpose"):
+        if concept == normalise_text("sharepoint purpose") or concept == normalise_text("sharepoint use cases"):
             return answer_sharepoint_purpose()
         if concept == normalise_text("best practices"):
             return answer_best_practices()
-        if concept == normalise_text("troubleshooting"):
+        if concept == normalise_text("troubleshooting") or concept == normalise_text("it support"):
             return answer_troubleshooting()
         if concept == normalise_text("onboarding"):
             return answer_onboarding()
 
+        # For all other concepts (document access, collaboration, training, etc.)
         if topic_key and topic_key in TOPIC_CONTENT:
             return TOPIC_CONTENT[topic_key]
 
@@ -735,7 +905,7 @@ def generate_response(user_message: str) -> str:
         "• **Where to find pages**, tools, documents, and training on the IPA Hub\n"
         "• **What SharePoint is used for** and what you can access\n"
         "• **Troubleshooting** issues such as access denied, missing pages, slow loading\n"
-        "• **Best practices**, governance, onboarding and navigation\n\n"
+        "• **Best practices**, governance, onboarding, collaboration, integrations and navigation\n\n"
         "Try asking for a topic directly — for example: *Working Time Regulations*, *Best Practices*, "
         "or *What can I access on SharePoint?*"
     )
@@ -765,3 +935,4 @@ def get_reply():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+

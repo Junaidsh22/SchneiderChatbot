@@ -1,12 +1,77 @@
-Chatbot Maintenace Report
+Chatbot Maintenance & Update Report
 
+Q: How often is the IPA Hub chatbot updated?
+Q: When does the chatbot receive new versions?
+Q: How frequently are improvements made to the chatbot?
+Q: What is the chatbot update schedule?
+Q: When can staff expect the next chatbot release?
 
-The main goal of this chatbot is to be used alongside the IPA Sharepoint as accesss and direction tool - below is the scheduled maintenance and update report:
+A:
+The IPA Hub Navigation Chatbot follows a structured monthly maintenance and update cycle.  
+Updates are planned, reviewed, and released by the end of each calendar month to ensure the chatbot continues to reflect the latest information from the IPA SharePoint Hub, HR guidance, governance updates, and IT support processes.
 
-Chatbot will be updated once a month (Aim to have updates published by last day of the month)
+Each monthly update aims to:
+• Improve the accuracy of intent matching  
+• Add new SharePoint navigation paths or updated directory changes  
+• Expand HR, IT, Governance and IPA-related Q&A coverage  
+• Fix bugs, errors, or outdated link references  
+• Enhance the chatbot’s tone, clarity, and user experience  
+• Add newly requested features or high-volume user queries
 
-Any new versions will be published with bug/error fix documentation, to give users a better understanding of the improvements made to the chabot feature.
+Following each release, a version summary is published which includes:
+• Version number  
+• A list of enhancements and changes  
+• Any bug fixes addressed  
+• Newly added knowledge areas or updated navigation instructions  
+• Planned improvements for the next cycle  
 
-Finally, after any new updates or releases are made there will be a post/announcment to reflect the new version and summarise the main updates.
+Announcements are posted on the IPA Hub and relevant communication channels after each update, ensuring users are aware of improvements and new capabilities.
 
+Where are the latest updates and its history
 
+Q: Where can I see the latest chatbot update notes?
+Q: Does the chatbot provide a version history?
+Q: Where are the release notes published?
+Q: How do I know what changed in the latest chatbot update?
+
+A:
+All chatbot update notes, version summaries, and maintenance reports are published on the IPA SharePoint Hub.  
+These release notes clearly outline:
+• What was added or improved  
+• Fixes completed during the cycle  
+• Any new datasets, navigation pages, or user features included  
+• Any known limitations that are being addressed in the next version  
+
+Release notes are also highlighted in monthly announcements to ensure visibility across the IPA community.
+
+What is included within maintenance
+
+Q: What is included in a chatbot maintenance review?
+Q: What does the team check during monthly maintenance?
+Q: How is the chatbot evaluated for quality?
+
+A:
+Each monthly maintenance cycle includes:
+• Reviewing high-volume and misunderstood queries  
+• Updating training data to improve intent accuracy  
+• Adding new SharePoint pages, governance content, and navigation routes  
+• Removing outdated or deprecated information  
+• Checking for technical issues, broken links, or slow responses  
+• Testing chatbot performance in real-world scenarios  
+• Reviewing user feedback gathered throughout the month  
+
+The goal is to ensure the chatbot remains a reliable, accurate, and intuitive assistant for IPA Hub navigation and SharePoint-related inquiries.
+
+How to Report a Problem & Technical Contact
+
+Q: How do I report a problem with the chatbot?
+Q: Who maintains the chatbot?
+Q: How can I send feedback or request improvements?
+
+A:
+Users can report issues, give feedback, or request new features by contacting the chatbot maintainer:
+
+📧 **junaid.sheikh@se.com**  
+💬 Or via Microsoft Teams (search: **Junaid Sheikh**)
+
+Feedback helps shape future updates and is reviewed during the monthly maintenance cycle to prioritise improvements for the next release.

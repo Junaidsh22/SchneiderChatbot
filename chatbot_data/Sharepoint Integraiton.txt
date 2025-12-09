@@ -1,0 +1,28 @@
+Q: How do I integrate SharePoint with Microsoft Teams?
+Q: Can SharePoint work with Teams for file sharing?
+Q: How do I use SharePoint libraries inside Teams?
+A: SharePoint integrates directly with Microsoft Teams. You can add SharePoint document libraries as tabs in a Team, share files through Teams chat, and collaborate on documents in real time. This integration improves communication and centralises project files.
+
+Q: How do I connect SharePoint with Power BI dashboards?
+Q: Can I use SharePoint as a data source in Power BI?
+A: Yes, Power BI can connect to SharePoint lists and libraries. Use the SharePoint Online connector in Power BI to import data and build dashboards. This allows dynamic analytics using information stored within SharePoint.
+
+Q: Does SharePoint integrate with ServiceNow?
+Q: How can I use SharePoint with IT requests or tickets?
+A: SharePoint can integrate with ServiceNow to streamline IT request submissions. ServiceNow links can be embedded into SharePoint pages, and workflows can route users to the correct IT service portal for raising tickets.
+
+Q: Can SharePoint link with HR portals?
+Q: How does SharePoint support employee self-service tools?
+A: SharePoint can be linked directly to HR portals, enabling employees to access HR systems, self-service tools, and policy documents from one central hub. This improves navigation and reduces the time spent searching for HR resources.
+
+Q: How do I integrate SharePoint with project management tools like Microsoft Project?
+Q: Can SharePoint support project planning tools?
+A: Yes, SharePoint supports integration with Microsoft Project and other planning systems. Project files can be stored in SharePoint, and task lists or timelines can be synced to enable structured project collaboration.
+
+Q: Can I enable API access for SharePoint?
+Q: Does SharePoint support custom applications?
+A: SharePoint supports API access through Microsoft Graph and SharePoint REST APIs. This allows developers to build custom apps, automate processes, and retrieve or update data programmatically.
+
+Q: How do I connect SharePoint with external vendor portals securely?
+Q: Can SharePoint be used to share documents with external partners?
+A: External integration is possible but controlled by company policy. SharePoint allows secure external access through guest sharing, but this must follow Schneider Electric’s security and governance rules. Check with IT or data security before enabling external access.

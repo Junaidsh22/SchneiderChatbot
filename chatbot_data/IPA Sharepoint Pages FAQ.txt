@@ -1,0 +1,207 @@
+### IPA SharePoint – Full Directory of Pages & Their Purpose
+
+Q: What pages are available on the IPA SharePoint?
+Q: What is the full list of IPA Hub pages?
+Q: Can you show me all IPA SharePoint sections?
+Q: What pages exist on the IPA SharePoint as of the last update?
+Q: What areas can I access on the IPA SharePoint?
+
+A:
+Below is the complete directory of pages currently published on the IPA SharePoint (as of the last chatbot update – Dec 2025). Each page supports different functions across governance, IT, HR, collaboration, onboarding, and project delivery:
+
+• **UK & Ireland – Main Page**  
+  The central landing page for UK&I operations. Hosts key announcements, policies, updates, and essential resources for employees.
+
+• **Export Control COE Group**  
+  Dedicated hub for export compliance. Includes export control policies, guidelines, approval workflows, and required documentation.
+
+• **Data Security**  
+  Contains Schneider Electric data protection policies, security best practices, encryption standards, and compliance resources.
+
+• **Global Spice+**  
+  Main collaboration platform portal. Provides governance documents, user guides, project tools, and ongoing feature updates.
+
+• **ITDocs Group**  
+  Repository of IT troubleshooting guides, setup instructions, IT policies, and technical support documentation.
+
+• **NextGen Development Framework**  
+  Standards and guidelines for development teams. Includes coding practices, architecture principles, and best-practice documentation.
+
+• **Designer**  
+  A resource library for design teams. Includes branding guidelines, templates, creative assets, and design standards.
+
+• **Learning Site on Spice+**  
+  Central hub for e-learning. Includes courses, certification paths, skill-boosting modules, and training materials.
+
+• **Endpoint (Enterprise Mobility)**  
+  Guides for managing corporate mobile devices and endpoints. Includes setup steps, security requirements, and compliance rules.
+
+• **Industry End User & SI Campus**  
+  Knowledge hub for industry-specific content, system integrator onboarding, case studies, and technical documentation.
+
+• **Global HR**  
+  Home of global HR policies, forms, benefits information, onboarding details, and HR-related guidance.
+
+• **SE UK&I Graduate Community Group**  
+  Community page for graduates. Includes events, development programs, networking opportunities, and shared resources.
+
+• **IC Classic Video Repository**  
+  Library for instructional, corporate, and training videos, including webinars and product demonstrations.
+
+• **Pages**  
+  A structured container that stores general content pages and miscellaneous internal documentation.
+
+• **UK & I Sales Excellence Group**  
+  Supports sales teams with performance dashboards, KPIs, playbooks, and sales enablement materials.
+
+• **UK&I Onboarding Hub Group**  
+  The main onboarding centre for new hires. Includes welcome packs, mandatory training, guidance pages, and checklists.
+
+• **Grads Planner Group**  
+  Planning tools for graduates. Contains event schedules, calendars, development timelines, and task trackers.
+
+• **Spice+ Strategy & Sustainability**  
+  Communicates Schneider Electric corporate strategy, sustainability goals, reports, dashboards, and progress updates.
+
+• **All Company Group**  
+  Main communication hub for global announcements, leadership updates, newsletters, and company-wide messages.
+
+This directory forms the backbone of the IPA SharePoint, giving employees structured access to policies, documentation, training, governance content, and collaboration tools.
+
+---
+
+### What is the purpose of each IPA SharePoint page?
+
+Q: What does each SharePoint page do?
+Q: What is the purpose of the pages on the IPA SharePoint?
+Q: Can you explain the purpose behind each page?
+Q: What is each IPA Hub page used for?
+
+A:
+Here is an overview of the purpose and role of every major IPA SharePoint page:
+
+• **UK & Ireland – Main Page**  
+  Provides a centralised hub for regional communication, policy access, and operational updates.
+
+• **Export Control COE Group**  
+  Ensures regulatory compliance for exports. Hosts control procedures, approval forms, and mandatory documentation.
+
+• **Data Security**  
+  Safeguards organisational data by providing policies, secure handling guidelines, and security standards.
+
+• **Global Spice+**  
+  Facilitates collaboration and project governance. Offers guides, governance content, and resource libraries.
+
+• **ITDocs Group**  
+  Supports employees with detailed IT documentation, system troubleshooting, and setup guides.
+
+• **NextGen Development Framework**  
+  Ensures consistent engineering practices with frameworks, standards, and approved development methods.
+
+• **Designer**  
+  Maintains brand consistency through approved templates, assets, and design guidelines.
+
+• **Learning Site on Spice+**  
+  Supports ongoing employee development with e-learning materials, training modules, and certification paths.
+
+• **Endpoint (Enterprise Mobility)**  
+  Guides employees in compliant and secure use of mobile endpoints and organisational devices.
+
+• **Industry End User & SI Campus**  
+  Provides technical onboarding content and resources for system integrators and industry partners.
+
+• **Global HR**  
+  Central location for HR resources, including policies, forms, benefits, and onboarding materials.
+
+• **SE UK&I Graduate Community Group**  
+  Fosters the graduate community with development resources, events, and networking tools.
+
+• **IC Classic Video Repository**  
+  Stores official videos for training, demonstrations, and internal communication.
+
+• **Pages**  
+  Acts as a general-purpose store for content that doesn’t belong to a specific functional group.
+
+• **UK & I Sales Excellence Group**  
+  Serves the UK&I sales teams with analytical dashboards, guidance, and sales improvement tools.
+
+• **UK&I Onboarding Hub Group**  
+  Provides everything new hires need during onboarding, including training, introductions, and checklists.
+
+• **Grads Planner Group**  
+  Helps graduates stay organised with planning tools, calendars, and activity schedules.
+
+• **Spice+ Strategy & Sustainability**  
+  Communicates Schneider Electric’s long-term strategy and sustainability actions across the business.
+
+• **All Company Group**  
+  Used for global and regional communications, leadership messages, and organisation-wide updates.
+
+---
+
+### Summary of each IPA SharePoint page
+
+Q: Can you give me a summary of each IPA SharePoint page?
+Q: What is a quick overview of the SharePoint pages?
+Q: Can you summarise the IPA Hub pages for me?
+Q: What pages exist and what do they do?
+
+A:
+Here is a concise summary of each page’s purpose and what you will typically find there:
+
+• **UK & Ireland – Main Page**  
+  Main landing page for regional operations, updates, and essential documents.
+
+• **Export Control COE Group**  
+  Export compliance materials, workflows, and policies.
+
+• **Data Security**  
+  Security standards, best practices, and data protection requirements.
+
+• **Global Spice+**  
+  Collaboration portal with governance documents and user guides.
+
+• **ITDocs Group**  
+  IT support documentation, troubleshooting guides, and setup steps.
+
+• **NextGen Development Framework**  
+  Development best practices, coding standards, and frameworks.
+
+• **Designer**  
+  Templates, branding materials, and design assets.
+
+• **Learning Site on Spice+**  
+  Training modules, e-learning courses, and development pathways.
+
+• **Endpoint (Enterprise Mobility)**  
+  Device management instructions and endpoint security guidance.
+
+• **Industry End User & SI Campus**  
+  Industry-specific onboarding content, documentation, and technical resources.
+
+• **Global HR**  
+  Policies, benefits, forms, onboarding content, and HR guidance.
+
+• **SE UK&I Graduate Community Group**  
+  Graduate development content, events, and community resources.
+
+• **IC Classic Video Repository**  
+  Library of training, corporate, and instructional videos.
+
+• **Pages**  
+  Miscellaneous internal content and general information pages.
+
+• **UK & I Sales Excellence Group**  
+  Sales performance materials, dashboards, and enablement tools.
+
+• **UK&I Onboarding Hub Group**  
+  All onboarding resources, mandatory training, and checklists.
+
+• **Grads Planner Group**  
+  Schedules, planning tools, calendars, and graduate program materials.
+
+• **Spice+ Strategy & Sustainability**  
+  Strategy updates, sustainability dashboards, and progress information.
+
+• **All Company Group**  
+  Company-wide announcements, newsletters, and leadership messages.

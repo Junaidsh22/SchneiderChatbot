@@ -1,0 +1,47 @@
+Q: How do I access HR policies and forms on the IPA SharePoint?
+A: You can access HR policies and forms through the HR Portal on the IPA SharePoint. Navigate to IPA Hub > HR Portal > Policies & Forms to view available HR documents.
+
+Q: Where can I download IT troubleshooting guides?
+A: IT troubleshooting guides are available in the ITDocs section of the IPA SharePoint. Navigate to ITDocs > Troubleshooting Guides to download documentation.
+
+Q: How do I retrieve compliance and audit documents?
+A: Compliance and audit documents are stored under the Compliance & Audit area of the SharePoint. Go to IPA Hub > Compliance & Audit to access them.
+
+Q: Where can I view sustainability and strategy reports?
+A: Sustainability and strategy reports are available on the Spice+ Strategy & Sustainability page. Navigate to Global Spice+ > Strategy & Sustainability.
+
+Q: How do I access onboarding checklists?
+A: Onboarding checklists are located in the UK&I Onboarding Hub Group. Navigate to IPA Hub > Onboarding Hub.
+
+Q: Where do I find project templates and governance packs?
+A: These are available under the Project Templates or Project Governance Packs sections within the IPA Hub. Search “Project Templates” or navigate to the Project Hub.
+
+Q: How do I open training materials or e-learning modules?
+A: Training materials and e-learning modules are available through the Learning Site on Spice+. Navigate to Spice+ > Learning.
+
+Q: Where can I access the video repository for tutorials and recorded sessions?
+A: Video tutorials and recordings are stored in the IC Classic Video Repository under Media Library.
+
+Q: How do I download finance and budgeting templates?
+A: Finance-related templates can be found in the Finance Portal. Navigate to IPA Hub > Finance > Templates.
+
+Q: Where can I access engineering standards and design specifications?
+A: Engineering standards and design specifications are available under Engineering Standards or within the Designer page.
+
+Q: How do I retrieve marketing and brand assets?
+A: Marketing and branding assets are available in the Brand Resources area. Navigate to Brand Resources > Marketing Assets.
+
+Q: Where can I find legal and contract documents?
+A: Legal and contract documents are located in the Legal Hub. Navigate to Legal > Contracts.
+
+Q: How do I download procurement and vendor management forms?
+A: Procurement-related forms can be found in the Procurement Hub under Forms or Vendor Management.
+
+Q: Where can I access quality assurance and non-conformance reports?
+A: These documents are stored in the QA Hub. Navigate to QA Hub > Reports or QA Hub > Non-Conformance.
+
+Q: How do I retrieve meeting minutes or calendars?
+A: Meeting minutes and calendars are available under the Collaboration section of the IPA SharePoint. Go to Collaboration > Meeting Minutes.
+
+Q: Where can I access product documentation and release notes?
+A: Product documentation and release notes can be found under Product Documentation. Navigate to IPA Hub > Product Documentation > Release Notes.

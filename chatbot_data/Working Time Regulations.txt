@@ -1,38 +1,61 @@
+WORKING TIME REGULATIONS – Q&A TRAINING FILE
+
 Q: What is the purpose of Schneider Electric’s Working Time policies?
-A: They promote fairness, wellbeing, and productivity, ensuring employees receive proper rest and managers lead with care and awareness of working time standards.
+Q: Why does Schneider Electric have Working Time rules?
+Q: Why do we follow Working Time Regulations?
+Q: What is the goal of working time policies?
+A: Schneider Electric’s Working Time policies promote fairness, wellbeing, and productivity. They ensure employees receive proper rest, managers make safe and informed decisions, and the business operates within legal and ethical working time standards.
 
 Q: What counts as working time?
+Q: What activities are included in working hours?
+Q: What tasks are considered part of my working day?
+Q: Does travel or training count as working time?
 A:
-• Performing job duties (on-site or remote)
+• Performing your normal job duties (on-site or remote)
 • Client-facing work
-• Mandatory training
-• Required on-call time at a specified location
-• Work-related travel to non-office locations (e.g., conferences, client sites)
+• Mandatory or required training
+• Required on-call duty when you must remain at a specific location
+• Work-related travel to non-office locations, such as conferences or client visits
 
 Q: What does NOT count as working time?
+Q: What activities are excluded from working hours?
+Q: Does commuting count towards my work hours?
+Q: Does personal time count as work time?
 A:
-• Commuting to your normal workplace
-• Personal time or voluntary breaks
-• Travel to your regular office location
+• Commuting to your regular workplace
+• Personal or voluntary breaks unrelated to work
+• Travel to your standard office location
 
-Q: What are the required rest and break rules?
+Q: What are the mandatory break and rest rules?
+Q: How many breaks am I entitled to?
+Q: What rest periods must employers provide?
+Q: What are the legal rest requirements during and between shifts?
 A:
-• Minimum 20-minute uninterrupted break if working more than 6 hours
-• At least 11 hours of uninterrupted rest in each 24-hour period
-• 24 hours rest per week, or 48 hours rest over two weeks
+• At least one 20-minute uninterrupted break if you work more than 6 hours
+• A minimum of 11 consecutive hours of rest within each 24-hour period
+• One full 24-hour rest day per week, or two 24-hour rest days over a two-week period (48 hours total)
 
-Q: What are the night work rules?
+Q: What are the rules for night work?
+Q: How many hours can night workers work?
+Q: What counts as night work?
+Q: Do night shifts have special limits?
 A:
-• Night work should not exceed 8 hours per night on average over 17 weeks
-• Night workers are employees who regularly work at least 3 hours between 9 PM and 6 AM
+• Night work should not exceed an average of 8 hours per night over a 17-week period
+• Night workers are those who regularly work at least 3 hours between 9 PM and 6 AM
 
 Q: What additional rules apply to young workers under 19?
-A: They have enhanced rest protections. Managers, employees, and HR must review the relevant policies to ensure compliance.
+Q: Are there special protections for young employees?
+Q: What regulations apply to workers under age 19?
+Q: How should managers treat working time for younger employees?
+A: Young workers have enhanced rest and safety protections. Managers, employees, and HR must review the relevant Working Time policies to ensure compliance, especially regarding rest periods and shift scheduling.
 
-Q: What are the annual leave entitlements?
-A:
-• 28 days paid leave per year (including bank holidays)
-• Leave year runs from 1 January to 31 December
-• Leave must be taken within the year
-• Limited carry-over allowed only until 31 March
-• Annual leave supports work-life balance and should be planned responsibly
+
+Q: Where can I find official Working Time policies?
+Q: Where do I access the HR Working Time Regulations?
+Q: Where is the official guidance for working hours stored?
+A: Official policies are available on the IPA SharePoint under the HR Portal ? Policies & Guidance. They contain detailed rules for working hours, breaks, night work, young workers, and holiday entitlements.
+
+Q: Who should I speak to if I have questions about working hours?
+Q: Who approves my working time arrangements?
+Q: Who manages queries about working time rules?
+A: Speak to your line manager or HR Partner for guidance. For policy documents, visit the HR Portal on the IPA SharePoint.

@@ -1,0 +1,31 @@
+Sharepoint Advanced Features
+
+Q: How do I customise my SharePoint homepage for personalised navigation?
+A: You can customise your SharePoint homepage by selecting the settings menu and rearranging tiles, links, and quick-access items to match your workflow.
+
+Q: How do I create new folders in SharePoint?
+A: Open the document library, click the New button, and select Folder. Name the folder and save it to organise your project documents.
+
+Q: How do I enable alerts for document changes?
+A: Select the document or library, click the Alert Me option, and choose the notification settings you prefer.
+
+Q: How can I check the version history of a document?
+A: Right-click the document or open the details pane, then select Version History to view previous versions and changes.
+
+Q: How do I manage document permissions?
+A: Select the document, choose Manage Access, and update who can view, edit, or share the file.
+
+Q: How do I schedule page update notifications?
+A: Use the Alert Me feature on the page and configure scheduled notification preferences.
+
+Q: How do I integrate SharePoint with Microsoft Teams?
+A: You can add a SharePoint library to a Teams channel using the Add a tab menu or sync Teams files via SharePoint.
+
+Q: Why should I use metadata when working in SharePoint?
+A: Metadata improves search accuracy, categorises files, and helps users find documents faster across the IPA Hub.
+
+Q: How do I enable multilingual support in SharePoint?
+A: Go to Site Settings, enable multilingual features, and add the languages required for your global teams.
+
+Q: How do I set up automated workflows for approvals?
+A: Use the Power Automate or SharePoint workflow tools to create an approval workflow that triggers whenever a document is submitted or modified.

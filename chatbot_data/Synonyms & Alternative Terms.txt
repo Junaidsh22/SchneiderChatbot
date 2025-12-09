@@ -1,208 +1,157 @@
-SYNONYMS & ALTERNATE TERMS (Expanded):
+SYNONYMS & ALTERNATIVE TERMS — MASTER FILE
+(Expanded for Maximum Intent Coverage)
 
-HR policy → leave rules, vacation policy, employee guidelines, personnel policy, HR guideline
+HR & POLICY TERMINOLOGY
+HR policy → employee policy, personnel rules, HR guidelines, workplace rules, people policy
+Annual leave → holiday, vacation days, PTO, paid time off, leave entitlement, booked holiday
+Sick leave → medical leave, illness absence, sick days, unwell leave
+Parental leave → maternity leave, paternity leave, adoption leave, carers leave
+Working hours → office hours, schedule, rota, shift pattern, daily hours
+Overtime → extra hours, additional work time, OT, extended shift
+Remote work → WFH, hybrid working, telework, remote working
+Public holidays → bank holidays, statutory holidays, national holidays
+Payroll → salary, payslip, compensation, wage
+Performance review → appraisal, evaluation, performance cycle
+Disciplinary process → corrective action, misconduct handling, HR enforcement
+Grievance → complaint, dispute, HR escalation
+Onboarding → induction, new joiner process, welcome workflow
+Offboarding → exit process, leaver procedure, separation workflow
+Employee benefits → perks, allowances, benefits package
+Travel policy → expense rules, business travel guidelines
+Timesheet → time entry, clocking in, hours log
+Wellbeing resources → EAP, wellness program, mental health support
 
-Annual leave → holiday, PTO, paid time off, vacation days
-
-Sick leave → illness absence, medical leave, sick days
-
-IT support → tech help, service desk, IS support, helpdesk
-
-Troubleshooting → problem solving, fix guide, issue resolution, diagnostics
-
-Onboarding → induction, new hire process, joiner workflow, welcome program
-
-Offboarding → leaver process, exit procedure, separation workflow
-
-Compliance → regulatory adherence, audit, governance, policy conformance
-
-Audit → review, inspection, compliance check, assessment
-
-Template → form, sample, example document, blueprint
-
-Document library → folder, repository, file store, archive
-
-Meeting minutes → MoM, meeting notes, discussion record, action log
-
-Training → learning, e-learning, education, skill development, course
-
-Project roadmap → timeline, schedule, milestone plan, delivery plan
-
-Data security → information protection, cybersecurity, privacy, infosec
-
-Encryption → data locking, cryptography, secure encoding
-
-Export control → trade compliance, shipment rules, export regulations
-
-Graduate program → early careers, trainee scheme, grads track
-
-Video repository → media library, training videos, content archive
-
-Sales excellence → sales enablement, performance hub, go-to-market resources
-
-Strategy → corporate plan, business goals, roadmap, direction
-
-Sustainability → ESG, green initiatives, environmental goals, net zero
-
-Finance templates → budgeting sheets, expense forms, cost tracker
-
-Legal contracts → agreements, NDAs, terms, legal docs
-
-Quality assurance → QA, inspection, quality control, compliance check
-
-Endpoint management → device control, mobility setup, MDM, Intune
-
-Designer resources → branding kit, creative assets, style guide, brand book
-
-Global HR → HR portal, employee services, people systems
-
-Industry campus → SI hub, partner resources, integrator portal
-
-Spice+ → collaboration hub, global portal, enterprise workspace
-
-ITDocs → IT documentation, tech guides, knowledge base
-
-NextGen framework → development standards, coding rules, engineering guidelines
-
-Procurement → vendor management, purchasing, sourcing, supply
-
-Risk management → safety guidelines, hazard control, risk register
-
-Audit checklist → compliance checklist, review sheet, audit list
-
-Governance pack → control documents, policy bundle, governance kit
-
-Stage gate pack → project approval kit, milestone pack, gate review
-
-RAID log → risk log, issue tracker, assumptions register, dependencies list
-
-Brand guidelines → design standards, visual identity, brand manual
-
-Marketing assets → campaign materials, promo files, collateral
-
-Release notes → update log, version history, changelog
-
-Graduate planner → grad schedule, trainee calendar, development plan
-
-Onboarding hub → welcome center, induction portal, new joiner site
-
-All Company group → announcements, global updates, company news
-
-Templates hub → forms library, document samples, template repository
-
-Compliance hub → audit center, governance portal, regulatory site
-
-Learning site → training portal, education hub, LMS
-
-Password reset → credential recovery, login help, reset password
-
-Permissions → access rights, authorization, entitlements
-
-Alerts → notifications, update reminders, page alerts
-
-Recycle bin → deleted items, restore folder, recovery bin
-
-Metadata → tags, classification, properties
-
-Workflow → process automation, approval flow, Power Automate
-
-Version history → document history, change log, revisions
-
-OneDrive sync → offline access, file sync, local sync
-
-Follow page → bookmark, subscribe, favorite
-
-Search bar → site search, keyword search, query box
-
-Navigation menu → site menu, quick links, header nav
-
-UK & Ireland site → UK&I, UKI, UKEI regional portal
-
-Azure AD → AAD, Entra ID, single sign-on, SSO
-
+IT & TECHNICAL TERMS
+IT support → helpdesk, service desk, tech support, IS support, IT assistance
+Troubleshooting → problem solving, diagnostics, issue resolution, fix steps
+Password reset → credential recovery, unlock account, login assistance
+VPN → virtual private network, secure tunnel, remote access
+Endpoint management → device setup, laptop enrollment, Intune, MDM
+Email setup → Outlook setup, mailbox configuration
+Teams → Microsoft Teams, chat tool, collaboration platform
+SharePoint → portal, site, hub, intranet
+Browser compatibility → supported browser, Chrome issue, Edge issue
+OneDrive sync → file sync, offline access, syncing files
+Software installation → app install, program setup
+Wi-Fi → network login, wireless access
 Multi-factor authentication → MFA, 2FA, two-step verification
+Azure AD → Entra ID, single sign-on, SSO
+IT ticket → service request, help request, support case
 
-Virtual private network → VPN, remote access, secure tunnel
+COMPLIANCE/GOVERNANCE TERMS
+Compliance → regulatory adherence, audit alignment, governance
+Audit → review, inspection, compliance check
+Template → form, sample document, blueprint, example file
+Document library → repository, folder, storage area
+Data security → infosec, privacy, information protection
+Encryption → cryptography, data locking
+Export control → trade compliance, export rules
+Risk management → hazard control, risk register
+HSE → health safety environment, safety compliance
+Corrective action → CAPA, improvement action
+Legal contracts → agreements, NDAs, legal documents
+Retention policy → archiving policy, disposal rules
+Governance pack → policy bundle, governance kit
+Stage gate → milestone approval, project review
+RAID log → risk log, issue tracker, assumption register, dependency tracker
 
-Service desk → helpdesk, ticket portal, IT support center
+TRAINING & LEARNING TERMS
+Training → learning, education, skill development, e-learning, courses
+Onboarding materials → induction guide, welcome content
+Graduate program → early careers, grads scheme, trainee track
+Learning site → LMS, training portal, education hub
+Certification → exam preparation, accreditation course
+Soft skills → communication skills, professional development
+Technical training → IT training, system training
+Video repository → media library, video archive
+Mentoring → buddy program, coaching, guidance
 
-Information architecture → IA, site structure, taxonomy
-
-Retention policy → records management, data retention, disposal rules
-
-Content type → document type, file category, schema
-
-Site collection → site group, parent site, hub
-
-Hub site → parent hub, central hub, umbrella site
-
+NAVIGATION & SEARCH TERMS
+Search bar → keyword search, site search, query tool
+Navigation menu → quick links, site links, header menu
+Bookmark page → follow site, favourite page
+Alerts → notifications, update reminders
+Homepage → landing page, main page
+Hub site → central hub, parent hub
 Subsite → child site, nested site
-
-Permissions group → security group, role group, access group
-
-Owner → page owner, content owner, steward
-
-Page → site page, content page, landing page
-
-Library → document library, files list, repo
-
+Document library → file repo, storage area
 List → tracker, register, structured table
+Metadata → tags, classification labels
+Filters → refiners, sort options
+Site map → directory, page index
+Recent files → frequently used files, latest files
 
-Power BI dashboard → analytics board, KPI dashboard, reporting view
+TROUBLESHOOTING TERMS
+Access denied → permission error, no access, blocked page
+Page not loading → timeout, load error, blank page
+Broken link → dead link, missing page, 404 page
+File upload issue → upload error, file size problem
+Alerts not working → notification problem, alerts missing
+Version history missing → no changelog, no revisions
+Workflow failure → automation not running, approval not triggered
+Sync error → OneDrive issue, sync failure
+Browser error → compatibility issue, unsupported browser
+Security warning → suspicious link, phishing alert
+File locked → checked out, in use by someone else
+Merge conflict → version conflict, co-authoring issue
+Cache clear → reset site data, remove cookies
+Firewall blocked → network restrictions, proxy issues
 
-ServiceNow → ITSM portal, ticketing system, support platform
+ADVANCED SHAREPOINT TERMS
+Customize homepage → personalise portal, change layout
+Create folder → make new directory, add folder
+Enable workflow → automate process, approval flow
+Manage permissions → access control, sharing rights
+Version history → change log, file history
+Configure alerts → enable notifications, alert setup
+Integrate Teams → connect Teams, link Teams
+Metadata tagging → classification, tagging files
+Content type → document type, file schema
+Power Automate → flow automation, automated process
 
-Intune → endpoint manager, device management, MDM
+STRATEGY & SUSTAINABILITY TERMS
+Sustainability → ESG, environmental strategy, green initiatives
+Strategy → corporate plan, business direction, roadmap
+KPIs → metrics, performance indicators
+Dashboards → Power BI dashboards, reporting screens
+Programs → initiatives, strategic projects
 
-CAB → change advisory board, change committee, release board
+PROCUREMENT/FINANCE TERMS
+Purchase order → PO, order request
+Request for quotation → RFQ, quote request
+Vendor management → supplier list, approved suppliers
+Expense claim → reimbursement, travel expense form
+Budget template → cost tracker, financial sheet
+Invoice → billing, payable document
 
-RFC → request for change, change request
+ENGINEERING & PRODUCT TERMS
+Engineering standards → design specifications, technical standards
+Datasheet → spec sheet, product sheet
+Manual → handbook, user guide
+Release notes → update log, changelog
+Architecture diagram → blueprint, system design
 
-CAPA → corrective and preventive action, quality action
+COMMUNITY & COMPANY TERMS
+All Company group → company news, announcements, updates
+Graduate community → grads hub, early careers group
+Onboarding hub → induction portal, newcomer site
+Sales excellence → sales enablement, sales performance hub
+Industry campus → SI campus, partner resources
+Media library → video archive, content library
 
-HSE → health, safety, environment, safety management
-
-PPE → personal protective equipment, safety gear
-
-NDA → non-disclosure agreement, confidentiality agreement
-
-PO → purchase order, buying order
-
-RFQ → request for quotation, quote request
-
-SOP → standard operating procedure, procedure guide
-
-Work instruction → WI, task instruction, procedure step
-
-Datasheet → specification sheet, product sheet
-
-Manual → user manual, guidebook, handbook
-
-Datasets → data files, CSVs, tables
-
-Meeting agenda → agenda, plan, schedule
-
-KPI → key performance indicator, metric
-
-Dashboard → reporting view, analytics screen
-
-Changelog → release notes, update log
-
-Acronyms → abbreviations, short forms
-
-Help → assistance, support, guidance
-
-Escalation → raise issue, escalate ticket, call out
-
-Owner contact → point of contact, POC, responsible person
-
-Region → geography, locale, area
-
-Policy highlights → key points, summary bullets, headline rules
-
-Checklist → to-do list, task list, action list
-
-Guide → how-to, walkthrough, tutorial
-
-
-
+CROSS-DOMAIN SYNONYMS FOR ULTRA RELIABILITY
+Help → support, assistance, guidance, aid
+Escalate → raise issue, send to IT, report problem
+Owner → page owner, content owner, responsible person
+Policy → rule, guideline, directive, standard
+Checklist → task list, to-do list, action list
+Guide → how-to, tutorial, walkthrough
+Page → site page, content page, information page
+Library → files area, documents area
+Folder → directory, location
+Training → learning, course, module
+HR → people team, human resources
+IT → technology team, IS team
+SharePoint → portal, site, intranet, workspace
+IPA SharePoint → IPA Hub, IPA portal, IPA site
+UK & Ireland → UK&I, UKEI, regional portal

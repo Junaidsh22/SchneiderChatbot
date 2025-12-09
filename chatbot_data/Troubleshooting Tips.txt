@@ -1,97 +1,244 @@
-Issue: SharePoint page not loading. Solution: Check VPN connection and browser cache; try incognito mode.
+Q: Why is the SharePoint page not loading?
+Q: Why does SharePoint freeze or show a blank page?
+Q: Why won’t the SharePoint site open at all?
+A: A SharePoint page may fail to load due to network or browser issues. Check your VPN connection, clear your browser cache, and try opening the page in an incognito or private window. If the issue continues, test another browser.
 
-Issue: Access denied error. Solution: Verify permissions; request access via SharePoint or contact IT.
+Q: Why am I getting an access denied message?
+Q: How do I fix a SharePoint permission error?
+Q: Why can’t I open certain pages or libraries?
+A: Access denied errors usually mean you do not have permission. Try using the "Request Access" button or contact IT/the page owner to grant the correct permissions.
 
-Issue: Broken link. Solution: Report to IT support or page owner; use search to find alternate page.
+Q: What do I do if a SharePoint link is broken?
+Q: Why does a SharePoint link redirect to an error?
+Q: Why does a page say it cannot be found?
+A: A broken link should be reported to IT support or the page owner. You can also use the SharePoint search bar to find the correct or updated page.
 
-Issue: Document won't open. Solution: Ensure correct app installed; try opening in browser.
+Q: Why won’t my document open?
+Q: Why does SharePoint say the file can’t be opened?
+Q: Why is the document stuck loading?
+A: Make sure you have the correct application installed or try opening the document directly in your browser. If the issue persists, restart your browser.
 
-Issue: Slow page loading. Solution: Clear cache; check network speed; disable unnecessary extensions
+Q: Why is SharePoint running slowly?
+Q: Why are pages taking long to load?
+Q: Why is SharePoint lagging on my device?
+A: Slow loading pages can be caused by cache issues or network speed. Clear your browser cache, check your internet connection, and remove unnecessary browser extensions.
 
-Issue: Cannot upload file. Solution: Check file size limit; compress file; verify permissions.
+Q: Why can't I upload a file to SharePoint?
+Q: Why does SharePoint reject my upload?
+Q: Why is my document stuck at 0% upload?
+A: Ensure the file does not exceed the size limit, compress the file if necessary, and check that you have permission to upload to that folder.
 
-Issue: Deleted document. Solution: Restore from recycle bin within 30 days.
+Q: What do I do if a document was deleted?
+Q: How do I recover a missing file?
+Q: Can I restore a deleted SharePoint item?
+A: Deleted documents can be restored from the SharePoint recycle bin within 30 days.
 
-Issue: Password reset needed. Solution: Use corporate password reset portal.
+Q: How do I reset my SharePoint or Microsoft password?
+Q: What do I do if I forgot my corporate login password?
+Q: Why can’t I log in to SharePoint?
+A: Use the corporate password reset portal to update or recover your credentials.
 
-Issue: External sharing blocked. Solution: Follow company policy; use secure internal sharing options.
+Q: Why can’t I share a document externally?
+Q: Why is external sharing blocked?
+Q: Why can’t people outside Schneider open my link?
+A: External sharing is restricted for security reasons. Follow company policy and use approved internal sharing options only.
 
-Issue: Missing search results. Solution: Use keywords; check spelling; apply filters.
+Q: Why are search results missing?
+Q: Why is SharePoint not finding my document?
+Q: Why is search not returning anything?
+A: Check for spelling errors, use more keywords, and apply search filters such as file type or modified date.
 
-Issue: VPN disconnects frequently. Solution: Restart VPN client; update software; contact IT.
+Q: Why does my VPN keep disconnecting?
+Q: Why does SharePoint only work sometimes remotely?
+Q: Why is the remote connection unstable?
+A: Restart your VPN client, ensure it is updated, and contact IT if the issue continues.
 
-Issue: Permission error when sharing. Solution: Adjust document permissions via 'Manage Access'.
+Q: Why am I getting a permission error when trying to share a document?
+Q: Why won’t SharePoint let me share a folder?
+Q: Why is the "Share" button restricted?
+A: Check the "Manage Access" settings and adjust permissions or ask a site owner to update them.
 
-Issue: Alerts not working. Solution: Re-enable alerts; check notification settings.
+Q: Why are SharePoint alerts not working?
+Q: Why am I not receiving notifications?
+Q: Why are document update alerts delayed?
+A: Re-enable alerts from the Alert Settings menu and ensure that email notifications are allowed in your account.
 
-Issue: Version history missing. Solution: Ensure versioning enabled in library settings.
+Q: Why is the version history empty?
+Q: Why can’t I see previous versions of a document?
+Q: Why is version history not appearing?
+A: Versioning must be enabled in the document library settings. Ask an administrator if versioning is turned off.
 
-Issue: Sync issues with OneDrive. Solution: Restart sync client; check account login.
+Q: Why is OneDrive not syncing my SharePoint files?
+Q: Why are documents stuck in sync?
+Q: Why does OneDrive show sync errors?
+A: Restart the OneDrive sync client, check your account login, and ensure the correct library is linked.
 
-Issue: Browser compatibility error. Solution: Use supported browsers like Edge or Chrome.
+Q: Why does SharePoint say my browser is not supported?
+Q: Why is the page displaying incorrectly?
+Q: Why are components not loading in my browser?
+A: Use a modern supported browser such as Microsoft Edge or Google Chrome.
 
-Issue: File locked for editing. Solution: Wait for user to finish; use 'Check Out' feature.
+Q: Why is a file locked for editing?
+Q: Why does it say "File in use"?
+Q: Why can’t I make changes to this document?
+A: Another user may be editing the file. Wait for them to finish or use the "Check Out" option.
 
-Issue: Cannot print document. Solution: Download file and print locally.
+Q: Why can't I print a document from SharePoint?
+Q: Why is the print option missing?
+Q: Why does printing not work online?
+A: Download the document to your device and print it locally.
 
-Issue: Page timeout error. Solution: Refresh page; check network connectivity.
+Q: Why am I getting timeout errors?
+Q: Why is SharePoint saying the page took too long?
+Q: Why is the connection timing out?
+A: Refresh the page and check your network connectivity.
 
-Issue: Incorrect page info. Solution: Report via feedback option or contact page owner.
+Q: What do I do if page information is incorrect?
+Q: How do I report wrong details on a page?
+Q: Who fixes incorrect SharePoint content?
+A: Use the feedback option or contact the page owner to report incorrect information.
 
-Issue: Security warning. Solution: Verify link; report suspicious activity to IT.
+Q: Why am I seeing a security warning?
+Q: Why does SharePoint warn me about a suspicious link?
+Q: How do I handle unsafe content alerts?
+A: Verify the link is legitimate and report anything suspicious to IT security.
 
-Issue: Missing navigation menu. Solution: Clear cache; reload page; check permissions.
+Q: Why is the navigation menu missing?
+Q: Why can’t I see site links?
+Q: Why is the left or top menu gone?
+A: Clear your cache, reload the page, or check that you have permission to view the site.
 
-Issue: Document upload stuck. Solution: Cancel and retry; check file format.
+Q: Why is my file upload stuck?
+Q: Why won’t SharePoint finish uploading?
+Q: Why is the progress bar not moving?
+A: Cancel the upload, retry, and ensure the file format is supported.
 
-Issue: Cannot enable alerts. Solution: Verify permissions; check library settings.
+Q: Why can’t I enable alerts?
+Q: Why is the Alert Me button greyed out?
+Q: Why can’t I subscribe to updates?
+A: You may lack permissions or the library may not support alerts. Contact a site owner.
 
-Issue: Metadata not saving. Solution: Ensure required fields filled; retry save.
+Q: Why is metadata not saving?
+Q: Why does SharePoint say required fields are missing?
+Q: Why won’t document properties update?
+A: Ensure all mandatory metadata fields are completed before saving.
 
-Issue: Workflow not triggering. Solution: Check workflow settings; contact admin.
+Q: Why is a workflow not running?
+Q: Why isn’t my approval workflow starting?
+Q: Why is automation stuck?
+A: Check workflow settings or contact the site administrator for troubleshooting.
 
-Issue: Cannot access video repository. Solution: Verify permissions; use correct link.
+Q: Why can’t I access the video repository?
+Q: Why won’t training videos load?
+Q: Why is the Classic Video Repository unavailable?
+A: Check permissions and confirm you are using the correct link.
 
-Issue: Broken images on page. Solution: Clear cache; reload; report to IT.
+Q: Why are images broken on SharePoint pages?
+Q: Why do images show as missing or blank?
+Q: Why won’t pictures display?
+A: Clear cache, reload the page, or report broken images to IT.
 
-Issue: Missing templates. Solution: Search 'Templates'; check correct hub.
+Q: Why are templates missing?
+Q: Why can’t I find forms or templates?
+Q: Why is the template library empty?
+A: Search for "Templates" and ensure you are in the correct hub or site.
 
-Issue: Compliance docs outdated. Solution: Contact compliance team for latest version.
+Q: Why are compliance documents outdated?
+Q: Why does SharePoint show old policies?
+Q: Who updates compliance files?
+A: Contact the compliance team for the latest version.
 
-Issue: Cannot edit document online. Solution: Open in desktop app; check permissions.
+Q: Why can’t I edit the document online?
+Q: Why is editing disabled?
+Q: Why won’t Office Online open the file?
+A: Try opening it in the desktop app and check your editing permissions.
 
-Issue: Alerts delayed. Solution: Check email settings; verify alert configuration.
+Q: Why are alerts delayed?
+Q: Why am I receiving notifications late?
+Q: Why do SharePoint alerts arrive hours later?
+A: Check your email settings and verify that alert rules are configured correctly.
 
-Issue: Missing onboarding checklist. Solution: Navigate to Onboarding Hub; search 'Checklist'.
+Q: Why can’t I find the onboarding checklist?
+Q: Where is the new hire checklist?
+Q: Why is onboarding information missing?
+A: Navigate to the UK&I Onboarding Hub and search for "Checklist".
 
-Issue: Cannot access HR portal. Solution: Verify login; check VPN connection.
+Q: Why can’t I access the HR portal?
+Q: Why is HR content unavailable?
+Q: Why does SharePoint say “No access” for HR?
+A: Verify your login credentials and VPN connection.
 
-Issue: Page layout broken. Solution: Refresh page; clear cache; report to IT.
+Q: Why is page layout broken?
+Q: Why does the page look distorted?
+Q: Why are sections overlapping?
+A: Refresh the page, clear your cache, or report the layout issue to IT.
 
-Issue: Missing search filters. Solution: Use advanced search options.
+Q: Why are search filters missing?
+Q: Why can’t I refine results?
+Q: Why is advanced search not showing?
+A: Use the full search page and ensure filters are enabled in your view.
 
-Issue: Cannot restore deleted file. Solution: Check recycle bin retention period.
+Q: Why can’t I restore a deleted file?
+Q: Why is my file missing from recycle bin?
+Q: Why can’t I recover a document?
+A: Check the retention period — items older than 30 days may be permanently removed.
 
-Issue: Duplicate documents. Solution: Delete duplicates; maintain version control.
+Q: Why are there duplicate documents?
+Q: Why are there multiple versions of the same file?
+Q: How do I remove duplicate content?
+A: Delete duplicates and maintain version control using SharePoint’s version history.
 
-Issue: Cannot open PDF. Solution: Install PDF reader; try browser view.
+Q: Why won’t PDF files open?
+Q: Why is the PDF viewer blank?
+Q: Why can’t I view PDFs in SharePoint?
+A: Install a PDF reader or open the file directly through your browser’s viewer.
 
-Issue: Missing permissions for folder. Solution: Request access from folder owner.
+Q: Why don’t I have folder access?
+Q: Why is a folder locked?
+Q: Why can’t I see certain folders?
+A: Request access from the folder owner or site administrator.
 
-Issue: Cannot upload images. Solution: Check file format; compress image.
+Q: Why can’t I upload images?
+Q: Why does SharePoint reject my image file?
+Q: Why isn’t the picture appearing?
+A: Check the image format and compress it if necessary.
 
-Issue: Page not updating. Solution: Clear cache; check update frequency.
+Q: Why is a page not updating?
+Q: Why does old content keep showing?
+Q: Why won’t SharePoint refresh?
+A: Clear your cache and confirm when the page was last updated.
 
-Issue: Missing compliance tags. Solution: Add tags via document properties.
+Q: Why are compliance tags missing?
+Q: Why doesn’t my document have classification labels?
+Q: Why can’t I add tags?
+A: Add tags through the document properties panel and ensure required fields are complete.
 
-Issue: Cannot access Spice+ portal. Solution: Verify login; check VPN.
+Q: Why can’t I access the Spice+ portal?
+Q: Why is Spice+ not loading?
+Q: Why does it say “No access” for Spice+?
+A: Check your login credentials and VPN connection.
 
-Issue: Broken workflow link. Solution: Report to admin; use alternate navigation.
+Q: Why is a workflow link broken?
+Q: Why am I redirected to an error page?
+Q: Why does my approval link not work?
+A: Report broken workflow links to the site owner or administrator.
 
-Issue: Missing training modules. Solution: Navigate to Learning Hub; search 'Modules'.
+Q: Why can't I access training modules?
+Q: Why are my learning resources missing?
+Q: Why won’t the module page load?
+A: Navigate to the Learning Hub and search for "Modules".
 
-Issue: Cannot access video tutorials. Solution: Check permissions; use correct repository.
+Q: Why can’t I play video tutorials?
+Q: Why are training videos not loading?
+Q: Why is video access denied?
+A: Verify permissions and ensure you are using the correct repository.
 
-Issue: Alerts not appearing in email. Solution: Check spam folder; verify email settings.
+Q: Why are alerts not appearing in my email?
+Q: Why am I not receiving SharePoint notifications?
+Q: Why are update alerts missing?
+A: Check your spam folder and verify that email notifications are enabled.
 
-Issue: Cannot bookmark page. Solution: Use 'Follow' feature; check permissions.
+Q: Why can’t I bookmark a page?
+Q: Why doesn’t the Follow button work?
+Q: Why won’t SharePoint save my bookmarks?
+A: Use the "Follow" feature and ensure you have proper permissions on the site.

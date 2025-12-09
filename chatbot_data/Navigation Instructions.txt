@@ -1,94 +1,404 @@
-Navigate to UK & Ireland Main Page: Go to SharePoint homepage > Click 'Sites' > Select 'UK & Ireland'.
+### Navigate to the UK & Ireland Main Page
+Q: How do I get to the UK & Ireland main SharePoint page?
+Q: Where is the UK & Ireland landing page located?
+Q: How do I access the UK&I homepage?
 
-Access Export Control COE Group: From main page > Use search bar > Type 'Export Control COE' > Click result.
+A:
+Go to the SharePoint homepage → Click **Sites** → Select **UK & Ireland**.  
+This page serves as the central hub for regional updates, policies, and key resources.
 
-Find Data Security Page: Navigate to 'Resources' > Click 'Data Security'.
 
-Open Global Spice+: From homepage > Click 'Applications' > Select 'Spice+'.
+### Export Control COE Group
+Q: How do I access the Export Control COE Group?
+Q: Where is the export compliance page?
+Q: How do I find export approval content?
 
-Access ITDocs Group: Use top navigation > Click 'ITDocs'.
+A:
+From the main SharePoint page, use the search bar → Type **Export Control COE** → Select the matching result.  
+This area hosts export compliance guidelines and approval workflows.
 
-Locate NextGen Development Framework: Search 'NextGen Framework' in SharePoint search bar.
 
-Find Designer Resources: Navigate to 'Design Hub' under 'Resources'
+### Data Security Page
+Q: Where can I find the Data Security page?
+Q: How do I access data protection policies?
+Q: Where do I view security guidance?
 
-Access Learning Site on Spice+: From Spice+ dashboard > Click 'Learning'.
+A:
+Navigate to **Resources** → Click **Data Security**.  
+This section contains data protection standards, policies, and best practices.
 
-Open Endpoint (Enterprise Mobility): Go to 'IT Resources' > Click 'Endpoint Management'.
 
-Navigate to Industry End User & SI Campus: Use search > Enter 'SI Campus'.
+### Global Spice+
+Q: How do I open Global Spice+?
+Q: Where is the Spice+ portal?
+Q: How do I find resources in Global Spice+?
 
-Access Global HR: From homepage > Click 'HR Portal'.
+A:
+Go to the SharePoint homepage → Click **Applications** → Select **Spice+**.
 
-Find SE UK&I Graduate Community Group: Search 'Graduate Community' in SharePoint.
 
-Open IC Classic Video Repository: Navigate to 'Media Library' > Click 'IC Classic Videos'.
+### ITDocs Group
+Q: Where do I find IT documentation?
+Q: How do I access ITDocs?
+Q: Where are the IT troubleshooting guides?
 
-Access UK & I Sales Excellence Group: From main menu > Click 'Sales Excellence'.
+A:
+Use the top navigation bar → Click **ITDocs**.
 
-Navigate to UK&I Onboarding Hub Group: From HR portal > Click 'Onboarding Hub'.
 
-Find Grads Planner Group: Search 'Grads Planner' in SharePoint.
+### NextGen Development Framework
+Q: How do I find the NextGen Framework?
+Q: Where are the development standards?
+Q: Where is the coding framework stored?
 
-Access Spice+ Strategy & Sustainability: From Spice+ > Click 'Strategy & Sustainability'.
+A:
+Use the SharePoint search bar → Type **NextGen Framework** → Select the page.
 
-Navigate to All Company Group: From homepage > Click 'All Company Announcements'.
 
-Search for Templates: Use search bar > Type 'Templates' > Filter by 'Document Type'.
+### Designer Resources
+Q: Where do I find design resources?
+Q: How do I access templates and branding?
+Q: Where is the designer page?
 
-Locate Compliance Documents: Navigate to 'Compliance & Audit' section.
+A:
+Navigate to **Resources** → Click **Design Hub**.
 
-Access Meeting Minutes: Go to 'Collaboration' > Click 'Meeting Minutes'.
 
-Find Release Notes: Navigate to 'Product Documentation' > Click 'Release Notes'.
+### Learning Site on Spice+
+Q: Where do I access training materials on Spice+?
+Q: How do I find the Learning Site?
+Q: Where are e-learning modules stored?
 
-Access Procurement Forms: From 'Procurement Hub' > Click 'Forms'.
+A:
+From the Spice+ dashboard → Click **Learning**.
 
-Locate Marketing Assets: Navigate to 'Brand Resources' > Click 'Marketing Assets'.
 
-Access Legal Contracts: From 'Legal Hub' > Click 'Contracts'.
+### Endpoint (Enterprise Mobility)
+Q: How do I find the Endpoint Management page?
+Q: Where is mobile device setup information?
+Q: How do I access enterprise mobility details?
 
-Find Quality Assurance Reports: Navigate to 'QA Hub' > Click 'Reports'.
+A:
+Go to **IT Resources** → Click **Endpoint Management**.
 
-Access Finance Templates: From 'Finance Portal' > Click 'Templates'.
 
-Navigate to Engineering Standards: Search 'Engineering Standards' in SharePoint.
+### Industry End User & SI Campus
+Q: How do I access the SI Campus?
+Q: Where do I find industry-specific training?
+Q: How do I find the End User & SI Campus page?
 
-Access Training Modules: From 'Learning Hub' > Click 'Modules'.
+A:
+Use the SharePoint search bar → Type **SI Campus** → Select the result.
 
-Find Sustainability Reports: Navigate to 'Corporate Strategy' > Click 'Sustainability Reports'.
-Access HR Benefits Info: From 'HR Portal' > Click 'Benefits'.
 
-Locate IT Troubleshooting Guides: Navigate to 'ITDocs' > Click 'Troubleshooting'.
+### Global HR
+Q: Where can I access Global HR resources?
+Q: How do I find HR policies?
+Q: Where is the HR portal?
 
-Access Endpoint Setup Instructions: From 'IT Resources' > Click 'Endpoint Setup'.
+A:
+Go to the SharePoint homepage → Click **HR Portal**.
 
-Find Graduate Program Details: Navigate to 'Graduate Community' > Click 'Program Details'.
 
-Access Video Tutorials: From 'Media Library' > Click 'Tutorials'.
+### SE UK&I Graduate Community Group
+Q: Where do I find the Graduate Community Group?
+Q: How do graduates access learning resources?
+Q: Where is the graduate community page?
 
-Locate Project Governance Packs: Navigate to 'Project Hub' > Click 'Governance Packs'.
+A:
+Use the SharePoint search → Type **Graduate Community** → Select the group.
 
-Access RAID Logs: From 'Project Templates' > Click 'RAID Log'.
 
-Find Stage Gate Packs: Navigate to 'Project Templates' > Click 'Stage Gate Pack'.
+### IC Classic Video Repository
+Q: How do I find the video repository?
+Q: Where can I watch training videos?
+Q: Where are classic instructional videos stored?
 
-Access Branding Guidelines: From 'Design Hub' > Click 'Brand Guidelines'.
+A:
+Navigate to **Media Library** → Click **IC Classic Videos**.
 
-Locate IT Security Policies: Navigate to 'Data Security' > Click 'Policies'.
 
-Access Export Approval Workflow: From 'Export Control COE' > Click 'Approval Workflow'.
+### UK & I Sales Excellence Group
+Q: How do I access sales resources?
+Q: Where is the Sales Excellence page?
+Q: Where do I find sales dashboards and playbooks?
 
-Find Compliance Audit Checklist: Navigate to 'Compliance Hub' > Click 'Audit Checklist'.
+A:
+From the main menu → Click **Sales Excellence**.
 
-Access Risk Management Guidelines: From 'Safety Hub' > Click 'Risk Management'.
 
-Locate HSE Documentation: Navigate to 'Safety Hub' > Click 'HSE Docs'.
+### UK&I Onboarding Hub Group
+Q: Where do I find onboarding resources?
+Q: Where is the onboarding hub?
+Q: How do I access new starter information?
 
-Access Procurement Vendor List: From 'Procurement Hub' > Click 'Vendor List'.
+A:
+From the **HR Portal** → Click **Onboarding Hub**.
 
-Find Marketing Campaign Assets: Navigate to 'Marketing Hub' > Click 'Campaign Assets'.
 
-Access Legal NDA Templates: From 'Legal Hub' > Click 'NDA Templates'.
+### Grads Planner Group
+Q: Where is the Grads Planner Group?
+Q: How do graduates track events?
+Q: Where can I find the graduate planner?
 
-Locate Quality Non-Conformance Reports: Navigate to 'QA Hub' > Click 'Non-Conformance Reports'.
+A:
+Search SharePoint → Type **Grads Planner**.
+
+
+### Spice+ Strategy & Sustainability
+Q: Where do I find sustainability reports?
+Q: How do I access corporate strategy pages?
+Q: Where is the Strategy & Sustainability section?
+
+A:
+Go to **Spice+** → Click **Strategy & Sustainability**.
+
+
+### All Company Group
+Q: Where do I find company-wide announcements?
+Q: What is the All Company Group?
+Q: How do I view leadership updates?
+
+A:
+On the homepage → Click **All Company Announcements**.
+
+
+### Templates & Tools
+Q: Where do I find templates?
+Q: How do I search for templates?
+Q: How do I filter templates by type?
+
+A:
+Use the search bar → Type **Templates** → Apply **Document Type** filter.
+
+
+### Compliance Documents
+Q: Where do I find compliance documentation?
+Q: How do I access audit and compliance files?
+
+A:
+Navigate to **Compliance & Audit**.
+
+
+### Meeting Minutes
+Q: Where do I find meeting minutes?
+Q: How do I access recorded meeting notes?
+
+A:
+Go to **Collaboration** → Click **Meeting Minutes**.
+
+
+### Release Notes
+Q: Where can I find release notes?
+Q: Where do I review product updates?
+
+A:
+Navigate to **Product Documentation** → Click **Release Notes**.
+
+
+### Procurement Forms
+Q: Where do I find procurement forms?
+Q: How do I access supplier or vendor documentation?
+
+A:
+Go to **Procurement Hub** → Click **Forms**.
+
+
+### Marketing Assets
+Q: Where are marketing materials stored?
+Q: How do I find brand assets?
+
+A:
+Navigate to **Brand Resources** → Click **Marketing Assets**.
+
+
+### Legal Contracts
+Q: Where do I find legal documents?
+Q: How do I access contract templates?
+
+A:
+Go to **Legal Hub** → Click **Contracts**.
+
+
+### Quality Assurance Reports
+Q: Where are QA reports located?
+Q: How do I find quality documentation?
+
+A:
+Navigate to **QA Hub** → Click **Reports**.
+
+
+### Finance Templates
+Q: Where do I find finance-related templates?
+Q: How do I access financial forms?
+
+A:
+Go to **Finance Portal** → Click **Templates**.
+
+
+### Engineering Standards
+Q: Where do I find engineering standards?
+Q: How do I access engineering documentation?
+
+A:
+Search **Engineering Standards** in SharePoint.
+
+
+### Training Modules
+Q: Where do I find training modules?
+Q: Where is the Learning Hub?
+
+A:
+From **Learning Hub** → Click **Modules**.
+
+
+### Sustainability Reports
+Q: Where are sustainability documents stored?
+Q: How do I find sustainability initiatives?
+
+A:
+Navigate to **Corporate Strategy** → Click **Sustainability Reports**.
+
+
+### HR Benefits
+Q: Where do I find benefits information?
+Q: How do I access HR benefits?
+
+A:
+Go to **HR Portal** → Click **Benefits**.
+
+
+### IT Troubleshooting Guides
+Q: Where do I find IT troubleshooting information?
+Q: How do I fix IT issues?
+
+A:
+Go to **ITDocs** → Click **Troubleshooting**.
+
+
+### Endpoint Setup Instructions
+Q: Where is the endpoint setup guide?
+Q: How do I configure my device?
+
+A:
+Go to **IT Resources** → Click **Endpoint Setup**.
+
+
+### Graduate Program Details
+Q: Where can I find graduate program info?
+Q: How do I learn more about graduate pathways?
+
+A:
+Search **Graduate Community** → Click **Program Details**.
+
+
+### Video Tutorials
+Q: Where do I find video tutorials?
+Q: How do I access training videos?
+
+A:
+Navigate to **Media Library** → Click **Tutorials**.
+
+
+### Project Governance Packs
+Q: Where do I find governance packs?
+Q: How do I access project governance documents?
+
+A:
+Go to **Project Hub** → Click **Governance Packs**.
+
+
+### RAID Logs
+Q: Where do I find RAID logs?
+Q: How do I access risk and issue logs?
+
+A:
+Navigate to **Project Templates** → Click **RAID Log**.
+
+
+### Stage Gate Packs
+Q: Where can I find stage gate templates?
+Q: How do I access stage gate documentation?
+
+A:
+Go to **Project Templates** → Click **Stage Gate Pack**.
+
+
+### Branding Guidelines
+Q: Where do I find branding guidelines?
+Q: How do I access visual identity standards?
+
+A:
+Go to **Design Hub** → Click **Brand Guidelines**.
+
+
+### IT Security Policies
+Q: Where are IT security policies located?
+Q: How do I access security rules?
+
+A:
+Navigate to **Data Security** → Click **Policies**.
+
+
+### Export Approval Workflow
+Q: Where do I find export approval processes?
+Q: How do I access export workflows?
+
+A:
+Go to **Export Control COE** → Click **Approval Workflow**.
+
+
+### Compliance Audit Checklist
+Q: Where is the compliance audit checklist?
+Q: How do I find audit preparation documents?
+
+A:
+Navigate to **Compliance Hub** → Click **Audit Checklist**.
+
+
+### Risk Management Guidelines
+Q: Where do I find risk management information?
+Q: How do I access safety guidelines?
+
+A:
+Go to **Safety Hub** → Click **Risk Management**.
+
+
+### HSE Documentation
+Q: Where is the HSE documentation located?
+Q: How do I access health & safety documents?
+
+A:
+Navigate to **Safety Hub** → Click **HSE Docs**.
+
+
+### Procurement Vendor List
+Q: Where do I find vendor lists?
+Q: How do I view approved suppliers?
+
+A:
+Go to **Procurement Hub** → Click **Vendor List**.
+
+
+### Marketing Campaign Assets
+Q: Where do I find campaign materials?
+Q: How do I access marketing campaigns?
+
+A:
+Navigate to **Marketing Hub** → Click **Campaign Assets**.
+
+
+### Legal NDA Templates
+Q: Where are NDA templates stored?
+Q: How do I access non-disclosure agreements?
+
+A:
+Go to **Legal Hub** → Click **NDA Templates**.
+
+
+### Quality Non-Conformance Reports
+Q: Where are non-conformance reports located?
+Q: How do I submit or view NCRs?
+
+A:
+Navigate to **QA Hub** → Click **Non-Conformance Reports**.

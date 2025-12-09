@@ -1,22 +1,104 @@
-Why do we use a sharepoint?
 
-Below are a detailed range of reasons for why we use a sharepoint?
+Q: Why do we use SharePoint as a central repository?
+Q: Why does Schneider store documents on SharePoint?
+Q: Why is SharePoint the main place for templates and policies?
+Q: Why is all company documentation uploaded to SharePoint?
 
-- Centralied Repository
-SharePoint acts as a single source of truth for all company documents—policies, templates, reports, technical guides—reducing duplication and confusion.
+A:
+SharePoint is used as a centralised repository because it keeps all documents—policies, templates, reports, guides, governance files, and technical materials—in one single, controlled location.
+This reduces duplication, prevents outdated documents from circulating, ensures consistency, and helps teams find accurate, approved content quickly.
 
-- Easy Access & Search
-Built-in search functionality lets users quickly find documents by keywords, tags, or metadata.
-Supports filters and refiners (e.g., by department, document type, last updated), making navigation intuitive.
+EASY ACCESS & SEARCH
 
-- Collaboration & Version Control
-Multiple users can co-author documents in real time.
-Automatic version history ensures older versions are archived and changes are tracked—critical for compliance and audits.
+Q: Why is SharePoint good for searching documents?
+Q: How does SharePoint make documents easier to find?
+Q: Why do we use SharePoint for quick access to information?
+Q: What makes SharePoint useful for searching resources?
 
+A:
+SharePoint includes advanced search features, including keyword search, metadata filtering, tags, refiners, and document attributes.
+This allows staff to quickly locate documents by topic, department, document type, or last modified date.
+It improves speed, reduces confusion, and ensures employees always find the most up-to-date version.
 
+COLLABORATION & VERSION CONTROL
 
-- Remote Accessibility 
-Cloud-based access means employees can retrieve documents securely from anywhere—ideal for hybrid or global teams.
+Q: Why do we use SharePoint for collaboration?
+Q: Why does SharePoint support version history?
+Q: What makes SharePoint good for working together on documents?
+Q: Why is SharePoint safer than sending documents by email?
 
+A:
+SharePoint enables real-time collaboration, allowing multiple users to edit a document simultaneously.
+It automatically maintains version history, so past edits can be reviewed or restored if needed.
+This supports compliance, prevents conflicting copies, and keeps teams aligned without sending files back and forth.
 
+REMOTE ACCESSIBILITY
 
+Q: Why is SharePoint helpful for hybrid workers?
+Q: Why can I access SharePoint from home?
+Q: Why does Schneider use SharePoint for remote collaboration?
+Q: How does SharePoint support global teams?
+
+A:
+SharePoint is cloud-based, meaning it can be accessed securely from anywhere—office, home, or mobile.
+This is ideal for hybrid working environments and global teams, enabling consistent access to documents, updates, and shared resources.
+
+REDUCING DUPLICATION & CONFUSION
+
+Q: How does SharePoint prevent duplicate documents?
+Q: Why shouldn’t teams store files on their desktop instead?
+Q: Why is SharePoint better than using shared drives?
+
+A:
+SharePoint ensures employees always work from the single source of truth, reducing outdated or duplicate files.
+This keeps content clean, consistent, and easier to navigate across departments.
+
+SUPPORTING GOVERNANCE & CONTROL
+
+Q: Why is SharePoint important for compliance?
+Q: Why do we store governed documents on SharePoint?
+Q: How does SharePoint help with audit requirements?
+
+A:
+SharePoint offers controlled access, version tracking, update logs, and secure storage.
+This ensures compliance with company policies, regulatory standards, and audit requirements.
+
+IMPROVED TEAM ALIGNMENT
+
+Q: Why do teams prefer SharePoint over email attachments?
+Q: Why do project teams use SharePoint?
+Q: How does SharePoint help keep everyone aligned?
+
+A:
+SharePoint ensures all team members work from the same document, same version, and same update path.
+It prevents miscommunication and ensures smoother project collaboration.
+
+SECURE DOCUMENT STORAGE
+
+Q: Why is SharePoint considered secure?
+Q: Why should sensitive documents be stored on SharePoint?
+Q: Why is SharePoint better than local drives for confidential files?
+
+A:
+SharePoint provides controlled permissions, encryption, audit logs, and secure access management.
+Only authorised users can access restricted content, reducing risk of data loss or confidentiality breaches.
+
+SUPPORTING BUSINESS OPERATIONS
+
+Q: Why is SharePoint critical to daily business operations?
+Q: Why do we rely on SharePoint for workflow processes?
+Q: How does SharePoint help ensure business continuity?
+
+A:
+SharePoint hosts essential documents, workflows, templates, and operational materials that support everyday business functions.
+Its structured environment ensures employees can quickly complete tasks, follow processes, and meet operational requirements.
+
+WHY THE IPA HUB SPECIFICALLY USES SHAREPOINT
+
+Q: Why does the IPA Hub use SharePoint as the main platform?
+Q: What is the purpose of the IPA SharePoint Hub?
+Q: Why is the IPA Hub hosted on SharePoint instead of another system?
+
+A:
+The IPA SharePoint Hub centralises industrial process automation resources, supports navigation across technical pages, improves collaboration, and ensures consistent governance across the UK&I organisation.
+It acts as a unified digital workspace for documentation, tools, training, and best-practice guidance.

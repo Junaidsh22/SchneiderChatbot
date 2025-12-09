@@ -1,0 +1,20 @@
+Q: How do I review export compliance workflows on SharePoint?
+A: Navigate to the Export Control COE Group page and open the Approval Workflow section. This area contains export compliance processes, decision flows, and documentation required for regulated activities.
+
+Q: Where can I check GDPR and data protection policies?
+A: Data protection and GDPR policies can be found on the Data Security page within the IPA SharePoint. This includes guidance on handling personal data, storage rules, security standards, and mandatory compliance practices.
+
+Q: Where can I access ISO standards and other regulatory documents?
+A: ISO and regulatory standards are available under Compliance & Audit or relevant departmental areas. These documents support legal, operational, and quality compliance for Schneider Electric processes.
+
+Q: How do I validate audit trails or version history of a document?
+A: Open any document and select Version History. This will show all edits, who made them, timestamps, and previous versions for audit or governance checks.
+
+Q: How can I ensure a document is correctly classified for compliance?
+A: Always apply the correct metadata, tags, and classification labels when uploading or updating documents. Refer to governance guidance in the IPA Hub for rules on document classification and retention.
+
+Q: Where do I find risk management guidelines?
+A: Risk management and safety guidelines are located in the Safety Hub or relevant governance sections on SharePoint. These include risk assessments, mitigation procedures, and reporting requirements.
+
+Q: Where can I retrieve Health, Safety & Environment (HSE) documentation?
+A: HSE documentation is available within the Safety Hub or HSE-specific pages. This includes safety procedures, incident reporting guides, and compliance requirements.
